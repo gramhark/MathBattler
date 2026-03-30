@@ -5,7 +5,7 @@
  *    CACHE_VERSION を更新してください。古いキャッシュが自動削除されます。
  */
 
-const CACHE_VERSION = 'v1';
+const CACHE_VERSION = 'v2';
 const CACHE_NAME = `masubatour-${CACHE_VERSION}`;
 
 // インストール時にプリキャッシュするファイル（ゲームのシェル）
@@ -21,10 +21,14 @@ const PRECACHE_URLS = [
     'js/core/monster.js',
     'js/core/storage.js',
     'js/core/battle.js',
+    'js/core/level-system.js',
+    'js/ui/message-system.js',
+    'js/ui/animation-renderer.js',
     'js/ui/ui.js',
     'js/ui/shop.js',
     'js/ui/input-handler.js',
     'js/ui/event-binder.js',
+    'js/ui/particle-effect.js',
     'js/managers/screen-manager.js',
     'js/managers/note-manager.js',
     'js/managers/backpack-hub-manager.js',
@@ -41,7 +45,22 @@ const PRECACHE_URLS = [
     'css/components/message.css',
     'css/components/monster-effects.css',
     'css/components/animations.css',
-    'css/overlays.css',
+    'css/overlays/_base.css',
+    'css/overlays/interval.css',
+    'css/overlays/boss-cutin.css',
+    'css/overlays/confirm-dialogs.css',
+    'css/overlays/info-overlay.css',
+    'css/overlays/shop-overlays.css',
+    'css/overlays/bag-detail.css',
+    'css/overlays/battle-bag.css',
+    'css/overlays/equip-drop.css',
+    'css/overlays/image-modal.css',
+    'css/overlays/drop-animations.css',
+    'css/overlays/item-limit.css',
+    'css/overlays/navigation-btn.css',
+    'css/overlays/request.css',
+    'css/overlays/whiteout.css',
+    'css/screens/loading.css',
     'css/screens/top.css',
     'css/screens/dungeon.css',
     'css/screens/battle.css',
