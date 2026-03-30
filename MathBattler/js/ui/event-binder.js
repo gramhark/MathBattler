@@ -113,6 +113,9 @@ class EventBinder {
         document.getElementById('setting-se-off').addEventListener('click', () => game._setSoundEnabled('se', false));
         document.getElementById('setting-bgm-volume').addEventListener('input', () => game._onVolumeChange('bgm'));
         document.getElementById('setting-se-volume').addEventListener('input', () => game._onVolumeChange('se'));
+        document.getElementById('setting-export-btn').addEventListener('click', () => game._exportSave());
+        document.getElementById('setting-import-btn').addEventListener('click', () => document.getElementById('setting-import-file').click());
+        document.getElementById('setting-import-file').addEventListener('change', (e) => { game._importSave(e.target.files[0]); e.target.value = ''; });
 
         // Equip Screen
         document.getElementById('close-equip-btn').addEventListener('click', () => { game.sound.playSe('back'); game._withSlide(() => game.hideEquip(), 'back'); });

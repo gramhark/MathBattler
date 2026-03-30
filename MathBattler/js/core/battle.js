@@ -88,9 +88,9 @@ class BattleManager {
 
     // --- モンスター状態異常ダメージ ---
 
-    /** どくダメージ（固定値）*/
-    calcPoisonDamage() {
-        return 1;
+    /** どくダメージ（モンスター最大HPの10%、最低1） */
+    calcPoisonDamage(monster) {
+        return Math.max(1, Math.ceil((monster.maxHp || monster.hp) * 0.1));
     }
 
     /** せきかだまの発動確率（固定値）*/

@@ -58,6 +58,40 @@ class SettingsManager {
         this._syncSettingUI();
     }
 
+    _exportSave() {
+        const data = this.storage.exportBackup();
+        const json = JSON.stringify(data, null, 2);
+        const blob = new Blob([json], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        const date = new Date();
+        const stamp = `${date.getFullYear()}${String(date.getMonth()+1).padStart(2,'0')}${String(date.getDate()).padStart(2,'0')}`;
+        a.download = `mathbattler_save_${stamp}.json`;
+        a.href = url;
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
+    _importSave(file) {
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try {
+                const data = JSON.parse(e.target.result);
+                const err = this.storage.importBackup(data);
+                if (err) {
+                    alert(`よみこみ失敗: ${err}`);
+                    return;
+                }
+                alert('よみこみ完了！ゲームを再起動します。');
+                location.reload();
+            } catch {
+                alert('ファイルが正しくありません');
+            }
+        };
+        reader.readAsText(file);
+    }
+
     _onVolumeChange(type) {
         const slider = document.getElementById(type === 'bgm' ? 'setting-bgm-volume' : 'setting-se-volume');
         const valueEl = document.getElementById(type === 'bgm' ? 'setting-bgm-volume-value' : 'setting-se-volume-value');

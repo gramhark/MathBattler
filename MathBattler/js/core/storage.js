@@ -198,6 +198,57 @@ class StorageManager {
         return parseInt(localStorage.getItem('math_battle_player_exp')) || 0;
     }
 
+    // --- バックアップ ---
+
+    _calcChecksum(obj) {
+        const str = JSON.stringify(obj);
+        let sum = 0;
+        for (let i = 0; i < str.length; i++) sum += str.charCodeAt(i);
+        return (sum >>> 0).toString(16);
+    }
+
+    exportBackup() {
+        const data = {
+            playerName:    localStorage.getItem('math_battle_player_name'),
+            malle:         localStorage.getItem('math_battle_malle'),
+            backpack:      localStorage.getItem('math_battle_backpack'),
+            difficulty:    localStorage.getItem('math_battle_difficulty'),
+            clearedFloors1: localStorage.getItem('math_battle_cleared_floors_1'),
+            clearedFloors2: localStorage.getItem('math_battle_cleared_floors_2'),
+            clearedFloors3: localStorage.getItem('math_battle_cleared_floors_3'),
+            collection:    localStorage.getItem('math_battle_collection_v1'),
+            itemCollection: localStorage.getItem('math_battle_item_collection_v1'),
+            playerLevel:   localStorage.getItem('math_battle_player_level'),
+            playerExp:     localStorage.getItem('math_battle_player_exp'),
+        };
+        data._checksum = this._calcChecksum(data);
+        return data;
+    }
+
+    /** @returns {string|null} エラーメッセージ。nullなら成功。 */
+    importBackup(data) {
+        if (!data || typeof data !== 'object') return 'ファイルが正しくありません';
+        const { _checksum, ...rest } = data;
+        if (!_checksum || _checksum !== this._calcChecksum(rest)) {
+            return 'データが壊れているか、改ざんされています';
+        }
+        const set = (key, val) => { if (val != null) localStorage.setItem(key, val); };
+        set('math_battle_player_name',       rest.playerName);
+        set('math_battle_malle',             rest.malle);
+        set('math_battle_backpack',          rest.backpack);
+        set('math_battle_difficulty',        rest.difficulty);
+        set('math_battle_cleared_floors_1',  rest.clearedFloors1);
+        set('math_battle_cleared_floors_2',  rest.clearedFloors2);
+        set('math_battle_cleared_floors_3',  rest.clearedFloors3);
+        set('math_battle_collection_v1',     rest.collection);
+        set('math_battle_item_collection_v1',rest.itemCollection);
+        set('math_battle_player_level',      rest.playerLevel);
+        set('math_battle_player_exp',        rest.playerExp);
+        // 旧キー削除
+        localStorage.removeItem('math_battle_cleared_floors');
+        return null;
+    }
+
     // --- せってい（おんがく・おんりょう） ---
 
     saveSettings(settings) {

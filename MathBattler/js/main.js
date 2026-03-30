@@ -26,6 +26,30 @@ window.addEventListener('DOMContentLoaded', () => {
     _runLoadingScreen(game);
 });
 
+function _getNoteImagePaths() {
+    const paths = [];
+    const assets = window.MONSTER_ASSETS;
+    if (assets) {
+        if (assets._legacy) {
+            assets._legacy.forEach(f => paths.push(`assets/image/monster/${f}`));
+        } else {
+            (assets.Normal || []).forEach(f => {
+                const m = f.match(/^(\d+)_/);
+                if (m) paths.push(`assets/image/monster/Normal/${m[1]}/${f}`);
+            });
+            ['Boss', 'Heal', 'Rare', 'SuperRare', 'Special'].forEach(cat => {
+                (assets[cat] || []).forEach(f => paths.push(`assets/image/monster/${cat}/${f}`));
+            });
+        }
+    }
+    (window.EQUIPMENT_LIST || []).forEach(e => {
+        const dir = e.type === 'sword' ? 'equipment/sword' : 'equipment/shield';
+        paths.push(`assets/image/${dir}/${e.img}`);
+    });
+    (window.ITEM_LIST || []).forEach(d => paths.push(`assets/image/item/${d.img}`));
+    return paths;
+}
+
 function _runLoadingScreen(game) {
     const PRELOAD_IMAGES = [
         'assets/image/UI/title.webp',
@@ -47,6 +71,9 @@ function _runLoadingScreen(game) {
         'assets/image/UI/main_monsternote.webp',
     ];
     const PRELOAD_AUDIO_IDS = ['bgm-title', 'bgm-menu'];
+
+    // ノート画像をバックグラウンドでプリロード（プログレスバーには含めない）
+    _getNoteImagePaths().forEach(src => { const img = new Image(); img.src = src; });
 
     const msgEl   = document.getElementById('loading-msg');
     const barEl   = document.getElementById('loading-bar');

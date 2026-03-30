@@ -199,7 +199,7 @@ class BattleItemHandler {
 
         // どくだま: モンスターにどくダメージ
         if (m.isPoisoned) {
-            const poisonDamage = this.game.battle.calcPoisonDamage();
+            const poisonDamage = this.game.battle.calcPoisonDamage(m);
             m.hp = Math.max(0, m.hp - poisonDamage);
             this.ui.updateMonsterHp(m.hpRatio);
             this.ui.showAttackEffect('attack');

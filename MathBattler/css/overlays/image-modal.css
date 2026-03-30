@@ -67,8 +67,11 @@
     margin-top: 30px;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 40px;
 }
 
 .modal-name {
@@ -124,20 +127,19 @@
     color: #8ab4f8;
     font-family: var(--font-pixel);
     align-self: stretch;
-    padding-left: 32px;
+    text-align: left;
 }
 
 .modal-diary-wrapper {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: 8px;
     align-self: stretch;
-    padding-left: 32px;
 }
 
 .modal-diary-input {
-    width: 120%;
+    width: 100%;
     background: rgba(0, 0, 0, 0.5);
     border: 2px solid rgba(79, 172, 254, 0.5);
     border-radius: 16px;
@@ -145,7 +147,7 @@
     font-family: var(--font-pixel);
     font-size: 44px;
     padding: 16px 24px;
-    text-align: left;
+    text-align: center;
     outline: none;
     box-sizing: border-box;
     resize: none;

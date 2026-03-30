@@ -877,6 +877,8 @@ class Game {
     _syncSettingUI() { return this.settings._syncSettingUI(); }
     _setSoundEnabled(t, e) { return this.settings._setSoundEnabled(t, e); }
     _onVolumeChange(t) { return this.settings._onVolumeChange(t); }
+    _exportSave() { return this.settings._exportSave(); }
+    _importSave(f) { return this.settings._importSave(f); }
 
     showInterval() { return this.spawner.showInterval(); }
     _showBossCutIn(m) { return this.spawner._showBossCutIn(m); }
