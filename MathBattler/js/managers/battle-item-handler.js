@@ -51,7 +51,7 @@ class BattleItemHandler {
         const m = this.game.monsters[this.game.currentMonsterIdx];
         return this.game.battle.canUseItem(
             itemName, this.game.backpack.items, this.game.playerHp, this.game.playerMaxHp,
-            this.game._battleItemUsage, this.game._monsterItemUsage, m
+            this.game._monsterItemUsage, m
         );
     }
 
@@ -74,8 +74,8 @@ class BattleItemHandler {
         this.storage.saveBackpack(this.game.backpack);
 
         // 使用回数をカウント
-        if (itemName === 'attackOrb') this.game._battleItemUsage.attackOrb = (this.game._battleItemUsage.attackOrb || 0) + 1;
-        if (itemName === 'defenseOrb') this.game._battleItemUsage.defenseOrb = (this.game._battleItemUsage.defenseOrb || 0) + 1;
+        if (itemName === 'attackOrb') this.game._monsterItemUsage.attackOrb = (this.game._monsterItemUsage.attackOrb || 0) + 1;
+        if (itemName === 'defenseOrb') this.game._monsterItemUsage.defenseOrb = (this.game._monsterItemUsage.defenseOrb || 0) + 1;
         if (itemName === 'spikeOrb') this.game._monsterItemUsage.spikeOrb = (this.game._monsterItemUsage.spikeOrb || 0) + 1;
         if (itemName === 'poisonOrb') this.game._monsterItemUsage.poisonOrb = true;
         if (itemName === 'paralyzeOrb') this.game._monsterItemUsage.paralyzeOrb = true;

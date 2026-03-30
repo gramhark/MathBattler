@@ -113,17 +113,16 @@ class BattleManager {
      * @param {Object} bag アイテム所持数
      * @param {number} playerHp 現在HP
      * @param {number} maxHp 最大HP
-     * @param {Object} battleItemUsage バトル通算使用回数
      * @param {Object} monsterItemUsage 対モンスター使用状態
      * @param {Object} monster 現在のモンスター（将来の拡張用）
      * @returns {boolean}
      */
-    canUseItem(itemName, bag, playerHp, maxHp, battleItemUsage, monsterItemUsage, monster) {
+    canUseItem(itemName, bag, playerHp, maxHp, monsterItemUsage, monster) {
         if ((bag[itemName] || 0) <= 0) return false;
         switch (itemName) {
             case 'healOrb':     return playerHp < maxHp;
-            case 'attackOrb':   return (battleItemUsage.attackOrb || 0) < 2;
-            case 'defenseOrb':  return (battleItemUsage.defenseOrb || 0) < 2;
+            case 'attackOrb':   return (monsterItemUsage.attackOrb || 0) < 3;
+            case 'defenseOrb':  return (monsterItemUsage.defenseOrb || 0) < 3;
             case 'spikeOrb':    return (monsterItemUsage.spikeOrb || 0) < 3;
             case 'poisonOrb':   return !monsterItemUsage.poisonOrb;
             case 'paralyzeOrb': return !monsterItemUsage.paralyzeOrb;

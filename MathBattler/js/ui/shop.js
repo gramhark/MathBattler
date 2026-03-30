@@ -73,7 +73,6 @@ class ShopManager {
         document.getElementById('shop-item-overlay').classList.remove('active');
         this._selectedItemIdx = null;
         this.showShopMsg(`${item.name}を\nかった！`);
-
         onSuccess({ newMalle, newBackpack });
     }
 
@@ -99,7 +98,12 @@ class ShopManager {
         if (mode === 'enter') {
             el.innerHTML = 'いらっしゃい';
         } else if (mode === 'waiting') {
-            el.innerHTML = 'どうぐは こうげきの ときに<br>リュックから つかえるぞ';
+            const quotes = [
+                'バトルちゅうに<br>リュックアイコンを さわれば<br>どうぐが つかえるぞ',
+                'けんと たては<br>メニューの リュックから<br>そうびするんじゃぞ'
+            ];
+            const rand = Math.floor(Math.random() * quotes.length);
+            el.innerHTML = quotes[rand];
         } else if (mode === 'leave') {
             el.innerHTML = 'またおいで';
         }
@@ -149,13 +153,13 @@ class ShopManager {
 
     getItemLimitText(itemId) {
         switch (itemId) {
-            case 'healOrb':     return 'つかえるかず: なんこでも';
-            case 'attackOrb':   return 'つかえるかず: 1かいのバトルで 2こ';
-            case 'defenseOrb':  return 'つかえるかず: 1かいのバトルで 2こ';
-            case 'spikeOrb':    return 'つかえるかず: 1たいに 3こ';
-            case 'poisonOrb':   return 'つかえるかず: 1たいに 1こ';
+            case 'healOrb': return 'つかえるかず: なんこでも';
+            case 'attackOrb': return 'つかえるかず: 1ぴきのモンスターに 3こ';
+            case 'defenseOrb': return 'つかえるかず: 1ぴきのモンスターに 3こ';
+            case 'spikeOrb': return 'つかえるかず: 1たいに 3こ';
+            case 'poisonOrb': return 'つかえるかず: 1たいに 1こ';
             case 'paralyzeOrb': return 'つかえるかず: 1たいに 1こ';
-            case 'stoneOrb':    return 'つかえるかず: 1たいに 1こ\nボスには つかえない';
+            case 'stoneOrb': return 'つかえるかず: 1たいに 1こ\nボスには つかえない';
             default: return '';
         }
     }

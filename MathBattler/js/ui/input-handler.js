@@ -265,7 +265,9 @@ class InputHandler {
         this.ui.clearMessageLog();
 
         // モンスター1体ごとのアイテム使用回数リセット
-        this.game._monsterItemUsage = { spikeOrb: 0, poisonOrb: false, paralyzeOrb: false, stoneOrb: false };
+        this.game._monsterItemUsage = { spikeOrb: 0, poisonOrb: false, paralyzeOrb: false, stoneOrb: false, attackOrb: 0, defenseOrb: 0 };
+        this.game.swordBonus = 0; // こうげきだま効果リセット
+        this.game.defenseBonus = 0; // ぼうぎょだま効果リセット
 
         // モンスターのステータス状態をリセット
         const bm = this.game.monsters[this.game.currentMonsterIdx];

@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>遊び方ガイド — マスバトール</title>
+  <meta name="description" content="算数RPG「マスバトール」の遊び方ガイド。基本の流れ、バトルのやり方、モンスターの種類、装備とアイテムを解説します。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --color-bg: #fafaf8;
+      --color-surface: #ffffff;
+      --color-border: #e5e7eb;
+      --color-orange: #f97316;
+      --color-orange-light: #fff7ed;
+      --color-orange-mid: #fed7aa;
+      --color-orange-dark: #ea580c;
+      --color-amber-light: #fef9c3;
+      --color-amber-mid: #fde68a;
+      --color-blue: #3b82f6;
+      --color-blue-light: #eff6ff;
+      --color-blue-dark: #2563eb;
+      --color-green: #10b981;
+      --color-green-light: #ecfdf5;
+      --color-indigo: #6366f1;
+      --color-indigo-light: #eef2ff;
+      --color-purple: #a855f7;
+      --color-purple-light: #faf5ff;
+      --color-red: #ef4444;
+      --color-red-light: #fef2f2;
+      --color-text-primary: #1c1917;
+      --color-text-secondary: #57534e;
+      --color-text-muted: #a8a29e;
+      --font-base: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --shadow-sm: 0 1px 4px rgba(0, 0, 0, .07), 0 1px 2px rgba(0, 0, 0, .05);
+      --shadow-md: 0 4px 14px rgba(0, 0, 0, .09), 0 2px 4px rgba(0, 0, 0, .05);
+      --shadow-lg: 0 12px 32px rgba(0, 0, 0, .11), 0 4px 8px rgba(0, 0, 0, .05);
+      --transition: 200ms cubic-bezier(.4, 0, .2, 1);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-base);
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--color-text-primary);
+      background-color: var(--color-bg);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: var(--color-blue-dark);
+      text-decoration: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 860px;
+      margin-inline: auto;
+      padding-inline: 1.5rem;
+    }
+
+    /* ===== ヘッダー ===== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: rgba(255, 255, 255, .93);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      gap: 1rem;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      transition: color var(--transition);
+    }
+
+    .back-link:hover {
+      color: var(--color-orange);
+    }
+
+    .back-link svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    .header-title {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--color-text-muted);
+    }
+
+    .play-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      padding: 0.5rem 1rem;
+      background-color: var(--color-orange);
+      color: #fff;
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+      font-weight: 700;
+      transition: background-color var(--transition), transform var(--transition);
+      box-shadow: 0 2px 8px rgba(249, 115, 22, .3);
+    }
+
+    .play-btn:hover {
+      background-color: var(--color-orange-dark);
+      transform: translateY(-1px);
+    }
+
+    /* ===== ヒーロー ===== */
+    .hero {
+      padding-block: 3rem 2rem;
+      background: linear-gradient(135deg, #fffbf5 0%, #fafaf8 55%, #f0fdf4 100%);
+      border-bottom: 1px solid var(--color-border);
+      text-align: center;
+    }
+
+    .hero-logo {
+      max-width: 320px;
+      margin-inline: auto;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-tagline {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      color: var(--color-text-secondary);
+      margin-bottom: 1.5rem;
+    }
+
+    .toc {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .toc a {
+      padding: 0.25rem 0.875rem;
+      background: var(--color-surface);
+      border: 1.5px solid var(--color-border);
+      border-radius: 999px;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      transition: border-color var(--transition), color var(--transition);
+    }
+
+    .toc a:hover {
+      border-color: var(--color-orange);
+      color: var(--color-orange);
+    }
+
+    /* ===== セクション共通 ===== */
+    .guide-section {
+      padding-block: 3.5rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .guide-section:nth-child(even) {
+      background-color: var(--color-surface);
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--color-orange);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      position: relative;
+      display: inline-block;
+      margin-bottom: 1.75rem;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 2em;
+      height: 3px;
+      background: var(--color-orange);
+      border-radius: 999px;
+      margin-top: 6px;
+      transform: rotate(-1deg);
+    }
+
+    /* ===== 概要 ===== */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .overview-card {
+      background: var(--color-surface);
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .overview-card__icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.375rem;
+      flex-shrink: 0;
+    }
+
+    .oc--orange {
+      background: var(--color-orange-light);
+    }
+
+    .oc--blue {
+      background: var(--color-blue-light);
+    }
+
+    .oc--green {
+      background: var(--color-green-light);
+    }
+
+    .oc--indigo {
+      background: var(--color-indigo-light);
+    }
+
+    .overview-card__title {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .overview-card__body {
+      font-size: 0.8125rem;
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ===== 基本の流れ ===== */
+    .flow-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .flow-item {
+      display: grid;
+      grid-template-columns: 3rem 1fr;
+      gap: 1rem;
+      align-items: start;
+    }
+
+    .flow-num {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      background: var(--color-orange);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.125rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(249, 115, 22, .35);
+    }
+
+    .flow-content {
+      background: var(--color-surface);
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .flow-content h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .flow-content p {
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+    }
+
+    .flow-img {
+      margin-top: 0.75rem;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--color-border);
+      background: #000;
+    }
+
+    .flow-img img {
+      width: 100%;
+      height: 168px;
+      object-fit: cover;
+      object-position: center top;
+      opacity: 0.92;
+    }
+
+    /* ===== バトル ===== */
+    .battle-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .battle-img-wrap {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 2px solid var(--color-border);
+      box-shadow: var(--shadow-md);
+    }
+
+    .battle-img-wrap img {
+      width: 100%;
+      height: auto;
+    }
+
+    .battle-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .step-card {
+      border-radius: var(--radius-md);
+      padding: 0.875rem 1.125rem;
+      border: 1.5px solid var(--color-border);
+      background: var(--color-surface);
+    }
+
+    .step-card__label {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+    }
+
+    .step-card__title {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .step-card__body {
+      font-size: 0.8125rem;
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+    }
+
+    .step-card--attack .step-card__label {
+      color: var(--color-orange);
+    }
+
+    .step-card--critical .step-card__label {
+      color: var(--color-blue);
+    }
+
+    .step-card--special .step-card__label {
+      color: var(--color-purple, #a855f7);
+    }
+
+    .step-card--dodge .step-card__label {
+      color: var(--color-green);
+    }
+
+    /* クリティカル・必殺技ハイライト */
+    .highlight-box {
+      margin-top: 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .highlight {
+      border-radius: var(--radius-md);
+      padding: 1rem 1.125rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .highlight--blue {
+      background: var(--color-blue-light);
+      border: 1.5px solid #bfdbfe;
+    }
+
+    .highlight--purple {
+      background: var(--color-purple-light);
+      border: 1.5px solid #e9d5ff;
+    }
+
+    .highlight__icon {
+      font-size: 1.5rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .highlight__title {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .highlight--blue .highlight__title {
+      color: var(--color-blue-dark);
+    }
+
+    .highlight--purple .highlight__title {
+      color: var(--color-purple);
+    }
+
+    .highlight__body {
+      font-size: 0.8125rem;
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ===== モンスター ===== */
+    .monster-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+
+    .monster-card {
+      background: var(--color-surface);
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition);
+    }
+
+    .monster-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .monster-card__img {
+      aspect-ratio: 1;
+      background: #f8f4ef;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem;
+    }
+
+    .monster-card__img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      image-rendering: pixelated;
+    }
+
+    .monster-card__body {
+      padding: 0.75rem;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .monster-card__badge {
+      display: inline-block;
+      padding: 2px 0.5rem;
+      border-radius: 999px;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+
+    .badge--normal {
+      background: var(--color-orange-light);
+      color: var(--color-orange-dark);
+    }
+
+    .badge--heal {
+      background: var(--color-green-light);
+      color: #059669;
+    }
+
+    .badge--rare {
+      background: var(--color-blue-light);
+      color: var(--color-blue-dark);
+    }
+
+    .badge--srare {
+      background: var(--color-purple-light);
+      color: var(--color-purple);
+    }
+
+    .badge--boss {
+      background: var(--color-red-light);
+      color: var(--color-red);
+    }
+
+    .monster-card__name {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      margin-bottom: 0.2rem;
+    }
+
+    .monster-card__desc {
+      font-size: 0.75rem;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ===== 装備・アイテム ===== */
+    .equip-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .equip-block {
+      background: var(--color-surface);
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .equip-block__header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .equip-block__icon {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      image-rendering: pixelated;
+    }
+
+    .equip-block__title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-text-primary);
+    }
+
+    .equip-block__sub {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+    }
+
+    .equip-block__body {
+      font-size: 0.8125rem;
+      color: var(--color-text-secondary);
+      line-height: 1.75;
+    }
+
+    .item-grid {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .item-chip {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.375rem 0.75rem;
+      background: var(--color-bg);
+      border: 1.5px solid var(--color-border);
+      border-radius: 999px;
+      font-size: 0.8125rem;
+      color: var(--color-text-secondary);
+    }
+
+    .item-chip img {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+    }
+
+    /* ===== ヒント ===== */
+    .tips-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .tip-card {
+      background: var(--color-amber-light);
+      border: 1px solid var(--color-amber-mid);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.125rem;
+    }
+
+    .tip-card__title {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: #78350f;
+      margin-bottom: 0.375rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .tip-card__body {
+      font-size: 0.8125rem;
+      color: #92400e;
+      line-height: 1.7;
+    }
+
+    /* ===== フッター ===== */
+    .site-footer {
+      padding-block: 2.5rem;
+      text-align: center;
+    }
+
+    .footer-copy {
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 0.75rem;
+    }
+
+    .footer-links a {
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+      transition: color var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--color-orange);
+    }
+
+    /* ===== フォーカス ===== */
+    :focus-visible {
+      outline: 3px solid var(--color-orange);
+      outline-offset: 3px;
+      border-radius: var(--radius-sm);
+    }
+
+    /* ===== レスポンシブ ===== */
+    @media (max-width: 640px) {
+
+      .overview-grid,
+      .battle-layout,
+      .highlight-box,
+      .equip-layout,
+      .tips-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-tagline {
+        font-size: 1.25rem;
+      }
+
+      .header-title {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .monster-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ヘッダー -->
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="../" class="back-link" aria-label="ゲーム工房トップへ戻る">
+          <svg viewBox="0 0 16 16" fill="currentColor">
+            <path d="M10.5 3L5 8l5.5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" fill="none" />
+          </svg>
+          ゲーム工房へ戻る
+        </a>
+        <span class="header-title">マスバトール 遊び方ガイド</span>
+        <a href="./" class="play-btn" aria-label="マスバトールをプレイする">
+          プレイする →
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ヒーロー -->
+    <section class="hero">
+      <div class="container">
+        <img src="assets/image/UI/title_short.webp" alt="マスバトール" class="hero-logo">
+        <p class="hero-tagline">かんたん 遊び方ガイド</p>
+        <p class="hero-sub">計算問題を解いてモンスターを倒す、算数バトルRPGの遊び方を紹介します。</p>
+        <nav class="toc" aria-label="目次">
+          <a href="#overview">ゲームの概要</a>
+          <a href="#flow">基本の流れ</a>
+          <a href="#battle">バトルのやり方</a>
+          <a href="#monsters">モンスターの種類</a>
+          <a href="#equip">装備・アイテム</a>
+          <a href="#tips">ヒント</a>
+        </nav>
+      </div>
+    </section>
+
+    <!-- 1. ゲームの概要 -->
+    <section class="guide-section" id="overview">
+      <div class="container">
+        <p class="section-label">01 &nbsp; Overview</p>
+        <h2 class="section-title">ゲームの概要</h2>
+
+        <div class="overview-grid">
+          <div class="overview-card">
+            <div class="overview-card__icon oc--orange">🧮</div>
+            <div>
+              <p class="overview-card__title">計算でたたかう算数RPG</p>
+              <p class="overview-card__body">四則演算（たし算・ひき算・かけ算・わり算）の問題を解いてモンスターに攻撃します。答えが合っていれば攻撃成功！</p>
+            </div>
+          </div>
+          <div class="overview-card">
+            <div class="overview-card__icon oc--blue">🗺️</div>
+            <div>
+              <p class="overview-card__title">100階のダンジョンを攻略</p>
+              <p class="overview-card__body">ダンジョンは全100フロア。1フロアに10体のモンスターが出現し、10体目はボスです。クリアして先へ進もう！</p>
+            </div>
+          </div>
+          <div class="overview-card">
+            <div class="overview-card__icon oc--green">⭐</div>
+            <div>
+              <p class="overview-card__title">3つの難易度</p>
+              <p class="overview-card__body">★・★★・★★★の3段階。★は基本的な計算、★★★は上級問題と制限時間が厳しくなります。自分のペースで挑戦しよう。</p>
+            </div>
+          </div>
+          <div class="overview-card">
+            <div class="overview-card__icon oc--indigo">📖</div>
+            <div>
+              <p class="overview-card__title">モンスターを集めよう</p>
+              <p class="overview-card__body">倒したモンスターはノートに記録されます。珍しいモンスターも登場するので、全種コンプリートを目指してみよう！</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. 基本の流れ -->
+    <section class="guide-section" id="flow">
+      <div class="container">
+        <p class="section-label">02 &nbsp; Basic Flow</p>
+        <h2 class="section-title">基本の流れ</h2>
+
+        <div class="flow-list">
+
+          <div class="flow-item">
+            <div class="flow-num">1</div>
+            <div class="flow-content">
+              <h3>メインメニューからスタート</h3>
+              <p>「バトル」ボタンを押してダンジョン選択へ。装備やアイテムの確認もここから。</p>
+              <div class="flow-img">
+                <img src="assets/image/UI/BTN_main_battle.webp" alt="メインメニュー画面">
+              </div>
+            </div>
+          </div>
+
+          <div class="flow-item">
+            <div class="flow-num">2</div>
+            <div class="flow-content">
+              <h3>フロアと難易度を選ぶ</h3>
+              <p>挑戦するフロア（1〜100）と難易度（★〜★★★）を選択します。クリアしたフロアは記録されます。</p>
+              <div class="flow-img">
+                <img src="assets/image/UI/main_battle_short01.webp" alt="ダンジョン選択画面">
+              </div>
+            </div>
+          </div>
+
+          <div class="flow-item">
+            <div class="flow-num">3</div>
+            <div class="flow-content">
+              <h3>計算問題でバトル！</h3>
+              <p>モンスターが登場したら計算問題が出題されます。テンキーで答えを入力して「答え」ボタンを押そう。正解なら攻撃、不正解はモンスターに攻撃されます。</p>
+              <div class="flow-img">
+                <img src="assets/image/UI/main_battle_short02.webp" alt="バトル画面のバックグラウンド">
+              </div>
+            </div>
+          </div>
+
+          <div class="flow-item">
+            <div class="flow-num">4</div>
+            <div class="flow-content">
+              <h3>10体倒したらクリア！</h3>
+              <p>1フロアのモンスターを全員倒すとリザルト画面へ。クリアタイムが記録され、次のフロアに進めます。</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. バトルのやり方 -->
+    <section class="guide-section" id="battle">
+      <div class="container">
+        <p class="section-label">03 &nbsp; Battle</p>
+        <h2 class="section-title">バトルのやり方</h2>
+
+        <div class="battle-layout">
+          <div class="battle-img-wrap">
+            <img src="assets/image/UI/Battle/numeric keypad.webp" alt="テンキー入力パッド">
+          </div>
+          <div class="battle-steps">
+            <div class="step-card step-card--attack">
+              <p class="step-card__label">Step 1 &nbsp; 自分のターン（こうげきターン）</p>
+              <p class="step-card__title">計算問題に答える</p>
+              <p class="step-card__body">数字ボタンで答えを入力し「答え」を押します。「×」ボタンで一文字消せます。「〇」ボタンで攻撃！</p>
+            </div>
+            <div class="step-card step-card--dodge">
+              <p class="step-card__label">Step 2 &nbsp; 相手のターン（かいひターン）</p>
+              <p class="step-card__title">問題を解いて攻撃を避ける</p>
+              <p class="step-card__body">モンスターが攻撃してくるターンです。正解するとダメージを完全に回避！不正解だと攻撃を受けます。時間切れでも攻撃を受けます。</p>
+            </div>
+            <div class="step-card step-card--critical">
+              <p class="step-card__label">Bonus &nbsp; クリティカル！</p>
+              <p class="step-card__title">素早く答えると大ダメージ</p>
+              <p class="step-card__body">こうげきターンで制限時間内に答えると「クリティカル！」が発生し、ダメージが1.5倍になります。</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- クリティカル・必殺技 -->
+        <div class="highlight-box">
+          <div class="highlight highlight--blue">
+            <div class="highlight__icon">⚡</div>
+            <div>
+              <p class="highlight__title">クリティカルの時間</p>
+              <p class="highlight__body">★ なら5秒以内、★★ は4秒、★★★ は3秒以内に正解するとクリティカル発動。難しいほどシビア！</p>
+            </div>
+          </div>
+          <div class="highlight highlight--purple">
+            <div class="highlight__icon">🔥</div>
+            <div>
+              <p class="highlight__title">必殺技を使おう</p>
+              <p class="highlight__body">かいひターンで4回連続で正解すると必殺技ゲージが満タンに！次のこうげきターンでテンキーが赤く光ったら答えを入力すると2倍ダメージの必殺技が発動！</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. モンスターの種類 -->
+    <section class="guide-section" id="monsters">
+      <div class="container">
+        <p class="section-label">04 &nbsp; Monsters</p>
+        <h2 class="section-title">モンスターの種類</h2>
+
+        <div class="monster-grid">
+
+          <div class="monster-card">
+            <div class="monster-card__img">
+              <img src="assets/image/monster/Normal/01/01_もにもに.webp" alt="ノーマルモンスター もにもに">
+            </div>
+            <div class="monster-card__body">
+              <span class="monster-card__badge badge--normal">ノーマル</span>
+              <p class="monster-card__name">通常モンスター</p>
+              <p class="monster-card__desc">ダンジョンに住む一般的なモンスター。フロアが上がるほど手強くなる！</p>
+            </div>
+          </div>
+
+          <div class="monster-card">
+            <div class="monster-card__img">
+              <img src="assets/image/monster/Heal/Heal_かいふくぐさ.webp" alt="ヒールモンスター かいふくぐさ">
+            </div>
+            <div class="monster-card__body">
+              <span class="monster-card__badge badge--heal">ヒール</span>
+              <p class="monster-card__name">かいふくモンスター</p>
+              <p class="monster-card__desc">倒すとHPが回復するラッキーな存在。HPが少ないほど出やすい！</p>
+            </div>
+          </div>
+
+          <div class="monster-card">
+            <div class="monster-card__img">
+              <img src="assets/image/monster/Rare/D053_ランクスおうじ.webp" alt="レアモンスター ランクスおうじ">
+            </div>
+            <div class="monster-card__body">
+              <span class="monster-card__badge badge--rare">レア</span>
+              <p class="monster-card__name">ダンジョンレア</p>
+              <p class="monster-card__desc">たまに現れる珍しいモンスター。倒すと装備が手に入ることも！</p>
+            </div>
+          </div>
+
+          <div class="monster-card">
+            <div class="monster-card__img">
+              <img src="assets/image/monster/SuperRare/SRare_シルクロード.webp" alt="スーパーレアモンスター"
+                style="filter: brightness(0);">
+            </div>
+            <div class="monster-card__body">
+              <span class="monster-card__badge badge--srare">スーパーレア</span>
+              <p class="monster-card__name">スーパーレア</p>
+              <p class="monster-card__desc">出現確率わずか1%。遭遇できたらラッキー！ノートに記録しよう。</p>
+            </div>
+          </div>
+
+          <div class="monster-card">
+            <div class="monster-card__img">
+              <img src="assets/image/monster/Boss/Boss029_ゴライアスヘラクレス.webp" alt="ボスモンスター">
+            </div>
+            <div class="monster-card__body">
+              <span class="monster-card__badge badge--boss">ボス</span>
+              <p class="monster-card__name">ボスモンスター</p>
+              <p class="monster-card__desc">10体目は必ずボス！HPが高く手強い。HPが減ると形態が変わることも…？</p>
+            </div>
+          </div>
+
+          <div class="monster-card">
+            <div class="monster-card__img">
+              <img src="assets/image/monster/Special/Special_ミスターといし.webp" alt="スペシャルモンスター">
+            </div>
+            <div class="monster-card__body">
+              <span class="monster-card__badge badge--srare">スペシャル</span>
+              <p class="monster-card__name">スペシャル</p>
+              <p class="monster-card__desc">特殊な効果を持つ謎のモンスター。どんな能力があるかは会ってのお楽しみ！</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. 装備・アイテム -->
+    <section class="guide-section" id="equip">
+      <div class="container">
+        <p class="section-label">05 &nbsp; Items</p>
+        <h2 class="section-title">アイテム</h2>
+
+        <div class="equip-layout">
+
+          <div class="equip-block">
+            <div class="equip-block__header">
+              <img src="assets/image/equipment/sword/D024_てつのけん.webp" alt="けん" class="equip-block__icon">
+              <div>
+                <p class="equip-block__title">けん（攻撃力アップ）</p>
+                <p class="equip-block__sub">ダンジョンドロップ / ショップで購入</p>
+              </div>
+            </div>
+            <p class="equip-block__body">
+              装備するとモンスターへのダメージが増加します。モンスターを倒したときや、ショップで強いけんを入手しよう。フロアが上がるほど良い装備が手に入りやすくなります。
+            </p>
+          </div>
+
+          <div class="equip-block">
+            <div class="equip-block__header">
+              <img src="assets/image/equipment/shield/D024_てつのたて.webp" alt="たて" class="equip-block__icon">
+              <div>
+                <p class="equip-block__title">たて（防御力アップ）</p>
+                <p class="equip-block__sub">ダンジョンドロップ / ショップで購入</p>
+              </div>
+            </div>
+            <p class="equip-block__body">
+              装備するとモンスターから受けるダメージを減らせます。かいひに失敗してもたてがあれば安心！けんと合わせてしっかりゲットしよう。
+            </p>
+          </div>
+
+          <div class="equip-block" style="grid-column: 1 / -1;">
+            <div class="equip-block__header">
+              <img src="assets/image/item/attackOrb.webp" alt="どうぐ" class="equip-block__icon"
+                style="image-rendering:auto;">
+              <div>
+                <p class="equip-block__title">どうぐ（バトル中に使えるアイテム）</p>
+                <p class="equip-block__sub">ショップで購入 / ダンジョンドロップ</p>
+              </div>
+            </div>
+            <p class="equip-block__body">バトル中に使用できる消耗品です。ピンチのときに備えてリュックに入れておこう。</p>
+            <div class="item-grid">
+              <div class="item-chip"><img src="assets/image/item/healOrb.webp" alt="">かいふくだま（HP回復）</div>
+              <div class="item-chip"><img src="assets/image/item/attackOrb.webp" alt="">こうげきだま（1匹に3回まで、攻撃力アップ）</div>
+              <div class="item-chip"><img src="assets/image/item/defenseOrb.webp" alt="">ぼうぎょだま（1匹に3回まで、防御力アップ）</div>
+              <div class="item-chip"><img src="assets/image/item/spikeOrb.webp" alt="">とげだま（敵にダメージ）</div>
+              <div class="item-chip"><img src="assets/image/item/poisonOrb.webp" alt="">どくだま（毒効果）</div>
+              <div class="item-chip"><img src="assets/image/item/paralyzeOrb.webp" alt="">まひだま（麻痺効果）</div>
+              <div class="item-chip"><img src="assets/image/item/stoneOrb.webp" alt="">せきかだま（石化効果）</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. ヒント -->
+    <section class="guide-section" id="tips">
+      <div class="container">
+        <p class="section-label">06 &nbsp; Tips</p>
+        <h2 class="section-title">ヒント</h2>
+
+        <div class="tips-grid">
+          <div class="tip-card">
+            <p class="tip-card__title">💡 まずは★から始めよう</p>
+            <p class="tip-card__body">難易度★はたし算・ひき算が中心。まずはゲームの流れに慣れることが大切です。慣れたら★★に挑戦しよう！</p>
+          </div>
+          <div class="tip-card">
+            <p class="tip-card__title">🛡️ HPが少ないときはアイテムを</p>
+            <p class="tip-card__body">HPが少ないとかいふくモンスターも出やすくなります。ただし油断は禁物。かいふくオーブも持っておくと安心です。</p>
+          </div>
+          <div class="tip-card">
+            <p class="tip-card__title">🛒 ショップをうまく使おう</p>
+            <p class="tip-card__body">メインメニューのショップではマール（ゲーム内通貨）でどうぐを購入できます。いらない装備は売ってマールを稼ごう。</p>
+          </div>
+          <div class="tip-card">
+            <p class="tip-card__title">📖 ノートで図鑑を埋めよう</p>
+            <p class="tip-card__body">倒したモンスターはモンスターノートに記録されます。全種類コンプリートを目指してさまざまなフロアに挑戦しよう！</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- フッター -->
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-copy">&copy; 2026 マスバトール</p>
+      <div class="footer-links">
+        <a href="../">← ゲーム工房トップ</a>
+        <a href="./">マスバトールをプレイ →</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>

@@ -29,7 +29,7 @@ class Game {
 
         this.swordLevel = -1; // -1 = 素手（装備なし）
         this.shieldLevel = 0;
-        this.swordBonus = 0; // こうげきだまによる一時攻撃補正（1バトル中有効）
+        this.swordBonus = 0; // こうげきだまによる一時攻撃補正（現在のモンスター戦のみ有効）
         this.swordMultiplied = false;  // ミスターといし効果: 装備剣ボーナス×1.5（1バトル有効）
         this.shieldMultiplied = false; // ミスターてっぱん効果: 装備盾ボーナス×1.5（1バトル有効）
         this.goldMultiplied = false;   // ミスターきんか効果: 獲得マール×2（ダンジョン中有効）
@@ -54,14 +54,13 @@ class Game {
         // Gold & Bag
         this.malle = this.storage.loadMalle();
         this.backpack = this.storage.loadBackpack();
-        this.defenseBonus = 0; // ぼうぎょだまによる防御補正（1バトル中有効）
+        this.defenseBonus = 0; // ぼうぎょだまによる防御補正（現在のモンスター戦のみ有効）
         this._equipDropCallback = null; // 武具ドロップ後のコールバック
         this._equipDropItem = null;     // ドロップ中の武具データ
         this._selectedSellItem = null;  // ショップ売却選択中アイテム
         this._selectedShopEquip = null; // ショップ装備購入選択中アイテム
-        // バトル中アイテム使用回数（1バトル通算 or モンスター1体）
-        this._battleItemUsage = { attackOrb: 0, defenseOrb: 0 };
-        this._monsterItemUsage = { spikeOrb: 0, poisonOrb: false, paralyzeOrb: false, stoneOrb: false };
+        // バトル中アイテム使用回数（モンスター1体ごと）
+        this._monsterItemUsage = { spikeOrb: 0, poisonOrb: false, paralyzeOrb: false, stoneOrb: false, attackOrb: 0, defenseOrb: 0 };
         this._battleSelectedItem = null;
         this._isTransitioning = false;
 
@@ -146,8 +145,7 @@ class Game {
         this.dodgeStreak = 0;
         this.specialMoveReady = false;
         this.specialStandby = false;
-        this._battleItemUsage = { attackOrb: 0, defenseOrb: 0 };
-        this._monsterItemUsage = { spikeOrb: 0, poisonOrb: false, paralyzeOrb: false, stoneOrb: false };
+        this._monsterItemUsage = { spikeOrb: 0, poisonOrb: false, paralyzeOrb: false, stoneOrb: false, attackOrb: 0, defenseOrb: 0 };
         // 装備UI更新（新装備システム優先）
         const _equippedSword = Array.isArray(this.backpack.equipment)
             ? this.backpack.equipment.find(e => e.type === 'sword' && e.equipped) : null;
