@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>マスバトール</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components/buttons.css">
+    <link rel="stylesheet" href="css/components/hp-timer.css">
+    <link rel="stylesheet" href="css/components/message.css">
+    <link rel="stylesheet" href="css/components/monster-effects.css">
+    <link rel="stylesheet" href="css/components/animations.css">
+    <link rel="stylesheet" href="css/overlays/_base.css">
+    <link rel="stylesheet" href="css/overlays/interval.css">
+    <link rel="stylesheet" href="css/overlays/boss-cutin.css">
+    <link rel="stylesheet" href="css/overlays/confirm-dialogs.css">
+    <link rel="stylesheet" href="css/overlays/info-overlay.css">
+    <link rel="stylesheet" href="css/overlays/shop-overlays.css">
+    <link rel="stylesheet" href="css/overlays/bag-detail.css">
+    <link rel="stylesheet" href="css/overlays/battle-bag.css">
+    <link rel="stylesheet" href="css/overlays/equip-drop.css">
+    <link rel="stylesheet" href="css/overlays/image-modal.css">
+    <link rel="stylesheet" href="css/overlays/drop-animations.css">
+    <link rel="stylesheet" href="css/overlays/item-limit.css">
+    <link rel="stylesheet" href="css/overlays/navigation-btn.css">
+    <link rel="stylesheet" href="css/overlays/request.css">
+    <link rel="stylesheet" href="css/overlays/whiteout.css">
+    <link rel="stylesheet" href="css/screens/loading.css">
+    <link rel="stylesheet" href="css/screens/top.css">
+    <link rel="stylesheet" href="css/screens/dungeon.css">
+    <link rel="stylesheet" href="css/screens/battle.css">
+    <link rel="stylesheet" href="css/screens/result.css">
+    <link rel="stylesheet" href="css/screens/shop.css">
+    <link rel="stylesheet" href="css/screens/bag.css">
+    <link rel="stylesheet" href="css/screens/equip.css">
+    <link rel="stylesheet" href="css/screens/setting.css">
+    <link rel="stylesheet" href="css/screens/note.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=M+PLUS+Rounded+1c:wght@400;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div id="app">
+        <script>/* #app直後で即実行。常に縦画面モードを付与 */(function () { document.getElementById('app').classList.add('portrait-mode'); })();</script>
+        <!-- ローディング画面 -->
+        <div id="loading-screen" class="screen active">
+            <div class="loading-bg"></div>
+            <div class="loading-content">
+                <p id="loading-msg" class="loading-msg">じゅんびちゅう</p>
+                <div id="loading-progress-wrap" class="loading-progress-wrap">
+                    <div id="loading-bar" class="loading-bar"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- タイトル画面 -->
+        <div id="top-screen" class="screen">
+            <div class="top-content top-title-only">
+                <div class="top-title-area">
+                    <img src="assets/image/UI/title.webp" alt="マスバトール" class="title-img">
+                </div>
+            </div>
+            <footer class="setup-footer">
+                <p>Copyright (c) 2026 マスバトール</p>
+            </footer>
+        </div>
+
+        <!-- メインメニュー画面 -->
+        <div id="main-screen" class="screen">
+            <div class="top-bg-container">
+                <img src="assets/image/UI/BG_main.webp" alt="背景" class="top-bg-img">
+            </div>
+            <div class="top-content">
+                <div class="top-menu">
+                    <button id="battle-prep-btn" class="primary-btn top-battle-btn">
+                        <img src="assets/image/UI/BTN_main_battle.webp" class="btn-bg-img" alt="バトル">
+                    </button>
+                    <div class="top-menu-row top-sub-row">
+                        <button id="top-bag-btn" class="green-btn">
+                            <img src="assets/image/UI/BTN_main_backpack.webp" class="btn-bg-img" alt="リュック">
+                        </button>
+                        <button id="top-shop-btn" class="green-btn">
+                            <img src="assets/image/UI/BTN_main_shop.webp" class="btn-bg-img" alt="ショップ">
+                        </button>
+                    </div>
+                    <div class="top-menu-row">
+                        <button id="top-note-btn" class="orange-btn">
+                            <img src="assets/image/UI/BTN_main_note.webp" class="btn-bg-img" alt="ノート">
+                        </button>
+                    </div>
+                    <div class="top-menu-row">
+                        <button id="top-setting-btn" class="green-btn">
+                            <img src="assets/image/UI/BTN_main_setting.webp" class="btn-bg-img" alt="せってい">
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- ダンジョン選択画面 -->
+        <div id="dungeon-select-screen" class="screen">
+            <div class="top-bg-container">
+                <img class="top-bg-img dungeon-bg" data-difficulty="1" src="assets/image/UI/BG_dungeon01.webp" alt="背景" style="display:none">
+                <img class="top-bg-img dungeon-bg" data-difficulty="2" src="assets/image/UI/BG_dungeon02.webp" alt="背景" style="display:none">
+                <img class="top-bg-img dungeon-bg" data-difficulty="3" src="assets/image/UI/BG_dungeon03.webp" alt="背景">
+            </div>
+            <button id="back-to-top-btn" class="quit-battle-btn" aria-label="トップにもどる">
+                <img src="assets/image/UI/ButtonBack.webp" alt="もどる">
+            </button>
+            <img src="assets/image/UI/main_battle.webp" class="screen-title-img" alt="バトル">
+            <div class="difficulty-tabs">
+                <button class="difficulty-tab" data-difficulty="1">★</button>
+                <button class="difficulty-tab" data-difficulty="2">★★</button>
+                <button class="difficulty-tab active" data-difficulty="3">★★★</button>
+            </div>
+            <div id="dungeon-grid" class="dungeon-grid">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+
+        <!-- ノート選択画面 -->
+        <div id="note-hub-screen" class="screen">
+            <div class="top-bg-container">
+                <img src="assets/image/UI/BG_note.webp" alt="背景" class="top-bg-img">
+            </div>
+            <button id="close-note-hub-btn" class="quit-battle-btn" aria-label="トップにもどる">
+                <img src="assets/image/UI/ButtonBack.webp" alt="もどる">
+            </button>
+            <img src="assets/image/UI/main_note.webp" class="screen-title-img" alt="ノート">
+            <div class="note-hub-list">
+                <button id="note-hub-monster-btn" class="primary-btn">
+                    <img src="assets/image/UI/BTN_main_monsternote.webp" class="btn-bg-img" alt="モンスターノート">
+                </button>
+                <button id="note-hub-item-btn" class="primary-btn">
+                    <img src="assets/image/UI/BTN_main_itemnote.webp" class="btn-bg-img" alt="アイテムノート">
+                </button>
+            </div>
+        </div>
+
+        <!-- リュックハブ画面 -->
+        <div id="bag-hub-screen" class="screen">
+            <div class="top-bg-container">
+                <img src="assets/image/UI/BG_backpack.webp" alt="背景" class="top-bg-img">
+            </div>
+            <button id="close-bag-hub-btn" class="quit-battle-btn" aria-label="トップにもどる">
+                <img src="assets/image/UI/ButtonBack.webp" alt="もどる">
+            </button>
+            <img src="assets/image/UI/main_backpack.webp" class="screen-title-img" alt="リュック">
+            <div class="note-hub-list">
+                <button id="bag-hub-equip-btn" class="primary-btn">
+                    <img src="assets/image/UI/BTN_main_equipment.webp" class="btn-bg-img" alt="そうび">
+                </button>
+                <button id="bag-hub-item-btn" class="primary-btn">
+                    <img src="assets/image/UI/BTN_main_item.webp" class="btn-bg-img" alt="どうぐ">
+                </button>
+            </div>
+        </div>
+
+        <!-- そうび画面 -->
+        <div id="equip-screen" class="screen">
+            <div class="top-bg-container">
+                <img src="assets/image/UI/BG_equipment.webp" alt="背景" class="top-bg-img">
+            </div>
+            <button id="close-equip-btn" class="quit-battle-btn" aria-label="トップにもどる">
+                <img src="assets/image/UI/ButtonBack.webp" alt="もどる">
+            </button>
+            <img src="assets/image/UI/main_equipment.webp" class="screen-title-img" alt="そうび">
+            <div class="equip-status-area">
+                <div class="equip-status-row">
+                    <span class="equip-status-label">こうげきりょく</span>
+                    <span id="equip-status-atk" class="equip-status-value">1</span>
+                </div>
+                <div class="equip-status-row">
+                    <span class="equip-status-label">ぼうぎょりょく</span>
+                    <span id="equip-status-def" class="equip-status-value">0</span>
+                </div>
+                <div class="equip-status-row">
+                    <span class="equip-status-label">レベル</span>
+                    <span id="equip-status-level" class="equip-status-value">1</span>
+                </div>
+                <div class="equip-status-row">
+                    <span class="equip-status-label">けいけんち</span>
+                    <span id="equip-status-exp" class="equip-status-value">0 / 100</span>
+                </div>
+            </div>
+            <div class="equip-tabs">
+                <button class="equip-tab active" data-type="sword">けん</button>
+                <button class="equip-tab" data-type="shield">たて</button>
+            </div>
+            <div id="equip-sort-bar" class="equip-sort-bar">
+                <!-- Populated by JS based on active tab -->
+            </div>
+            <div id="equip-list" class="equip-list">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+
+        <!-- せってい画面 -->
+        <div id="setting-screen" class="screen">
+            <div class="top-bg-container">
+                <img src="assets/image/UI/BG_setting.webp" alt="背景" class="top-bg-img">
+            </div>
+            <button id="close-setting-btn" class="quit-battle-btn" aria-label="トップにもどる">
+                <img src="assets/image/UI/ButtonBack.webp" alt="もどる">
+            </button>
+            <img src="assets/image/UI/main_setting.webp" class="screen-title-img" alt="せってい">
+            <div class="setting-list">
+                <div class="setting-item">
+                    <div class="setting-item-header">なまえ</div>
+                    <div class="setting-name-area">
+                        <input type="text" id="player-name" placeholder="ゆうしゃ" maxlength="10" class="dungeon-name-input setting-name-input">
+                    </div>
+                </div>
+                <div class="setting-item">
+                    <div class="setting-item-header">おとのせってい</div>
+                    <div class="setting-music-rows">
+                        <div class="setting-row">
+                            <span class="setting-row-label">おんがく</span>
+                            <div class="setting-toggle-group">
+                                <button id="setting-bgm-on" class="setting-toggle-btn" data-value="on">ON</button>
+                                <button id="setting-bgm-off" class="setting-toggle-btn" data-value="off">OFF</button>
+                            </div>
+                        </div>
+                        <div class="setting-row setting-row-indent">
+                            <span class="setting-row-label">おんりょう</span>
+                            <input type="range" id="setting-bgm-volume" min="0" max="100" value="100" class="setting-volume-slider">
+                            <span id="setting-bgm-volume-value" class="setting-volume-value">100</span>
+                        </div>
+                        <div class="setting-row">
+                            <span class="setting-row-label">こうかおん</span>
+                            <div class="setting-toggle-group">
+                                <button id="setting-se-on" class="setting-toggle-btn" data-value="on">ON</button>
+                                <button id="setting-se-off" class="setting-toggle-btn" data-value="off">OFF</button>
+                            </div>
+                        </div>
+                        <div class="setting-row setting-row-indent">
+                            <span class="setting-row-label">おんりょう</span>
+                            <input type="range" id="setting-se-volume" min="0" max="100" value="100" class="setting-volume-slider">
+                            <span id="setting-se-volume-value" class="setting-volume-value">100</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- どうぐ画面 -->
+        <div id="bag-screen" class="screen">
+            <div class="top-bg-container">
+                <img src="assets/image/UI/BG_item.webp" alt="背景" class="top-bg-img">
+            </div>
+            <button id="close-bag-btn" class="quit-battle-btn" aria-label="トップにもどる">
+                <img src="assets/image/UI/ButtonBack.webp" alt="もどる">
+            </button>
+            <img src="assets/image/UI/main_item.webp" class="screen-title-img" alt="どうぐ">
+            <div id="bag-grid" class="bag-grid">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+
+        <!-- アイテムノート画面 -->
+        <div id="item-note-screen" class="screen">
+            <div class="top-bg-container">
+                <img src="assets/image/UI/BG_note.webp" alt="背景" class="top-bg-img">
+            </div>
+            <button id="close-item-note-btn" class="quit-battle-btn" aria-label="トップにもどる">
+                <img src="assets/image/UI/ButtonBack.webp" alt="もどる">
+            </button>
+            <img src="assets/image/UI/main_itemnote.webp" class="screen-title-img" alt="アイテムノート">
+            <!-- 進捗表示エリア -->
+            <div id="item-note-progress-area" class="note-progress-area">
+                <div class="note-progress-summary">
+                    <span id="item-note-progress-text" class="note-progress-text">0/0個</span>
+                    <span id="item-note-progress-pct" class="note-progress-pct">（0%）</span>
+                </div>
+                <div class="note-progress-bar-wrap">
+                    <div id="item-note-progress-bar" class="note-progress-bar" style="width:0%"></div>
+                </div>
+            </div>
+            <div id="item-note-grid" class="note-grid" style="flex: 1; overflow-y: auto;">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+
+        <!-- ショップ画面 -->
+        <div id="shop-screen" class="screen">
+            <div class="top-bg-container">
+                <img src="assets/image/UI/BG_shop.webp" id="shop-bg-img" alt="背景" class="top-bg-img">
+            </div>
+            <div class="shop-header">
+                <button id="shop-back-btn" class="quit-battle-btn" aria-label="もどる">
+                    <img src="assets/image/UI/ButtonBack.webp" alt="もどる">
+                </button>
+            </div>
+            <img src="assets/image/UI/main_shop.webp" class="screen-title-img" alt="ショップ">
+            <div id="shop-clerk-quote" class="special-quote shop-clerk-quote">いらっしゃい！</div>
+            <div id="shop-items-area" class="shop-items-area" style="display:none;">
+                <div id="shop-items" class="shop-items">
+                    <!-- Populated by JS -->
+                </div>
+                <div id="shop-sword-items" class="shop-items" style="display:none;">
+                    <!-- Populated by JS -->
+                </div>
+                <div id="shop-shield-items" class="shop-items" style="display:none;">
+                    <!-- Populated by JS -->
+                </div>
+                <div id="shop-sell-items" class="shop-items" style="display:none;">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+            <div class="shop-bottom">
+                <div class="shop-tabs">
+                    <button id="shop-tab-item" class="shop-tab">どうぐ</button>
+                    <button id="shop-tab-sword" class="shop-tab">けん</button>
+                    <button id="shop-tab-shield" class="shop-tab">たて</button>
+                    <button id="shop-tab-sell" class="shop-tab">うる</button>
+                </div>
+                <div class="shop-malle-area">
+                    <img src="assets/image/other/malle.webp" class="malle-icon" alt="マール">
+                    <span id="shop-malle-text" class="shop-malle-text">0マール</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- バトル画面 -->
+        <div id="battle-screen" class="screen">
+            <div class="battle-view">
+                <img id="battle-bg-img" class="battle-bg-img" src="" alt="" aria-hidden="true">
+                <img id="item-use-img" class="item-use-img" src="" alt="" style="display:none;" aria-hidden="true">
+
+                <button id="quit-battle-btn" class="quit-battle-btn" aria-label="トップにもどる">
+                    <img src="assets/image/UI/ButtonBack.webp" alt="もどる">
+                </button>
+
+                <!-- Stage Progress (画面最上部) -->
+                <div id="stage-progress" class="stage-progress">
+                    <!-- Populated by JS -->
+                </div>
+
+                <div class="monster-container">
+                    <div class="monster-img-wrapper">
+                        <img id="monster-img" src="" alt="Monster">
+                        <div id="monster-status-mask" class="monster-status-mask"></div>
+                    </div>
+                    <img id="attack-effect-img" class="attack-effect-img" src="" alt="" aria-hidden="true">
+
+                    <!-- Monster Stat (下部オーバーレイ) -->
+                    <div class="monster-stat">
+                        <span id="monster-name">モンスター</span>
+                        <div id="monster-hp-container" class="hp-bar-container small">
+                            <div id="monster-hp-bar" class="hp-bar-fill" style="width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <!-- メッセージログウィンドウ -->
+                <div class="panel-section panel-section--message">
+                    <div id="message-log" class="message-log"></div>
+                </div>
+
+                <div class="panel-section panel-section--status">
+                    <div class="status-equip">
+                        <div id="sword-aura-wrapper" class="sword-aura-wrapper">
+                            <img id="aura-img" class="aura-img" src="" alt="" style="display:none;">
+                            <img id="sword-label" class="sword-label"
+                                src="assets/image/equipment/sword/sword01.webp" alt="はがねのけん" style="visibility:hidden;">
+                        </div>
+                        <img id="shield-label" class="sword-label" src="assets/image/equipment/shield/shield01.webp"
+                            alt="はがねのたて" style="display:none;">
+                        <div id="item-slot-container" class="item-slot-container">
+                            <img id="backpack-slot-img" class="item-slot-img backpack-slot-img"
+                                src="assets/image/other/kaban.webp" alt="リュック">
+                        </div>
+                    </div>
+                    <div class="status-hp-area">
+                        <span id="player-hp-text">HP 10/10</span>
+                        <div class="status-bar-box">
+                            <div class="hp-bar-container">
+                                <div id="player-hp-bar" class="hp-bar-fill" style="width: 100%;"></div>
+                            </div>
+                            <div class="special-gauge-row">
+                                <div id="special-gauge-1" class="special-gauge"></div>
+                                <div id="special-gauge-2" class="special-gauge"></div>
+                                <div id="special-gauge-3" class="special-gauge"></div>
+                                <div id="special-gauge-4" class="special-gauge"></div>
+                            </div>
+                        </div>
+                        <span id="player-level-text">Lv1</span>
+                        <div class="exp-bar-container">
+                            <div id="player-exp-bar" class="exp-bar-fill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-section panel-section--problem">
+                    <div class="problem-area">
+                        <div id="problem-text" class="problem-text"><span class="problem-part">5 ＋ 3 ＝ </span><span
+                                class="answer-part empty"></span></div>
+                        <div id="problem-hint" class="problem-hint" style="display:none"></div>
+                        <div class="input-wrapper">
+                            <input type="tel" id="answer-input" class="answer-input" readonly>
+                        </div>
+                    </div>
+                    <div class="timer-container">
+                        <div id="timer-bar" class="timer-bar" style="width: 100%;"></div>
+                    </div>
+                </div>
+
+                <div class="panel-section panel-section--numpad">
+                    <div class="numpad-image-wrapper">
+                        <img src="assets/image/UI/Battle/numeric keypad.webp" alt="テンキー" class="numpad-bg-img">
+                        <div id="numpad-special-overlay" class="numpad-special-overlay" style="display:none;"></div>
+                        <div class="numpad">
+                            <button class="num-btn" data-key="7"></button>
+                            <button class="num-btn" data-key="8"></button>
+                            <button class="num-btn" data-key="9"></button>
+                            <button class="num-btn" data-key="4"></button>
+                            <button class="num-btn" data-key="5"></button>
+                            <button class="num-btn" data-key="6"></button>
+                            <button class="num-btn" data-key="1"></button>
+                            <button class="num-btn" data-key="2"></button>
+                            <button class="num-btn" data-key="3"></button>
+                            <button class="num-btn" data-key="DEL"></button>
+                            <button class="num-btn" data-key="0"></button>
+                            <button class="num-btn" data-key="ENTER"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shop Item Detail Overlay -->
+        <div id="shop-item-overlay" class="overlay">
+            <div class="overlay-content shop-item-content">
+                <img id="shop-item-detail-img" src="" alt="" class="shop-item-detail-img">
+                <h2 id="shop-item-detail-name" class="shop-item-detail-name"></h2>
+                <p id="shop-item-detail-desc" class="shop-item-detail-desc"></p>
+                <p id="shop-item-detail-price" class="shop-item-detail-price"></p>
+                <div class="shop-buy-buttons">
+                    <button id="shop-buy-yes-btn" class="primary-btn">かう</button>
+                    <button id="shop-buy-no-btn" class="secondary-btn">かわない</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shop Message Overlay (マール不足 / アイテム所持中) -->
+        <div id="shop-msg-overlay" class="overlay shop-msg-overlay">
+            <div class="overlay-content">
+                <p id="shop-msg-text" class="shop-msg-text"></p>
+            </div>
+        </div>
+
+        <!-- Bag Item Detail Overlay (リュック画面でタップしたとき) -->
+        <div id="bag-detail-overlay" class="overlay bag-detail-overlay">
+            <div class="overlay-content bag-detail-content">
+                <img id="bag-detail-img" class="bag-detail-img" src="" alt="">
+                <h2 id="bag-detail-name" class="bag-detail-name"></h2>
+                <p id="bag-detail-desc" class="bag-detail-desc"></p>
+                <p id="bag-detail-limit" class="bag-detail-limit"></p>
+                <p id="bag-detail-count" class="bag-detail-count"></p>
+                <button id="bag-detail-close-btn" class="primary-btn bag-detail-close-btn">とじる</button>
+            </div>
+        </div>
+
+        <!-- Shop Sell Item Detail Overlay -->
+        <div id="shop-sell-overlay" class="overlay">
+            <div class="overlay-content shop-item-content">
+                <img id="shop-sell-detail-img" src="" alt="" class="shop-item-detail-img">
+                <h2 id="shop-sell-detail-name" class="shop-item-detail-name"></h2>
+                <p id="shop-sell-detail-desc" class="shop-item-detail-desc"></p>
+                <p id="shop-sell-detail-price" class="shop-item-detail-price"></p>
+                <div class="shop-buy-buttons">
+                    <button id="shop-sell-yes-btn" class="primary-btn">うる</button>
+                    <button id="shop-sell-no-btn" class="secondary-btn">うらない</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Battle Bag Overlay (戦闘中リュック使用ウィンドウ) -->
+        <div id="battle-bag-overlay" class="overlay battle-bag-overlay">
+            <div class="battle-bag-content">
+                <div class="battle-bag-header">
+                    <button id="battle-bag-close-btn" class="quit-battle-btn" aria-label="もどる">
+                        <img src="assets/image/UI/ButtonBack.webp" alt="もどる">
+                    </button>
+                    <h2 class="battle-bag-title">リュック</h2>
+                </div>
+                <div id="battle-bag-grid" class="battle-bag-grid">
+                    <!-- Populated by JS -->
+                </div>
+                <div id="battle-item-confirm" class="battle-item-confirm" style="display:none;">
+                    <button id="battle-item-use-btn" class="primary-btn">つかう</button>
+                    <button id="battle-item-cancel-btn" class="secondary-btn">やめる</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Equipment Drop Fly-in Animation (装備ドロップ ズームイン演出) -->
+        <div id="equip-drop-fly-overlay">
+            <img id="equip-drop-fly-img" src="" alt="">
+        </div>
+
+        <!-- Equipment Drop Popup (武具ドロップ選択) -->
+        <div id="equip-drop-overlay" class="overlay equip-drop-overlay">
+            <div class="overlay-content equip-drop-content">
+                <p class="equip-drop-label">ぶきを てにいれた！</p>
+                <img id="equip-drop-img" class="equip-drop-img" src="" alt="">
+                <p id="equip-drop-name" class="equip-drop-name"></p>
+                <p id="equip-drop-desc" class="equip-drop-desc"></p>
+                <div class="equip-drop-buttons">
+                    <button id="equip-drop-equip-btn" class="primary-btn">そうびする</button>
+                    <button id="equip-drop-carry-btn" class="orange-btn">もちかえる</button>
+                    <button id="equip-drop-discard-btn" class="secondary-btn">すてる</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Item Use Limit Message (つかえないよ！) -->
+        <div id="item-limit-overlay" class="overlay item-limit-overlay">
+            <div class="item-limit-content">
+                <p class="item-limit-text">つかえないよ！</p>
+            </div>
+        </div>
+
+        <!-- Dungeon Start Confirm Overlay -->
+        <div id="dungeon-start-confirm-overlay" class="overlay">
+            <div class="overlay-content quit-confirm-content">
+                <p id="dungeon-start-confirm-msg" class="quit-confirm-msg">バトルを<br>かいしする？</p>
+                <div class="quit-confirm-buttons">
+                    <button id="dungeon-start-yes-btn" class="primary-btn">しゅっぱつ</button>
+                    <button id="dungeon-start-no-btn" class="orange-btn">やめる</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quit Battle Confirm Overlay -->
+        <div id="quit-confirm-overlay" class="overlay">
+            <div class="overlay-content quit-confirm-content">
+                <p class="quit-confirm-msg">バトルを<br>やめる？</p>
+                <div class="quit-confirm-buttons">
+                    <button id="quit-yes-btn" class="primary-btn">はい</button>
+                    <button id="quit-no-btn" class="orange-btn">いいえ</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Boss Cut-in Overlay -->
+        <div id="boss-cutin-overlay" class="overlay boss-cutin-overlay">
+            <div class="boss-cutin-content">
+                <div class="boss-cutin-label">BOSS！</div>
+                <img id="boss-cutin-img" class="boss-cutin-img" src="" alt="">
+                <div id="boss-cutin-name" class="boss-cutin-name"></div>
+                <!-- ボスの名乗りセリフ（Special_モンスターと同じスタイル） -->
+                <div id="boss-cutin-quote" class="special-quote" style="display:none;"></div>
+                <!-- ズームアップ後に表示されるボタン -->
+                <div id="boss-cutin-btns" class="boss-cutin-btns interval-btns">
+                    <button id="boss-battle-start-btn" class="orange-btn">たたかう</button>
+                    <button id="boss-info-btn" class="primary-btn">じょうほう</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Heal/Special 選択ポップアップ -->
+        <div id="encounter-choice-overlay" class="overlay">
+            <div class="overlay-content quit-confirm-content">
+                <p id="encounter-choice-msg" class="quit-confirm-msg"></p>
+                <div class="quit-confirm-buttons">
+                    <button id="encounter-yes-btn" class="orange-btn">はい</button>
+                    <button id="encounter-no-btn" class="primary-btn">いいえ</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- モンスター出現画面 -->
+        <div id="interval-overlay" class="overlay">
+            <div class="overlay-content">
+                <div id="special-quote" class="special-quote"></div>
+                <img id="interval-monster-img" class="interval-img" src="" alt="Monster">
+                <h2 id="interval-msg">モンスターが あらわれた！</h2>
+                <div class="interval-btns">
+                    <button id="battle-start-btn" class="orange-btn">たたかう</button>
+                    <button id="info-btn" class="primary-btn">じょうほう</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Overlay -->
+        <div id="info-overlay" class="overlay info-overlay">
+            <div class="overlay-content info-content">
+                <div class="info-sections">
+                    <div class="info-section">
+                        <h3 class="info-section-title enemy-title">モンスターじょうほう</h3>
+                        <div class="info-rows" id="info-enemy-rows"></div>
+                    </div>
+                    <div class="info-divider"></div>
+                    <div class="info-section">
+                        <h3 class="info-section-title player-title">じぶんのじょうほう</h3>
+                        <div class="info-rows" id="info-player-rows"></div>
+                    </div>
+                </div>
+                <button id="info-close-btn" class="primary-btn info-close-btn">とじる</button>
+            </div>
+        </div>
+
+        <!-- リザルト画面 -->
+        <div id="result-screen" class="screen">
+            <h1 class="title">🎉 クリアおめでとう！ 🎉</h1>
+            <div class="result-total-container">
+                <span class="total-label">ごうけいタイム</span>
+                <span id="total-time-display" class="total-time-display">0.0秒</span>
+            </div>
+            <div class="result-settings-container">
+                <span id="result-settings-text">1かいダンジョン</span>
+            </div>
+            <div class="result-stats">
+                <h3>げきはタイム</h3>
+                <ul id="time-list">
+                    <!-- Javascript will populate this -->
+                </ul>
+            </div>
+            <button id="share-btn">がめんをほぞん</button>
+            <button id="restart-btn">もどる</button>
+        </div>
+
+        <!-- モンスターノート画面 -->
+        <div id="note-screen" class="screen">
+            <div class="top-bg-container">
+                <img src="assets/image/UI/BG_note.webp" alt="背景" class="top-bg-img">
+            </div>
+            <button id="close-note-btn" class="quit-battle-btn" aria-label="トップにもどる">
+                <img src="assets/image/UI/ButtonBack.webp" alt="もどる">
+            </button>
+            <img src="assets/image/UI/main_monsternote.webp" class="screen-title-img" alt="モンスターノート">
+            <!-- 進捗表示エリア -->
+            <div id="note-progress-area" class="note-progress-area">
+                <div class="note-progress-summary">
+                    <span id="note-progress-text" class="note-progress-text">0/0体</span>
+                    <span id="note-progress-pct" class="note-progress-pct">（0%）</span>
+                </div>
+                <div class="note-progress-bar-wrap">
+                    <div id="note-progress-bar" class="note-progress-bar" style="width:0%"></div>
+                </div>
+            </div>
+            <!-- ジャンル選択 -->
+            <div id="note-genre-select" class="note-genre-select">
+                <!-- Populated by JS -->
+            </div>
+            <!-- カードリスト -->
+            <div id="note-card-view" class="note-card-view" style="display:none;">
+                <div class="note-card-view-header">
+                    <button id="note-back-btn" class="note-back-btn">
+                        <img src="assets/image/UI/ButtonBack.webp" alt="もどる">
+                    </button>
+                    <span id="note-current-category" class="note-current-category"></span>
+                </div>
+                <div id="note-grid" class="note-grid">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Image Zoom Modal -->
+        <div id="image-modal" class="image-modal">
+            <span class="close-modal">&times;</span>
+            <div class="modal-frame-wrapper">
+                <img class="modal-content" id="image-modal-img">
+            </div>
+            <div id="caption"></div>
+        </div>
+
+
+        <!-- Audio Elements -->
+        <div id="audio-container">
+            <!-- BGM -->
+            <audio id="bgm-title" loop></audio>
+            <audio id="bgm-menu" loop></audio>
+            <audio id="bgm-dungeon" loop></audio>
+            <audio id="bgm-battle-01" loop></audio>
+            <audio id="bgm-battle-02" loop></audio>
+            <audio id="bgm-battle-03" loop></audio>
+            <audio id="bgm-battle-04" loop></audio>
+            <audio id="bgm-battle-05" loop></audio>
+            <audio id="bgm-battle-06" loop></audio>
+            <audio id="bgm-battle-07" loop></audio>
+            <audio id="bgm-battle-08" loop></audio>
+            <audio id="bgm-battle-09" loop></audio>
+            <audio id="bgm-battle-10" loop></audio>
+            <audio id="bgm-boss" loop></audio>
+            <audio id="bgm-boss-angry" loop></audio>
+            <audio id="bgm-srare" loop></audio>
+            <audio id="bgm-rare" loop></audio>
+            <audio id="bgm-heal" loop></audio>
+            <audio id="bgm-special" loop></audio>
+            <audio id="bgm-shop" loop></audio>
+            <audio id="bgm-clear"></audio>
+            <audio id="bgm-gameover" loop></audio>
+            <!-- SE: battle -->
+            <audio id="se-punch" preload="auto"></audio>
+            <audio id="se-punch-crit" preload="auto"></audio>
+            <audio id="se-sword" preload="auto"></audio>
+            <audio id="se-sword-crit" preload="auto"></audio>
+            <audio id="se-hitting" preload="auto"></audio>
+            <audio id="se-hitting-crit" preload="auto"></audio>
+            <audio id="se-slash" preload="auto"></audio>
+            <audio id="se-slash-crit" preload="auto"></audio>
+            <audio id="se-special" preload="auto"></audio>
+            <audio id="se-player-hit" preload="auto"></audio>
+            <audio id="se-shield-block" preload="auto"></audio>
+            <audio id="se-player-dodge" preload="auto"></audio>
+            <audio id="se-monster-miss" preload="auto"></audio>
+            <audio id="se-gauge-up" preload="auto"></audio>
+            <audio id="se-gauge-max" preload="auto"></audio>
+            <audio id="se-standby" preload="auto"></audio>
+            <!-- SE: status -->
+            <audio id="se-poison" preload="auto"></audio>
+            <audio id="se-poison-tick" preload="auto"></audio>
+            <audio id="se-paralyze" preload="auto"></audio>
+            <audio id="se-paralyzed" preload="auto"></audio>
+            <audio id="se-stone" preload="auto"></audio>
+            <audio id="se-stone-proc" preload="auto"></audio>
+            <!-- SE: item -->
+            <audio id="se-heal" preload="auto"></audio>
+            <audio id="se-atk-up" preload="auto"></audio>
+            <audio id="se-def-up" preload="auto"></audio>
+            <audio id="se-throw" preload="auto"></audio>
+            <audio id="se-equip-get" preload="auto"></audio>
+            <audio id="se-equip-set" preload="auto"></audio>
+            <audio id="se-equip-remove" preload="auto"></audio>
+            <audio id="se-malle" preload="auto"></audio>
+            <!-- SE: event -->
+            <audio id="se-defeat" preload="auto"></audio>
+            <audio id="se-boss-destroyed" preload="auto"></audio>
+            <audio id="se-boss-enter" preload="auto"></audio>
+            <audio id="se-transform" preload="auto"></audio>
+            <audio id="se-boss-resurrection" preload="auto"></audio>
+            <audio id="se-monster-recover" preload="auto"></audio>
+            <audio id="se-level-up" preload="auto"></audio>
+            <audio id="se-clear" preload="auto"></audio>
+            <audio id="se-gameover" preload="auto"></audio>
+            <audio id="se-note" preload="auto"></audio>
+            <!-- SE: ui -->
+            <audio id="se-numpad" preload="auto"></audio>
+            <audio id="se-slide-open" preload="auto"></audio>
+            <audio id="se-slide-close" preload="auto"></audio>
+            <audio id="se-title-tap" preload="auto"></audio>
+            <audio id="se-buy" preload="auto"></audio>
+            <audio id="se-sell" preload="auto"></audio>
+            <audio id="se-timer-warn" preload="auto"></audio>
+            <audio id="se-timer-out" preload="auto"></audio>
+            <audio id="se-dungeon-pin-01" preload="auto"></audio>
+            <audio id="se-dungeon-pin-02" preload="auto"></audio>
+            <audio id="se-dungeon-pin-03" preload="auto"></audio>
+            <audio id="se-dungeon-tab" preload="auto"></audio>
+            <audio id="se-battle-start" preload="auto"></audio>
+            <audio id="se-btn" preload="auto"></audio>
+            <audio id="se-note-details" preload="auto"></audio>
+            <audio id="se-back" preload="auto"></audio>
+            <audio id="se-equip-sort" preload="auto"></audio>
+            <audio id="se-shop-tub" preload="auto"></audio>
+            <audio id="se-equip-tub" preload="auto"></audio>
+            <audio id="se-note-grid" preload="auto"></audio>
+            <div id="whiteout-overlay"></div>
+        <div id="fadeout-overlay"></div>
+        </div>
+        <script src="assets/monster_list.js"></script>
+        <script src="assets/equipment_list.js"></script>
+        <script src="assets/item_list.js"></script>
+        <script src="js/core/constants.js"></script>
+        <script src="js/core/sound.js"></script>
+        <script src="js/core/math_problem.js"></script>
+        <script src="js/core/monster.js"></script>
+        <script src="js/core/storage.js"></script>
+        <script src="js/core/battle.js"></script>
+        <script src="js/core/level-system.js"></script>
+        <script src="js/ui/message-system.js"></script>
+        <script src="js/ui/animation-renderer.js"></script>
+        <script src="js/ui/ui.js"></script>
+        <script src="js/ui/shop.js"></script>
+        <script src="js/managers/settings-manager.js"></script>
+        <script src="js/managers/screen-manager.js"></script>
+        <script src="js/managers/note-manager.js"></script>
+        <script src="js/managers/backpack-hub-manager.js"></script>
+        <script src="js/managers/equipment-manager.js"></script>
+        <script src="js/managers/monster-spawner.js"></script>
+        <script src="js/managers/results-manager.js"></script>
+        <script src="js/managers/battle-item-handler.js"></script>
+        <script src="js/ui/input-handler.js"></script>
+        <script src="js/ui/event-binder.js"></script>
+        <script src="js/ui/particle-effect.js"></script>
+        <script src="js/game.js"></script>
+        <script src="js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,5 @@
+# システム・設定関連（AIのノイズ削減）
+.claude/
+.git/
+.vscode/
+.venv/

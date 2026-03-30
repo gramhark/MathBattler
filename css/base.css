@@ -1,0 +1,64 @@
+:root {
+    --bg-color: #080b16;
+    --panel-color: #12172a;
+    --text-color: #ffffff;
+    --primary-color: #4facfe;
+    --accent-color: #ffd700;
+    --danger-color: #ff4b4b;
+    --success-color: #00e676;
+    --border-color: #2a3660;
+    --accent-border: #374880;
+    --font-pixel: 'M PLUS Rounded 1c', sans-serif;
+    --font-main: 'M PLUS Rounded 1c', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background-color: var(--bg-color);
+    background-image: url('../assets/image/UI/BG.webp');
+    background-repeat: repeat;
+    color: var(--text-color);
+    font-family: var(--font-main);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    overscroll-behavior: none;
+}
+
+/* 仮想キャンバスのベース */
+#app {
+    background-color: var(--bg-color);
+    position: absolute;
+    /* script.js が中央配置・スケーリングを行います */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 0 80px rgba(0, 0, 0, 0.95), 0 0 200px rgba(20, 50, 120, 0.35), inset 0 1px 0 rgba(100, 160, 255, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+    outline: 4px solid rgba(79, 172, 254, 0.22);
+    opacity: 0;
+    transition: opacity 0.15s ease-in;
+}
+
+/* 各種画面 */
+.screen {
+    display: none;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.screen.active {
+    display: flex;
+}
+

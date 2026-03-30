@@ -1,0 +1,41 @@
+/* ============================================================
+   ホワイトアウト演出 (タイトル→メイン遷移)
+   ============================================================ */
+#whiteout-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 10000;
+    transition: opacity 750ms ease-in-out;
+}
+
+#whiteout-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ============================================================
+   フェードアウト演出 (黒)
+   ============================================================ */
+#fadeout-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 10000;
+    transition: opacity 750ms ease-in-out;
+}
+
+#fadeout-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}

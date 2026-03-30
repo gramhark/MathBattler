@@ -1,0 +1,164 @@
+/* ============================================================
+   戦闘中リュックオーバーレイ
+   ============================================================ */
+.battle-bag-overlay {
+    z-index: 145;
+    align-items: center;
+    justify-content: center;
+}
+
+.battle-bag-content {
+    background: linear-gradient(180deg, #181f3c 0%, #0d1222 100%);
+    border: 3px solid rgba(200, 165, 0, 0.62);
+    border-radius: 20px;
+    padding: 0;
+    width: 540px;
+    max-width: 92%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 34px rgba(200, 165, 0, 0.28), 0 12px 44px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 240, 100, 0.07);
+    position: relative;
+    overflow: hidden;
+}
+
+.battle-bag-header {
+    display: flex;
+    align-items: center;
+    padding: 14px 20px 10px;
+    border-bottom: 1px solid var(--border-color);
+    position: relative;
+}
+
+.battle-bag-header .quit-battle-btn {
+    position: static;
+    flex-shrink: 0;
+}
+
+.battle-bag-title {
+    font-family: var(--font-pixel);
+    font-size: 30px;
+    color: var(--accent-color);
+    margin: 0 auto;
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+}
+
+.battle-bag-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 16px;
+    overflow-y: auto;
+    max-height: 380px;
+}
+
+.battle-bag-card {
+    background: linear-gradient(145deg, #1e2848, #131930);
+    border: 2px solid rgba(55, 80, 148, 0.42);
+    border-radius: 12px;
+    padding: 12px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+    gap: 4px;
+    min-height: 90px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.battle-bag-card:hover:not(.battle-bag-card--empty) {
+    transform: scale(1.04);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 10px rgba(79, 172, 254, 0.4);
+}
+
+.battle-bag-card.selected {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 12px rgba(255, 215, 0, 0.5);
+    background: linear-gradient(145deg, #2a2d18, #1a1c10);
+}
+
+.battle-bag-card--empty {
+    opacity: 0.45;
+    cursor: default;
+}
+
+.battle-bag-item-img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 3px rgba(255, 215, 0, 0.7));
+}
+
+.battle-bag-item-count {
+    font-family: var(--font-pixel);
+    font-size: 22px;
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+.battle-bag-item-name {
+    font-family: var(--font-pixel);
+    font-size: 16px;
+    color: #e2e8f0;
+    text-align: center;
+}
+
+.bag-img--empty {
+    filter: brightness(0) opacity(0.5);
+}
+
+/* アイテム使用確認パネル */
+.battle-item-confirm {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    padding: 14px 20px 16px;
+    border-top: 1px solid var(--border-color);
+}
+
+.battle-item-confirm button {
+    font-size: 28px;
+    padding: 12px 36px;
+    flex: 1;
+    max-width: 180px;
+}
+
+/* portrait overrides */
+#app.portrait-mode .battle-bag-content {
+    width: 680px;
+}
+
+#app.portrait-mode .battle-bag-title {
+    font-size: 38px;
+}
+
+#app.portrait-mode .battle-bag-grid {
+    gap: 18px;
+    padding: 20px;
+    max-height: 780px;
+}
+
+#app.portrait-mode .battle-bag-card {
+    padding: 18px 12px;
+    min-height: 130px;
+}
+
+#app.portrait-mode .battle-bag-item-img {
+    width: 70px;
+    height: 70px;
+}
+
+#app.portrait-mode .battle-bag-item-count {
+    font-size: 30px;
+}
+
+#app.portrait-mode .battle-bag-item-name {
+    font-size: 22px;
+}
+
+#app.portrait-mode .battle-item-confirm button {
+    font-size: 38px;
+    padding: 18px 48px;
+    max-width: 216px;
+}

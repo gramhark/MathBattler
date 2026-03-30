@@ -1,0 +1,220 @@
+/* ============================================================
+   そうび画面 (縦画面)
+   ============================================================ */
+#app.portrait-mode #equip-screen {
+    padding: 0;
+    position: relative;
+    flex-direction: column;
+}
+
+
+#app.portrait-mode .equip-status-area {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px 30px;
+    background: rgba(10, 20, 60, 0.75);
+    border: 2px solid rgba(80, 110, 210, 0.5);
+    border-radius: 10px;
+    margin: 10px 20px;
+}
+
+#app.portrait-mode .equip-status-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#app.portrait-mode .equip-status-label {
+    font-family: var(--font-pixel);
+    font-size: 34px;
+    color: #a0aabf;
+}
+
+#app.portrait-mode .equip-status-value {
+    font-family: var(--font-pixel);
+    font-size: 40px;
+    color: var(--accent-color);
+}
+
+#app.portrait-mode .equip-tabs {
+    display: flex;
+    gap: 8px;
+    padding: 16px 30px 0;
+}
+
+#app.portrait-mode .equip-tab {
+    flex: 1;
+    font-family: var(--font-pixel);
+    font-size: 34px;
+    padding: 14px 0;
+    border-radius: 10px 10px 0 0;
+    border: 2px solid rgba(55, 80, 155, 0.5);
+    border-bottom: none;
+    background: rgba(30, 40, 80, 1);
+    color: #a0aabf;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+
+#app.portrait-mode .equip-tab:hover {
+    background: rgba(40, 65, 120, 1);
+    color: #c8d8f0;
+}
+
+#app.portrait-mode .equip-tab.active {
+    background: linear-gradient(180deg, #1e3a6e, #162a55);
+    color: #ffd700;
+    border-color: #ffd700;
+}
+
+#app.portrait-mode .equip-sort-bar {
+    display: flex;
+    gap: 12px;
+    padding: 10px 30px 0;
+}
+
+#app.portrait-mode .equip-sort-btn {
+    font-family: var(--font-pixel);
+    font-size: 28px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 2px solid rgba(55, 80, 155, 0.5);
+    background: rgba(30, 40, 80, 0.8);
+    color: #a0aabf;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+#app.portrait-mode .equip-sort-btn:hover {
+    background: rgba(40, 65, 120, 0.9);
+    color: #c8d8f0;
+}
+
+#app.portrait-mode .equip-sort-btn.active {
+    background: rgba(30, 60, 120, 0.9);
+    color: #ffd700;
+    border-color: rgba(255, 215, 0, 0.6);
+}
+
+#app.portrait-mode .equip-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#app.portrait-mode .equip-none-section {
+    display: flex;
+    gap: 16px;
+}
+
+#app.portrait-mode .equip-none-btn {
+    flex: 1;
+    font-size: 34px !important;
+    padding: 16px !important;
+}
+
+#app.portrait-mode .equip-empty-msg {
+    font-family: var(--font-pixel);
+    font-size: 36px;
+    color: #a0aabf;
+    text-align: center;
+    margin-top: 40px;
+}
+
+#app.portrait-mode .equip-card {
+    background: linear-gradient(145deg, #1d2748, #111830);
+    border: 3px solid rgba(55, 80, 155, 0.5);
+    border-radius: 16px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.55);
+    cursor: pointer;
+}
+
+#app.portrait-mode .equip-card:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 20px rgba(79, 172, 254, 0.35);
+}
+
+#app.portrait-mode .equip-card-img {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.8));
+}
+
+#app.portrait-mode .equip-card-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+#app.portrait-mode .equip-card-name {
+    font-family: var(--font-pixel);
+    font-size: 36px;
+    color: #e2e8f0;
+}
+
+#app.portrait-mode .equip-card-stats {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+#app.portrait-mode .equip-stat {
+    font-family: var(--font-pixel);
+    font-size: 28px;
+    padding: 2px 10px;
+    border-radius: 6px;
+}
+
+#app.portrait-mode .equip-stat.atk {
+    color: #ffa07a;
+    background: rgba(255, 100, 50, 0.15);
+    border: 1px solid rgba(255, 100, 50, 0.4);
+}
+
+#app.portrait-mode .equip-stat.def {
+    color: #87cefa;
+    background: rgba(50, 150, 255, 0.15);
+    border: 1px solid rgba(50, 150, 255, 0.4);
+}
+
+#app.portrait-mode .equip-card-btn {
+    font-size: 30px !important;
+    padding: 14px 20px !important;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+#app.portrait-mode .equip-card-btn.equip-card-btn-remove {
+    background: linear-gradient(135deg, #7a2020, #5a1515) !important;
+    border-color: #c04040 !important;
+    color: #ffcccc !important;
+}
+
+#app.portrait-mode .equip-card.equipped {
+    border-color: #ffd700;
+    box-shadow: 0 0 18px rgba(255, 215, 0, 0.4);
+}
+
+#app.portrait-mode .equip-card-badge {
+    display: inline-block;
+    align-self: flex-start;
+    font-family: var(--font-pixel);
+    font-size: 22px;
+    color: #ffd700;
+    background: rgba(255, 215, 0, 0.15);
+    border: 1px solid rgba(255, 215, 0, 0.5);
+    border-radius: 6px;
+    padding: 2px 8px;
+    vertical-align: middle;
+}

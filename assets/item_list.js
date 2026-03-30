@@ -1,0 +1,58 @@
+﻿window.ITEM_LIST = [
+    {
+        id: "attackOrb",
+        name: "こうげきだま",
+        sellPrice: 500,
+        desc: "こうげきりょくが アップする",
+        img: "attackOrb.webp",
+        effectId: null,
+    },
+    {
+        id: "defenseOrb",
+        name: "ぼうぎょだま",
+        sellPrice: 400,
+        desc: "ぼうぎょりょくが アップする",
+        img: "defenseOrb.webp",
+        effectId: null,
+    },
+    {
+        id: "healOrb",
+        name: "かいふくだま",
+        sellPrice: 300,
+        desc: "たいりょくを かいふくする",
+        img: "healOrb.webp",
+        effectId: null,
+    },
+    {
+        id: "paralyzeOrb",
+        name: "まひだま",
+        sellPrice: 150,
+        desc: "てきを まひにする",
+        img: "paralyzeOrb.webp",
+        effectId: null,
+    },
+    {
+        id: "poisonOrb",
+        name: "どくだま",
+        sellPrice: 150,
+        desc: "てきを どくにする",
+        img: "poisonOrb.webp",
+        effectId: null,
+    },
+    {
+        id: "spikeOrb",
+        name: "とげだま",
+        sellPrice: 100,
+        desc: "モンスターに なげる",
+        img: "spikeOrb.webp",
+        effectId: null,
+    },
+    {
+        id: "stoneOrb",
+        name: "せきかだま",
+        sellPrice: 300,
+        desc: "てきを いしにすることがある",
+        img: "stoneOrb.webp",
+        effectId: null,
+    }
+];

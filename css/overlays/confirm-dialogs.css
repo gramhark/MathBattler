@@ -1,0 +1,72 @@
+/* ============================================================
+   ダンジョン開始確認ダイアログ
+   ============================================================ */
+#dungeon-start-confirm-overlay {
+    z-index: 160;
+}
+
+#dungeon-start-confirm-overlay .overlay-content {
+    background: linear-gradient(180deg, rgba(22, 30, 58, 0.97) 0%, rgba(10, 14, 32, 0.98) 100%);
+    border: 2px solid rgba(55, 80, 160, 0.48);
+    border-radius: 20px;
+    padding: 50px 60px;
+    box-shadow: 0 12px 44px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* ============================================================
+   Heal/Special 選択ポップアップ
+   ============================================================ */
+#encounter-choice-overlay {
+    z-index: 155;
+}
+
+#encounter-choice-overlay .overlay-content {
+    background: linear-gradient(180deg, rgba(22, 30, 58, 0.97) 0%, rgba(10, 14, 32, 0.98) 100%);
+    border: 2px solid rgba(55, 80, 160, 0.48);
+    border-radius: 20px;
+    padding: 50px 60px;
+    box-shadow: 0 12px 44px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* ============================================================
+   戦闘やめる確認ダイアログ
+   ============================================================ */
+#quit-confirm-overlay {
+    z-index: 160;
+}
+
+#quit-confirm-overlay .overlay-content {
+    background: linear-gradient(180deg, rgba(22, 30, 58, 0.97) 0%, rgba(10, 14, 32, 0.98) 100%);
+    border: 2px solid rgba(55, 80, 160, 0.48);
+    border-radius: 20px;
+    padding: 50px 60px;
+    box-shadow: 0 12px 44px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.quit-confirm-msg {
+    font-family: var(--font-pixel);
+    font-size: 56px;
+    color: #fff;
+    text-align: center;
+    line-height: 1.5;
+    margin-bottom: 44px;
+    white-space: pre-wrap;
+}
+
+.quit-confirm-buttons {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+}
+
+.quit-confirm-buttons button {
+    font-size: 40px;
+    padding: 18px 0;
+    width: 180px;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+#dungeon-start-yes-btn {
+    font-size: 32px;
+}

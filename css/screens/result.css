@@ -1,0 +1,155 @@
+/* ============================================================
+   リザルト画面 (縦画面)
+   ============================================================ */
+#app.portrait-mode #result-screen {
+    padding: 40px;
+    overflow-y: auto;
+    background: radial-gradient(ellipse 160% 55% at 50% 0%, rgba(79, 172, 254, 0.14) 0%, transparent 55%);
+}
+
+#app.portrait-mode .title {
+    font-size: 56px;
+    margin: 24px 0;
+    white-space: nowrap;
+    text-align: center;
+}
+
+#app.portrait-mode .result-total-container {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#app.portrait-mode .total-label {
+    font-size: 28px;
+    color: #94a3b8;
+    display: block;
+    text-align: center;
+}
+
+#app.portrait-mode .total-time-display {
+    font-size: 90px;
+    margin: 0;
+    text-align: center;
+    display: block;
+}
+
+#app.portrait-mode .result-settings-container {
+    font-size: 28px;
+    padding: 16px 24px;
+    margin-bottom: 30px;
+    background: linear-gradient(145deg, #1e2748, #131930);
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid rgba(60, 85, 160, 0.4);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+#app.portrait-mode .result-stats {
+    background: linear-gradient(180deg, rgba(22, 30, 58, 0.92) 0%, rgba(12, 16, 38, 0.96) 100%);
+    backdrop-filter: blur(8px);
+    border: 2px solid rgba(55, 80, 160, 0.45);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    padding: 30px;
+    border-radius: 16px;
+}
+
+#app.portrait-mode .result-stats h3 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#app.portrait-mode #time-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+#app.portrait-mode .result-card {
+    background: linear-gradient(145deg, #1d2748, #111830);
+    border: 3px solid rgba(55, 80, 155, 0.5);
+    border-radius: 16px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 200px;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+#app.portrait-mode .result-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 22px rgba(79, 172, 254, 0.5), 0 4px 18px rgba(0, 0, 0, 0.55);
+    border-color: var(--primary-color);
+    z-index: 10;
+}
+
+#app.portrait-mode .result-img-container {
+    width: 80px;
+    height: 80px;
+}
+
+#app.portrait-mode .result-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+#app.portrait-mode .result-name {
+    font-size: 18px;
+    color: #cbd5e1;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+#app.portrait-mode .result-time {
+    font-size: 28px;
+    font-weight: bold;
+    font-family: var(--font-pixel);
+}
+
+#app.portrait-mode #share-btn,
+#app.portrait-mode #restart-btn {
+    display: block;
+    width: 340px;
+    margin: 24px auto;
+    padding: 22px 0;
+    background: linear-gradient(145deg, #1d2748, #111830);
+    border: 2px solid rgba(79, 172, 254, 0.5);
+    border-radius: 14px;
+    color: #e2e8f0;
+    font-family: var(--font-pixel);
+    font-size: 32px;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+#app.portrait-mode #share-btn:hover,
+#app.portrait-mode #restart-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 18px rgba(79, 172, 254, 0.45);
+    border-color: var(--primary-color);
+}
+
+#app.portrait-mode #share-btn:active,
+#app.portrait-mode #restart-btn:active {
+    transform: scale(0.97);
+}
+
+#app.portrait-mode #share-btn {
+    margin-top: 50px;
+}
+
+#app.portrait-mode #restart-btn {
+    margin-bottom: 50px;
+}

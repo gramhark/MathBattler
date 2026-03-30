@@ -1,0 +1,514 @@
+﻿/* ============================================================
+   Monster Note (図鑑)
+   ============================================================ */
+.note-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 15px;
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+    align-content: start;
+}
+
+#app.portrait-mode .note-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
+    padding: 30px;
+}
+
+
+.note-category-header {
+    grid-column: 1 / -1;
+    font-size: 24px;
+    color: var(--accent-color);
+    font-family: var(--font-pixel);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 5px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.4);
+}
+
+.note-category-header:first-child {
+    margin-top: 0;
+}
+
+.note-category-count {
+    font-size: 0.7em;
+    color: #8ab4f8;
+    margin-left: 8px;
+}
+
+#app.portrait-mode .note-category-header {
+    font-size: 32px;
+    padding-bottom: 10px;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+
+
+
+.note-card {
+    background: linear-gradient(145deg, #1d2748, #111830);
+    border: 3px solid rgba(55, 80, 155, 0.48);
+    border-radius: 12px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.note-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(79, 172, 254, 0.5), 0 4px 14px rgba(0, 0, 0, 0.5);
+    border-color: var(--primary-color);
+}
+
+.note-card.undefeated {
+    cursor: default;
+}
+
+.note-card.undefeated:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--border-color);
+}
+
+.note-img-container {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+#app.portrait-mode .note-img-container {
+    width: 120px;
+    height: 120px;
+}
+
+.note-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 1)) drop-shadow(0 0 4px rgba(255, 255, 255, 0.8));
+}
+
+/* シルエット処理 */
+.silhouette {
+    filter: brightness(0) drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
+    opacity: 0.7;
+}
+
+/* アイテムノート：登録済み（黄色グロウ） */
+.item-note-glow {
+    filter: drop-shadow(0 0 3px rgba(255, 215, 0, 0.7)) drop-shadow(0 0 6px rgba(255, 215, 0, 0.4));
+}
+
+.note-floor-label {
+    font-size: 11px;
+    color: #8ab4f8;
+    text-align: center;
+    margin-bottom: 2px;
+    white-space: nowrap;
+}
+
+#app.portrait-mode .note-floor-label {
+    font-size: 16px;
+}
+
+.note-name {
+    font-size: 14px;
+    color: #e2e8f0;
+    text-align: center;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+#app.portrait-mode .note-name {
+    font-size: 20px;
+}
+
+.note-detail-content {
+    background: linear-gradient(145deg, #181f3c 0%, #0d1222 100%);
+    border: 4px solid var(--primary-color);
+    border-radius: 16px;
+    padding: 30px;
+    width: 400px;
+    max-width: 90%;
+    position: relative;
+    box-shadow: 0 0 40px rgba(79, 172, 254, 0.45), 0 12px 40px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+#app.portrait-mode .note-detail-content {
+    width: 600px;
+    padding: 40px;
+}
+
+.note-detail-top {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#note-detail-img {
+    max-width: 200px;
+    max-height: 200px;
+}
+
+#app.portrait-mode #note-detail-img {
+    max-width: 300px;
+    max-height: 300px;
+}
+
+.note-detail-stats {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 20px;
+}
+
+#app.portrait-mode .note-detail-stats {
+    font-size: 28px;
+    padding: 24px;
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.stat-row:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+/* ============================================================
+   難易度クリアバッジ
+   ============================================================ */
+.note-diff-badges {
+    width: 100%;
+    margin-top: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.note-diff-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+.diff-badge {
+    color: #2a3050;
+    font-size: 10px;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.diff-badge.diff-bronze.cleared { color: #cd7f32; text-shadow: 0 0 4px rgba(205, 127, 50, 0.5); }
+.diff-badge.diff-silver.cleared { color: #c0c0c0; text-shadow: 0 0 4px rgba(192, 192, 192, 0.5); }
+.diff-badge.diff-malle.cleared   { color: #ffd700; text-shadow: 0 0 6px rgba(255, 215, 0, 0.7); }
+
+.diff-stars {
+    color: #556090;
+    font-size: 10px;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.note-diff-row .diff-stars {
+    min-width: 24px;
+}
+
+.diff-badge.diff-bronze.cleared ~ .diff-stars,
+.diff-badge.diff-silver.cleared ~ .diff-stars,
+.diff-badge.diff-malle.cleared   ~ .diff-stars {
+    color: #8ab4f8;
+}
+
+.diff-time {
+    color: #6a7590;
+    font-size: 10px;
+    white-space: nowrap;
+}
+
+.diff-badge.cleared ~ .diff-time {
+    color: #e2e8f0;
+}
+
+#app.portrait-mode .note-diff-badges {
+    gap: 4px;
+    margin-top: 10px;
+}
+
+#app.portrait-mode .note-diff-row {
+    font-size: 16px;
+    gap: 6px;
+}
+
+#app.portrait-mode .diff-badge {
+    font-size: 14px;
+}
+
+#app.portrait-mode .diff-stars {
+    font-size: 14px;
+}
+
+#app.portrait-mode .note-diff-row .diff-stars {
+    min-width: 36px;
+}
+
+#app.portrait-mode .diff-time {
+    font-size: 14px;
+}
+
+/* ============================================================
+   Note Progress (総合進捗)
+   ============================================================ */
+.note-progress-area {
+    padding: 6px 20px 4px;
+    flex-shrink: 0;
+}
+
+.note-progress-summary {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin-bottom: 6px;
+}
+
+.note-progress-text {
+    font-family: var(--font-pixel);
+    font-size: 18px;
+    color: #e2e8f0;
+}
+
+.note-progress-pct {
+    font-family: var(--font-pixel);
+    font-size: 16px;
+    color: #8ab4f8;
+}
+
+.note-progress-bar-wrap {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 4px;
+    height: 8px;
+    overflow: hidden;
+}
+
+.note-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #4facfe, #00f2fe);
+    border-radius: 4px;
+    transition: width 0.4s ease;
+    width: 0%;
+}
+
+#app.portrait-mode .note-progress-area {
+    padding: 8px 30px 6px;
+}
+
+#app.portrait-mode .note-progress-text {
+    font-size: 26px;
+}
+
+#app.portrait-mode .note-progress-pct {
+    font-size: 22px;
+}
+
+#app.portrait-mode .note-progress-bar-wrap {
+    height: 12px;
+}
+
+/* ============================================================
+   Note Genre Select (ジャンル選択)
+   ============================================================ */
+.note-genre-select {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    padding: 20px;
+    flex: 1;
+    overflow-y: auto;
+    align-content: start;
+}
+
+#app.portrait-mode .note-genre-select {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    padding: 30px;
+}
+
+.note-genre-btn {
+    background: linear-gradient(145deg, #1d2748, #111830);
+    border: 2px solid rgba(79, 172, 254, 0.4);
+    border-radius: 14px;
+    padding: 16px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+}
+
+.note-genre-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 18px rgba(79, 172, 254, 0.5);
+    border-color: var(--primary-color);
+}
+
+.note-genre-btn:active {
+    transform: scale(0.97);
+}
+
+.note-genre-label {
+    font-family: var(--font-pixel);
+    font-size: 20px;
+    color: var(--accent-color);
+    text-align: center;
+}
+
+#app.portrait-mode .note-genre-label {
+    font-size: 28px;
+}
+
+.note-genre-count {
+    font-family: var(--font-pixel);
+    font-size: 16px;
+    color: #8ab4f8;
+}
+
+#app.portrait-mode .note-genre-count {
+    font-size: 22px;
+}
+
+.note-genre-count-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.note-genre-medal {
+    font-size: 16px;
+    color: #ffd700;
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
+    line-height: 1;
+}
+
+.note-genre-completed {
+    border-color: rgba(255, 215, 0, 0.6);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5), 0 0 10px rgba(255, 215, 0, 0.2);
+}
+
+#app.portrait-mode .note-genre-medal {
+    font-size: 22px;
+}
+
+/* カードリストビュー */
+.note-card-view {
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+}
+
+.note-card-view-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+#app.portrait-mode .note-card-view-header {
+    padding: 16px 30px;
+    gap: 24px;
+}
+
+.note-back-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.note-back-btn img {
+    display: block;
+    width: auto;
+    height: auto;
+}
+
+.note-back-btn:active {
+    transform: scale(0.9);
+}
+
+#app.portrait-mode .note-back-btn img {
+    width: auto;
+}
+
+.note-current-category {
+    font-family: var(--font-pixel);
+    font-size: 28px;
+    color: var(--accent-color);
+    text-shadow: 0 0 6px rgba(255, 215, 0, 0.4);
+}
+
+#app.portrait-mode .note-current-category {
+    font-size: 40px;
+}
+
+#app.portrait-mode #note-grid {
+    flex: 1;
+    overflow-y: auto;
+}
+
+/* ============================================================
+   Note Footer (バックアップ)
+   ============================================================ */
+.note-footer {
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.note-footer-iphone-notice {
+    font-size: 11px;
+    color: #aaa;
+    text-align: center;
+    margin: 0;
+}
+
+.note-footer-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+#app.portrait-mode .note-footer-buttons button {
+    font-size: 24px !important;
+    padding: 14px 10px !important;
+    height: auto !important;
+    width: 100%;
+}

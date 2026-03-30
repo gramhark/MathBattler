@@ -1,0 +1,105 @@
+/* ============================================================
+   メッセージログ・テキスト表示
+   ============================================================ */
+
+/* メッセージログ行カラー */
+.message-log-line {
+    color: #fff;
+    text-shadow: 0 0 8px #000, 0 0 16px #000;
+}
+
+.message-log-line.critical,
+.message-log-line.critical.text-player-action {
+    color: #ffea00;
+    text-shadow: 1px 1px 2px #000, -1px -1px 2px #000, 0px 0px 10px rgba(255, 234, 0, 0.7);
+}
+
+.message-log-line.text-player-action {
+    color: #4facfe;
+    text-shadow: 1px 1px 2px #000, -1px -1px 2px #000, 0px 0px 8px rgba(79, 172, 254, 0.7);
+}
+
+.message-log-line.text-monster-action {
+    color: var(--danger-color);
+    text-shadow: 1px 1px 2px #000, -1px -1px 2px #000, 0px 0px 6px rgba(0, 0, 0, 0.8);
+}
+
+.message-log-line.text-neutral {
+    color: #fff;
+    text-shadow: 0 0 8px #000, 0 0 16px #000;
+}
+
+.monster-turn-text {
+    color: var(--accent-color) !important;
+}
+
+/* ============================================================
+   リザルト画面 共通装飾
+   ============================================================ */
+.result-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    width: 100%;
+}
+
+.time-fastest {
+    color: #4facfe !important;
+    text-shadow: 0 0 8px rgba(79, 172, 254, 0.6);
+}
+
+.time-slowest {
+    color: #ff4b4b !important;
+    text-shadow: 0 0 8px rgba(255, 75, 75, 0.6);
+}
+
+/* ============================================================
+   Special_モンスター セリフ表示
+   ============================================================ */
+.special-quote {
+    display: none;
+    text-align: center;
+    font-family: var(--font-pixel);
+    font-size: 22px;
+    color: #a0e0ff;
+    text-shadow: 0 0 8px rgba(100, 200, 255, 0.8), 0 0 20px rgba(100, 200, 255, 0.4);
+    background: rgba(0, 60, 120, 0.55);
+    border: 2px solid rgba(100, 200, 255, 0.4);
+    border-radius: 12px;
+    padding: 8px 16px;
+    margin-bottom: 8px;
+    max-width: 90%;
+    word-break: break-all;
+    white-space: pre-wrap;
+    animation: specialQuoteFadeIn 0.5s ease-out;
+}
+
+/* インターバル画面ではショップ店員と同じ吹き出しデザインを使う */
+#interval-overlay .special-quote {
+    font-size: 42px !important;
+    background: rgba(0, 60, 120, 0.88);
+    border: 2px solid rgba(100, 200, 255, 0.6);
+    border-radius: 16px;
+    padding: 18px 32px;
+    margin-bottom: 24px;
+    width: 600px;
+    max-width: 90%;
+    min-width: 300px;
+    position: relative;
+    white-space: pre-wrap;
+    word-break: normal;
+}
+
+/* 吹き出しの尻尾（モンスター方向＝下向き） */
+#interval-overlay .special-quote::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 20px solid transparent;
+    border-top-color: rgba(0, 60, 120, 0.88);
+    border-bottom: 0;
+}

@@ -1,0 +1,173 @@
+/* ============================================================
+   モンスター表示・エフェクト
+   ============================================================ */
+.monster-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    /* overflow: visible にして見切れを防ぐ */
+    overflow: visible;
+}
+
+/* モンスター画像ラッパー（ステータスマスク用） */
+.monster-img-wrapper {
+    position: relative;
+    display: inline-block;
+    line-height: 0;
+}
+
+/* ステータスマスク（毒・麻痺・石化） */
+.monster-status-mask {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: 4px;
+}
+
+.monster-status-mask.mask--poison {
+    background: rgba(150, 30, 220, 0.40);
+}
+
+.monster-status-mask.mask--paralyzed {
+    background: rgba(255, 230, 0, 0.40);
+}
+
+.monster-status-mask.mask--stone {
+    background: rgba(140, 140, 140, 0.55);
+}
+
+/* ===== 攻撃エフェクト画像 ===== */
+.attack-effect-img {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    object-fit: contain;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 10;
+    top: 40%;
+    left: 50%;
+    margin-top: -150px;
+    margin-left: -150px;
+}
+
+/* 素手攻撃・爆発系（中央でドン） */
+.attack-effect-img.anim-hit {
+    animation: effectHit 0.55s ease-out forwards;
+}
+
+/* 素手クリティカル・爆発系（1.5倍） */
+.attack-effect-img.anim-critical-hit {
+    animation: effectCriticalHit 0.65s ease-out forwards;
+}
+
+/* 剣の通常攻撃・三日月（大きく回転しながら出現） */
+.attack-effect-img.anim-slash {
+    animation: effectSlash 0.55s ease-out forwards;
+}
+
+/* 剣のクリティカル・斬撃（左上から右下へ通過） */
+.attack-effect-img.anim-crescent {
+    animation: effectCrescent 0.65s ease-out forwards;
+}
+
+/* 必殺技（専用アニメ） */
+.attack-effect-img.anim-sp-attack {
+    animation: effectSpAttack 0.85s ease-out forwards;
+}
+
+/* モンスター画像共通設定（グロウ処理・トランジション復元） */
+#monster-img {
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 1))drop-shadow(0 0 4px rgba(255, 255, 255, 0.8))drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
+    transition: opacity 0.2s, filter 0.2s;
+}
+
+.fade-slow {
+    transition: opacity 1s !important;
+}
+
+/* ============================================================
+   モンスターいかり状態
+   ============================================================ */
+/* モンスター画像のみに赤グロウアニメを適用（コンテナ枠は光らせない） */
+.monster-container.angry #monster-img {
+    animation: angry-img-pulse 1.5s ease-in-out infinite;
+}
+
+/* ============================================================
+   必殺技オーラ
+   ============================================================ */
+/* けん画像ラッパー（オーラの基準点） */
+.sword-aura-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* オーラ画像（けん画像の背後でゆらゆら） */
+.aura-img {
+    position: absolute;
+    width: auto;
+    height: 165%;
+    /* 旧110%の1.5倍 */
+    object-fit: contain;
+    opacity: 1;
+    pointer-events: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    z-index: 0;
+    /* 剣(z-index:1)の背後 */
+    animation: auraFloat 2s ease-in-out infinite;
+}
+
+/* 剣画像をオーラより前面に */
+.sword-aura-wrapper #sword-label {
+    position: relative;
+    z-index: 1;
+}
+
+/* ============================================================
+   Item Slot（バトル画面・所持アイテム表示）
+   ============================================================ */
+.item-slot-container {
+    width: 35px;
+    height: 35px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    margin-left: 4px;
+}
+
+.item-slot-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    cursor: pointer;
+    transition: transform 0.15s;
+}
+
+.item-slot-img:hover {
+    transform: scale(1.12);
+}
+
+/* ============================================================
+   Item Use Image（アイテム使用演出）
+   ============================================================ */
+#item-use-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    z-index: 20;
+    pointer-events: none;
+}
+
+.item-use-anim {
+    animation: item-use-zoom 2.0s ease-out forwards;
+}

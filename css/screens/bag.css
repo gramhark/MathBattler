@@ -1,0 +1,77 @@
+/* ============================================================
+   アイテムノート (縦画面)
+   ============================================================ */
+#app.portrait-mode #item-note-screen {
+    padding: 0;
+}
+
+/* ============================================================
+   リュック画面 (縦画面)
+   ============================================================ */
+#app.portrait-mode #bag-screen {
+    padding: 0;
+    position: relative;
+}
+
+
+#app.portrait-mode .bag-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    padding: 30px;
+    flex: 1;
+    overflow-y: auto;
+    align-content: start;
+}
+
+#app.portrait-mode .bag-card {
+    background: linear-gradient(145deg, #1d2748, #111830);
+    border: 3px solid rgba(55, 80, 155, 0.5);
+    border-radius: 16px;
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    gap: 10px;
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+#app.portrait-mode .bag-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 20px rgba(79, 172, 254, 0.45), 0 4px 18px rgba(0, 0, 0, 0.55);
+    border-color: var(--primary-color);
+}
+
+#app.portrait-mode .bag-card--empty {
+    opacity: 0.5;
+}
+
+#app.portrait-mode .bag-item-img {
+    width: 130px;
+    height: 130px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.8)) drop-shadow(0 0 8px rgba(255, 215, 0, 0.5));
+}
+
+#app.portrait-mode .bag-item-count {
+    font-family: var(--font-pixel);
+    font-size: 46px;
+    color: var(--accent-color);
+    font-weight: bold;
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+}
+
+#app.portrait-mode .bag-item-name {
+    font-family: var(--font-pixel);
+    font-size: 26px;
+    color: #e2e8f0;
+    text-align: center;
+}
+
+/* リュックアイコン（戦闘中）のサイズ */
+#app.portrait-mode .backpack-slot-img {
+    width: 60px;
+    height: 60px;
+}

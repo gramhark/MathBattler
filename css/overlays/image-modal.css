@@ -1,0 +1,165 @@
+/* ============================================================
+   画像拡大モーダル
+   ============================================================ */
+.image-modal {
+    display: none;
+    position: fixed;
+    z-index: 200;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.image-modal.active {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-frame-wrapper {
+    background: linear-gradient(145deg, #141a32 0%, #0d1220 100%);
+    border: 6px solid #ffd700;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 0 0 6px #8a6000, 0 0 0 12px #0d1220, 0 0 60px rgba(255, 215, 0, 0.7), 0 20px 60px rgba(0, 0, 0, 0.85);
+    position: relative;
+    animation: zoom 0.3s;
+}
+
+.modal-content {
+    max-width: 800px;
+    max-height: 800px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 1))drop-shadow(0 0 4px rgba(255, 255, 255, 0.8))drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
+}
+
+.item-zoom-glow {
+    filter: drop-shadow(0 0 4px rgba(255, 215, 0, 1)) drop-shadow(0 0 10px rgba(255, 215, 0, 0.8)) drop-shadow(0 0 20px rgba(255, 215, 0, 0.5)) !important;
+}
+
+@keyframes zoom {
+    from {
+        transform: scale(0)
+    }
+
+    to {
+        transform: scale(1)
+    }
+}
+
+.close-modal {
+    position: absolute;
+    top: 30px;
+    right: 50px;
+    color: #f1f1f1;
+    font-size: 80px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 201;
+}
+
+#caption {
+    color: #ccc;
+    font-family: var(--font-pixel);
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.modal-name {
+    font-size: 48px;
+    color: #fff;
+    align-self: center;
+    text-align: center;
+}
+
+.modal-equip-stats {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.modal-equip-stats .equip-stat {
+    font-size: 38px;
+    padding: 4px 16px;
+}
+
+.modal-diff-badges {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 18px 32px;
+    align-self: stretch;
+}
+
+.modal-diff-row {
+    font-size: 34px !important;
+    gap: 16px !important;
+}
+
+.modal-diff-row .diff-badge {
+    font-size: 28px !important;
+}
+
+.modal-diff-row .diff-stars {
+    font-size: 34px !important;
+    min-width: 120px !important;
+}
+
+.modal-diff-row .diff-time {
+    font-size: 34px !important;
+}
+
+.modal-count {
+    font-size: 36px;
+    color: #8ab4f8;
+    font-family: var(--font-pixel);
+    align-self: stretch;
+    padding-left: 32px;
+}
+
+.modal-diary-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    align-self: stretch;
+    padding-left: 32px;
+}
+
+.modal-diary-input {
+    width: 120%;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid rgba(79, 172, 254, 0.5);
+    border-radius: 16px;
+    color: #e2e8f0;
+    font-family: var(--font-pixel);
+    font-size: 44px;
+    padding: 16px 24px;
+    text-align: left;
+    outline: none;
+    box-sizing: border-box;
+    resize: none;
+    overflow: hidden;
+    line-height: 1.5;
+    align-self: center;
+}
+
+.modal-diary-input:focus {
+    border-color: #4facfe;
+    box-shadow: 0 0 8px rgba(79, 172, 254, 0.4);
+}
+
+.modal-diary-input::placeholder {
+    color: #3a4a70;
+    font-size: 32px;
+}

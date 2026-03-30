@@ -1,0 +1,224 @@
+/* StorageManager: localStorageの読み書きを一元管理するクラス
+ * 将来Firebaseへ移行する際は、このクラスのメソッドをasync化するだけで対応可能。
+ */
+class StorageManager {
+
+    // --- プレイヤー基本設定 ---
+
+    savePlayerName(name) {
+        localStorage.setItem('math_battle_player_name', name);
+    }
+
+    loadPlayerName() {
+        return localStorage.getItem('math_battle_player_name') || '';
+    }
+
+    // --- マール ---
+
+    saveMalle(amount) {
+        localStorage.setItem('math_battle_malle', amount);
+    }
+
+    loadMalle() {
+        return Math.min(parseInt(localStorage.getItem('math_battle_malle')) || 0, Constants.MAX_MALLE);
+    }
+
+    // --- リュック（アイテム所持数） ---
+
+    saveBackpack(backpack) {
+        localStorage.setItem('math_battle_backpack', JSON.stringify(backpack));
+    }
+
+    loadBackpack() {
+        try {
+            const stored = JSON.parse(localStorage.getItem('math_battle_backpack') || '{}');
+            const backpack = { items: {}, equipment: [] };
+            const storedItems = stored.items || stored; // 後方互換
+            // アイテム
+            window.ITEM_LIST.forEach(item => {
+                backpack.items[item.id] = Math.max(0, Math.min(Constants.MAX_ITEM,
+                    parseInt(storedItems[item.id]) || 0));
+            });
+            // 武具（equipment配列）— 定義系フィールドはEQUIPMENT_LISTを正として上書きマージ
+            backpack.equipment = Array.isArray(stored.equipment)
+                ? stored.equipment.map(e => {
+                    const master = window.EQUIPMENT_LIST && window.EQUIPMENT_LIST.find(m => m.id === e.id);
+                    return master ? { ...master, equipped: e.equipped } : e;
+                })
+                : [];
+            return backpack;
+        } catch (e) {
+            const backpack = { items: {}, equipment: [] };
+            window.ITEM_LIST.forEach(item => { backpack.items[item.id] = 0; });
+            return backpack;
+        }
+    }
+
+    // --- 難易度 ---
+
+    saveSelectedDifficulty(difficulty) {
+        localStorage.setItem('math_battle_difficulty', difficulty);
+    }
+
+    loadSelectedDifficulty() {
+        return parseInt(localStorage.getItem('math_battle_difficulty')) || Difficulty.HARD;
+    }
+
+    // --- クリア済み階数（難易度別） ---
+
+    _floorKey(difficulty) {
+        return `math_battle_cleared_floors_${difficulty}`;
+    }
+
+    saveFloorClear(floor, difficulty) {
+        const cleared = this.loadClearedFloors(difficulty);
+        cleared[floor] = true;
+        localStorage.setItem(this._floorKey(difficulty), JSON.stringify(cleared));
+    }
+
+    loadClearedFloors(difficulty) {
+        try {
+            const stored = localStorage.getItem(this._floorKey(difficulty));
+            if (stored) return JSON.parse(stored);
+        } catch (e) { }
+        return {};
+    }
+
+    saveAllClearedFloors(cleared, difficulty) {
+        localStorage.setItem(this._floorKey(difficulty), JSON.stringify(cleared));
+    }
+
+    // --- モンスター図鑑 ---
+
+    /**
+     * 旧フォーマット（fastestTime が数値）を新フォーマットに移行する。
+     * 旧フォーマットは ★1 の記録として引き継ぐ。
+     */
+    _migrateCollection(collection) {
+        let migrated = false;
+        for (const name of Object.keys(collection)) {
+            if (name === '_checksum') continue;
+            const rec = collection[name];
+            if (typeof rec.fastestTime === 'number') {
+                rec.fastestTime = { 1: rec.fastestTime, 2: null, 3: null };
+                migrated = true;
+            }
+        }
+        return migrated;
+    }
+
+    saveMonsterRecord(monsterName, record) {
+        const collection = this.loadMonsterCollection();
+        collection[monsterName] = record;
+        try {
+            localStorage.setItem('math_battle_collection_v1', JSON.stringify(collection));
+        } catch (e) {
+            console.warn("Storage write failed", e);
+        }
+    }
+
+    saveMonsterDiary(monsterName, text) {
+        const collection = this.loadMonsterCollection();
+        if (!collection[monsterName]) return;
+        collection[monsterName].diary = text;
+        try {
+            localStorage.setItem('math_battle_collection_v1', JSON.stringify(collection));
+        } catch (e) {
+            console.warn("Storage write failed", e);
+        }
+    }
+
+    loadMonsterCollection() {
+        try {
+            const stored = localStorage.getItem('math_battle_collection_v1');
+            if (stored) {
+                const collection = JSON.parse(stored);
+                if (this._migrateCollection(collection)) {
+                    // 移行があったらそのまま保存
+                    localStorage.setItem('math_battle_collection_v1', JSON.stringify(collection));
+                }
+                return collection;
+            }
+        } catch (e) {
+            console.warn("Storage read failed", e);
+        }
+        return {};
+    }
+
+    /** バックアップ復元用: モンスターコレクション全体を上書き保存 */
+    saveMonsterCollection(collection) {
+        // バックアップ復元時も旧フォーマットをマイグレーション
+        this._migrateCollection(collection);
+        try {
+            localStorage.setItem('math_battle_collection_v1', JSON.stringify(collection));
+        } catch (e) {
+            console.warn("Storage write failed", e);
+        }
+    }
+
+    // --- アイテム図鑑 ---
+
+    saveItemCollected(itemId) {
+        const collection = this.loadItemCollection();
+        collection[itemId] = true;
+        localStorage.setItem('math_battle_item_collection_v1', JSON.stringify(collection));
+    }
+
+    loadItemCollection() {
+        try {
+            const stored = localStorage.getItem('math_battle_item_collection_v1');
+            if (stored) return JSON.parse(stored);
+        } catch (e) { }
+        return {};
+    }
+
+    /** バックアップ復元用: アイテムコレクション全体を上書き保存 */
+    saveItemCollection(collection) {
+        localStorage.setItem('math_battle_item_collection_v1', JSON.stringify(collection));
+    }
+
+    // --- レベル・経験値 ---
+
+    savePlayerLevel(level) {
+        localStorage.setItem('math_battle_player_level', level);
+    }
+
+    loadPlayerLevel() {
+        return Math.max(1, Math.min(
+            Constants.PLAYER_MAX_LEVEL,
+            parseInt(localStorage.getItem('math_battle_player_level')) || 1
+        ));
+    }
+
+    savePlayerExp(exp) {
+        localStorage.setItem('math_battle_player_exp', exp);
+    }
+
+    loadPlayerExp() {
+        return parseInt(localStorage.getItem('math_battle_player_exp')) || 0;
+    }
+
+    // --- せってい（おんがく・おんりょう） ---
+
+    saveSettings(settings) {
+        localStorage.setItem('math_battle_settings', JSON.stringify(settings));
+    }
+
+    loadSettings() {
+        try {
+            const stored = localStorage.getItem('math_battle_settings');
+            if (stored) {
+                const s = JSON.parse(stored);
+                const fallbackVol = typeof s.volume === 'number' ? s.volume : 100;
+                return {
+                    bgmEnabled: s.bgmEnabled !== false,
+                    seEnabled: s.seEnabled !== false,
+                    bgmVolume: typeof s.bgmVolume === 'number' ? s.bgmVolume : fallbackVol,
+                    seVolume: typeof s.seVolume === 'number' ? s.seVolume : fallbackVol,
+                };
+            }
+        } catch (e) { }
+        return { bgmEnabled: true, seEnabled: true, bgmVolume: 100, seVolume: 100 };
+    }
+
+}

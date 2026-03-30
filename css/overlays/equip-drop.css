@@ -1,0 +1,119 @@
+/* ============================================================
+   武具ドロップ選択ポップアップ
+   ============================================================ */
+
+/* 装備ドロップ ズームイン演出 */
+#equip-drop-fly-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 145;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    background: rgba(0, 0, 0, 0.55);
+}
+#equip-drop-fly-overlay.active {
+    display: flex;
+}
+#equip-drop-fly-img {
+    width: 330px;
+    height: 330px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 1)) drop-shadow(0 0 40px rgba(255, 215, 0, 0.8));
+    animation: equip-fly-zoom 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+@keyframes equip-fly-zoom {
+    from { transform: scale(0); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+}
+#app.portrait-mode #equip-drop-fly-img {
+    width: 450px;
+    height: 450px;
+}
+
+.equip-drop-overlay {
+    z-index: 150;
+}
+
+.equip-drop-content {
+    background: linear-gradient(145deg, #181f3c 0%, #0d1222 100%);
+    border: 4px solid var(--accent-color);
+    border-radius: 20px;
+    padding: 47px 62px;
+    width: 546px;
+    max-width: 95%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 21px;
+    box-shadow: 0 0 44px rgba(255, 215, 0, 0.45), 0 12px 40px rgba(0, 0, 0, 0.75);
+}
+
+.equip-drop-label {
+    font-family: var(--font-pixel);
+    font-size: 42px;
+    color: var(--accent-color);
+    margin: 0;
+}
+
+.equip-drop-img {
+    width: 169px;
+    height: 169px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 6px rgba(255, 215, 0, 1)) drop-shadow(0 0 12px rgba(255, 215, 0, 0.7));
+}
+
+.equip-drop-name {
+    font-family: var(--font-pixel);
+    font-size: 47px;
+    color: #fff;
+    margin: 0;
+}
+
+.equip-drop-desc {
+    font-family: var(--font-pixel);
+    font-size: 29px;
+    color: #a0aabf;
+    text-align: center;
+    margin: 0;
+}
+
+.equip-drop-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 100%;
+}
+
+.equip-drop-buttons button {
+    font-size: 62px;
+    padding: 26px 78px;
+}
+
+#app.portrait-mode .equip-drop-content {
+    width: 600px;
+    padding: 47px 35px;
+}
+
+#app.portrait-mode .equip-drop-img {
+    width: 220px;
+    height: 220px;
+}
+
+#app.portrait-mode .equip-drop-label {
+    font-size: 55px;
+}
+
+#app.portrait-mode .equip-drop-name {
+    font-size: 65px;
+}
+
+#app.portrait-mode .equip-drop-desc {
+    font-size: 42px;
+}
+
+#app.portrait-mode .equip-drop-buttons button {
+    font-size: 55px !important;
+    padding: 26px !important;
+}

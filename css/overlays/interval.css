@@ -1,0 +1,96 @@
+/* ============================================================
+   インターバル画面（モンスター出現）
+   ============================================================ */
+.interval-img {
+    max-width: 600px;
+    max-height: 600px;
+    margin-bottom: 0px;
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 1))drop-shadow(0 0 4px rgba(255, 255, 255, 0.8))drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
+    animation: bounce 2s infinite ease-in-out;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+#interval-msg {
+    font-family: var(--font-pixel);
+    font-size: 48px;
+    margin-bottom: 40px;
+    line-height: 1.4;
+}
+
+/* インターバル ボタングループ */
+.interval-btns {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+#app.portrait-mode .interval-btns {
+    flex-direction: column;
+    gap: 40px;
+}
+
+/* 各種確認・出現画面ボタンをショップタブ風にする */
+.interval-btns button,
+.boss-cutin-btns button,
+.quit-confirm-buttons button,
+.shop-buy-buttons button,
+.equip-drop-buttons button {
+    background: rgba(30, 40, 80, 1);
+    border: 2px solid rgba(55, 80, 155, 0.8);
+    border-radius: 10px;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.interval-btns button:active,
+.boss-cutin-btns button:active,
+.quit-confirm-buttons button:active,
+.shop-buy-buttons button:active,
+.equip-drop-buttons button:active {
+    background: rgba(20, 60, 120, 1);
+    border-color: var(--primary-color);
+}
+
+#battle-start-btn {
+    /* 【共通】登場画面「たたかう」ボタンのサイズ */
+    font-size: 48px;
+    padding: 20px 60px;
+    min-width: 380px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+#boss-battle-start-btn {
+    font-size: 48px;
+    padding: 20px 60px;
+    min-width: 380px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+#info-btn {
+    font-size: 48px;
+    padding: 20px 60px;
+    min-width: 380px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+#boss-info-btn {
+    font-size: 48px;
+    padding: 20px 60px;
+    min-width: 380px;
+    box-sizing: border-box;
+    text-align: center;
+}

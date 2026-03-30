@@ -1,0 +1,71 @@
+/* ============================================================
+   リクエストフォーム
+   ============================================================ */
+#request-overlay .overlay-content {
+    background: linear-gradient(180deg, rgba(22, 30, 58, 0.97) 0%, rgba(10, 14, 32, 0.98) 100%);
+    padding: 40px;
+    border-radius: 16px;
+    border: 1px solid rgba(79, 172, 254, 0.22);
+    width: 800px;
+    box-shadow: 0 12px 44px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+#request-overlay h2 {
+    font-size: 50px;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+}
+
+#request-overlay p {
+    font-size: 28px;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    text-align: left;
+    font-weight: bold;
+}
+
+#request-overlay p:last-of-type {
+    color: var(--danger-color);
+    font-size: 26px;
+    margin-bottom: 20px;
+}
+
+#request-text {
+    width: 100%;
+    height: 250px;
+    background: #000;
+    color: white;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    font-family: var(--font-pixel);
+    font-size: 30px;
+    resize: none;
+    margin-bottom: 30px;
+}
+
+#request-text:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+.button-group {
+    display: flex;
+    gap: 15px;
+    /* 隙間も少し狭める */
+    justify-content: center;
+    width: 70%;
+    /* 全体の幅を70%に */
+    margin: 0 auto;
+    /* 中央寄せ */
+}
+
+#request-overlay #submit-request-btn,
+#request-overlay #cancel-request-btn {
+    flex: 1;
+    font-size: 24px;
+    /* 32px の約70% */
+    padding: 14px 0;
+    /* 20px の約70% */
+    margin: 0;
+}

@@ -1,0 +1,159 @@
+/* ============================================================
+   ダンジョン選択画面 (縦画面)
+   ============================================================ */
+#app.portrait-mode #dungeon-select-screen {
+    padding: 20px;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+}
+
+
+#app.portrait-mode .dungeon-name-area {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    width: 100%;
+    max-width: 700px;
+}
+
+#app.portrait-mode .dungeon-name-label {
+    font-family: var(--font-pixel);
+    color: var(--accent-color);
+    font-size: 28px;
+    white-space: nowrap;
+}
+
+#app.portrait-mode .dungeon-name-input {
+    font-family: var(--font-pixel);
+    font-size: 36px;
+    padding: 16px;
+    border-radius: 12px;
+    border: 2px solid rgba(79, 172, 254, 0.5);
+    background: rgba(12, 16, 38, 0.9);
+    color: var(--primary-color);
+    flex: 1;
+}
+
+/* 難易度タブ */
+#app.portrait-mode .difficulty-tabs {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    width: 100%;
+    max-width: 750px;
+    margin-bottom: 12px;
+}
+
+#app.portrait-mode .difficulty-tab {
+    appearance: none;
+    -webkit-appearance: none;
+    font-family: var(--font-pixel);
+    font-size: 28px;
+    flex: 1;
+    padding: 10px 0;
+    border-radius: 10px;
+    border: 2px solid rgba(79, 172, 254, 0.4);
+    background: rgba(12, 16, 38, 1);
+    color: rgba(180, 200, 255, 0.6);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.1s;
+}
+
+#app.portrait-mode .difficulty-tab:hover {
+    background: rgba(30, 55, 110, 1);
+    color: #cce4ff;
+    border-color: rgba(79, 172, 254, 0.7);
+}
+
+#app.portrait-mode .difficulty-tab:active {
+    transform: scale(0.95);
+}
+
+#app.portrait-mode .difficulty-tab.active {
+    background: linear-gradient(180deg, #2a5a9e, #1c2646);
+    color: #ffd700;
+    border-color: rgba(255, 215, 0, 0.7);
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+}
+
+#app.portrait-mode .dungeon-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 250px);
+    gap: 48px 8px;
+    justify-content: center;
+    overflow-y: auto;
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+}
+
+#app.portrait-mode .dungeon-cell {
+    appearance: none;
+    -webkit-appearance: none;
+    position: relative;
+    width: 250px;
+    height: 110px;
+    padding: 0;
+    border-radius: 12px;
+    border: none;
+    background: none;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+#app.portrait-mode .dungeon-cell-bg {
+    display: block;
+    width: 250px;
+    height: 110px;
+    pointer-events: none;
+}
+
+#app.portrait-mode .dungeon-cell-num {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    pointer-events: none;
+}
+
+#app.portrait-mode .dungeon-cell-num-icon {
+    height: 52px;
+    width: auto;
+    pointer-events: none;
+    filter: drop-shadow(0 1px 4px rgba(0,0,0,0.8));
+}
+
+#app.portrait-mode .dungeon-cell:hover:not(:disabled) {
+    transform: scale(1.08);
+}
+
+#app.portrait-mode .dungeon-cell:active:not(:disabled) {
+    transform: scale(0.95);
+}
+
+#app.portrait-mode .dungeon-clear-icon {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 58px;
+    height: 58px;
+    pointer-events: none;
+}
+
+#app.portrait-mode .dungeon-cell.locked {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+#app.portrait-mode .top-title-area {
+    width: 100%;
+    /* タイトル画像容器を全高に */
+    height: 100%;
+}

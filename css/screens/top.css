@@ -1,0 +1,240 @@
+/* ============================================================
+   縦画面モード (840x1600) — 共通
+   ============================================================ */
+#app.portrait-mode .screen {
+    padding: 0;
+}
+
+/* セットアップ画面（旧） */
+#app.portrait-mode #setup-screen {
+    padding: 40px 40px;
+    justify-content: center;
+}
+
+.top-bg-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.top-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    opacity: 0.6;
+}
+
+.title-img {
+    margin-bottom: 0;
+}
+
+#app.portrait-mode .screen-title-img {
+    display: block;
+    width: 500px;
+    max-width: 80%;
+    height: auto;
+    margin: 30px auto 16px;
+}
+
+#app.portrait-mode #top-screen .title-img {
+    width: 100%;
+    height: 100%;
+    margin-bottom: 0;
+    object-fit: cover;
+}
+
+#app.portrait-mode .setup-container {
+    background: linear-gradient(180deg, rgba(28, 38, 70, 0.95) 0%, rgba(12, 16, 38, 0.98) 100%);
+    padding: 40px;
+    border-radius: 16px;
+    border: 1px solid rgba(79, 172, 254, 0.22);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+#app.portrait-mode .input-group label {
+    font-size: 28px;
+    margin-bottom: 12px;
+}
+
+#app.portrait-mode input[type="text"] {
+    font-size: 40px;
+    padding: 20px;
+}
+
+#app.portrait-mode .toggle-btn,
+#app.portrait-mode .checkbox-btn {
+    font-size: 36px;
+    padding: 20px;
+}
+
+#app.portrait-mode #start-btn {
+    /* 【縦画面】バトルスタートボタンのサイズ調整用 */
+    font-size: 55px !important;
+    padding: 50px 20px !important;
+    margin-top: 20px;
+}
+
+#app.portrait-mode #note-btn {
+    /* 【縦画面】モンスターノートボタンのサイズ調整用 */
+    font-size: 30px !important;
+    padding: 10px 10px !important;
+    height: 80px !important;
+    margin: 0;
+    align-self: auto;
+    flex: none;
+    width: 300px !important;
+}
+
+
+#app.portrait-mode .setup-footer {
+    margin-top: auto;
+    font-size: 20px;
+    color: #5a6275;
+    text-align: center;
+}
+
+/* ============================================================
+   トップ画面 (縦画面)
+   ============================================================ */
+#app.portrait-mode #top-screen {
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* ライセンス表記オーバーレイ（タイトル画像前面最下部） */
+#app.portrait-mode #top-screen .setup-footer {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    margin-top: 0;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    background: rgba(8, 11, 22, 0.35);
+    padding: 10px 20px;
+    border-radius: 8px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 80%;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(79, 172, 254, 0.3);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* タイトル画面専用（ゲームスタートボタンのみ） */
+#app.portrait-mode .top-title-only {
+    gap: 0;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* メイン画面 */
+#app.portrait-mode #main-screen {
+    padding: 0 40px;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+#app.portrait-mode .top-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex: 1;
+    position: relative;
+    z-index: 1;
+}
+
+#app.portrait-mode .top-title-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+#app.portrait-mode #top-screen .title-img {
+    width: 100%;
+    height: 100%;
+    margin-bottom: 0;
+    object-fit: cover;
+}
+
+#app.portrait-mode #top-screen .subtitle {
+    font-size: 28px;
+    margin-bottom: 40px;
+}
+
+#app.portrait-mode .top-menu {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+#app.portrait-mode .top-battle-btn {
+    font-size: 68px !important;
+    width: 100%;
+}
+
+#app.portrait-mode .top-menu-row {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+#app.portrait-mode .top-menu-row button {
+    width: 100%;
+}
+
+
+/* メインメニューボタンのフォント色を白に統一 */
+#app.portrait-mode #main-screen .top-menu button {
+    color: #ffffff;
+}
+
+/* ============================================================
+   セットアップ画面 back button (縦画面)
+   ============================================================ */
+#app.portrait-mode #setup-screen {
+    position: relative;
+}
+
+/* ============================================================
+   じょうほうウィンドウ（縦画面）
+   ============================================================ */
+#app.portrait-mode .info-content {
+    width: 740px;
+    padding: 44px 52px 52px;
+}
+
+#app.portrait-mode .info-section-title {
+    font-size: 38px;
+    margin: 0 0 18px;
+}
+
+#app.portrait-mode .info-row {
+    font-size: 38px;
+    padding: 10px 0;
+    gap: 20px;
+}
+
+#app.portrait-mode .info-close-btn {
+    font-size: 54px;
+    padding: 20px 80px;
+    margin-top: 8px;
+}

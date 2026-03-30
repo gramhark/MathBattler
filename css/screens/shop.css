@@ -1,0 +1,196 @@
+/* ============================================================
+   ショップ画面 (縦画面) — 背景に店員が描かれた新レイアウト
+   ============================================================ */
+#app.portrait-mode #shop-screen {
+    position: relative;
+    padding: 0;
+    overflow: hidden;
+}
+
+/* 背景は不透明度100%。タブ押下時はJSで0.5に変更 */
+#app.portrait-mode #shop-screen .top-bg-img {
+    opacity: 1;
+}
+
+#app.portrait-mode .shop-header {
+    display: flex;
+    align-items: center;
+    padding: 20px 30px 0;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 3;
+}
+
+/* セリフ: 画面の垂直中央より100px上に絶対配置 */
+#app.portrait-mode .shop-clerk-quote {
+    position: absolute;
+    top: calc(50% - 350px);
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 42px !important;
+    width: 600px;
+    max-width: 90%;
+    min-height: 120px;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    white-space: pre-wrap;
+    box-sizing: border-box;
+    z-index: 1;
+    pointer-events: none;
+    animation: none !important;
+    background: rgba(0, 60, 120, 0.8);
+}
+
+/* 商品エリア: タイトル下から最下部の上まで。タブ押下時に表示 */
+#app.portrait-mode .shop-items-area {
+    position: absolute;
+    top: 210px;
+    left: 30px;
+    right: 30px;
+    bottom: 260px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.75);
+    border-radius: 16px;
+    padding: 16px;
+}
+
+/* 最下部: 所持マール + タブボタン */
+#app.portrait-mode .shop-bottom {
+    margin-top: auto;
+    flex-shrink: 0;
+    padding: 20px 30px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+    z-index: 3;
+}
+
+#app.portrait-mode .shop-malle-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    background: linear-gradient(135deg, rgba(40, 28, 0, 0.75) 0%, rgba(20, 14, 0, 0.85) 100%);
+    border: 3px solid rgba(255, 215, 0, 0.65);
+    border-radius: 12px;
+    padding: 20px 30px;
+    box-shadow: 0 0 22px rgba(255, 215, 0, 0.2), inset 0 1px 0 rgba(255, 240, 100, 0.1);
+}
+
+#app.portrait-mode .malle-icon {
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+}
+
+#app.portrait-mode .shop-malle-text {
+    font-family: var(--font-pixel);
+    font-size: 52px;
+    color: var(--accent-color);
+}
+
+#app.portrait-mode .shop-items {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    overflow-y: auto;
+    flex: 1;
+    align-content: start;
+}
+
+#app.portrait-mode .shop-item-btn {
+    background: linear-gradient(145deg, #1e2748, #131830);
+    border: 3px solid rgba(55, 80, 155, 0.5);
+    border-radius: 16px;
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+    color: var(--text-color);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+#app.portrait-mode .shop-item-btn:active {
+    transform: scale(0.95);
+    box-shadow: 0 0 22px rgba(255, 215, 0, 0.5), 0 4px 12px rgba(0, 0, 0, 0.5);
+    border-color: var(--accent-color);
+}
+
+#app.portrait-mode .shop-item-img {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 4px rgba(255, 215, 0, 1)) drop-shadow(0 0 8px rgba(255, 215, 0, 0.7));
+}
+
+#app.portrait-mode .shop-item-name {
+    font-family: var(--font-pixel);
+    font-size: 39px;
+    color: #e2e8f0;
+    text-align: center;
+}
+
+#app.portrait-mode .shop-item-price {
+    font-family: var(--font-pixel);
+    font-size: 36px;
+    color: var(--success-color);
+}
+
+/* ============================================================
+   ショップ アイテム詳細 (縦画面)
+   ============================================================ */
+#app.portrait-mode .shop-item-content {
+    width: 620px;
+    padding: 50px 60px;
+    gap: 20px;
+}
+
+#app.portrait-mode .shop-item-detail-img {
+    width: 160px;
+    height: 160px;
+}
+
+#app.portrait-mode .shop-item-detail-name {
+    font-size: 52px;
+}
+
+#app.portrait-mode .shop-item-detail-desc {
+    font-size: 34px;
+}
+
+#app.portrait-mode .shop-item-detail-price {
+    font-size: 40px;
+}
+
+#app.portrait-mode .shop-buy-question {
+    font-size: 48px;
+}
+
+#app.portrait-mode .shop-buy-buttons button {
+    font-size: 44px !important;
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    width: 240px;
+}
+
+#app.portrait-mode .shop-msg-text {
+    font-size: 48px !important;
+}
+
+#app.portrait-mode .shop-empty-msg {
+    font-family: var(--font-pixel);
+    font-size: 36px;
+    color: #a0aabf;
+    text-align: center;
+    margin-top: 40px;
+}

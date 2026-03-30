@@ -1,0 +1,31 @@
+/* ============================================================
+   戦闘離脱ボタン（battle-view 左端・ステージドットと同じ行）
+   ============================================================ */
+.quit-battle-btn {
+    position: absolute;
+    top: 20px;
+    left: 10px;
+    z-index: 150;
+    background: none;
+    border: none;
+    width: auto;
+    height: auto;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    opacity: 0.75;
+    transition: transform 0.1s, opacity 0.1s;
+}
+
+.quit-battle-btn img {
+    display: block;
+    width: auto;
+    height: auto;
+}
+
+.quit-battle-btn:active {
+    transform: scale(0.9);
+    opacity: 1;
+}

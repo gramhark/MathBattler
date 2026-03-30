@@ -1,0 +1,28 @@
+/* ============================================================
+   つかえないよ！ メッセージ
+   ============================================================ */
+.item-limit-overlay {
+    z-index: 155;
+    pointer-events: none;
+}
+
+.item-limit-content {
+    background: rgba(20, 10, 30, 0.92);
+    border: 3px solid var(--danger-color);
+    border-radius: 16px;
+    padding: 28px 48px;
+    box-shadow: 0 0 20px rgba(255, 75, 75, 0.5);
+}
+
+.item-limit-text {
+    font-family: var(--font-pixel);
+    font-size: 40px;
+    color: var(--danger-color);
+    text-align: center;
+    margin: 0;
+    text-shadow: 0 0 10px rgba(255, 75, 75, 0.6);
+}
+
+#app.portrait-mode .item-limit-text {
+    font-size: 52px;
+}

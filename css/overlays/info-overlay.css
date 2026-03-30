@@ -1,0 +1,99 @@
+/* ============================================================
+   じょうほう ウィンドウ
+   ============================================================ */
+.info-overlay {
+    z-index: 130;
+    /* interval-overlay(100) / boss-cutin-overlay(120) より前面 */
+}
+
+.info-content {
+    background: linear-gradient(180deg, rgba(22, 30, 58, 0.97) 0%, rgba(10, 14, 32, 0.98) 100%);
+    border: 2px solid rgba(55, 80, 160, 0.48);
+    border-radius: 20px;
+    padding: 36px 44px 40px;
+    width: 680px;
+    max-width: 92vw;
+    box-sizing: border-box;
+    box-shadow: 0 12px 44px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.info-sections {
+    display: flex;
+    gap: 28px;
+    margin-bottom: 32px;
+}
+
+#app.portrait-mode .info-content {
+    width: 1020px;
+    max-width: 96%;
+}
+
+#app.portrait-mode .info-sections {
+    flex-direction: column;
+}
+
+
+.info-section {
+    flex: 1;
+}
+
+.info-section-title {
+    font-family: var(--font-pixel);
+    font-size: 26px;
+    margin: 0 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.enemy-title {
+    color: #ff6b6b;
+}
+
+.player-title {
+    color: var(--primary-color);
+}
+
+.info-divider {
+    background: var(--border-color);
+    flex-shrink: 0;
+}
+
+#app.portrait-mode .info-divider {
+    height: 1px;
+    width: 100%;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: var(--font-pixel);
+    font-size: 26px;
+    padding: 6px 0;
+    gap: 16px;
+}
+
+.info-label {
+    color: #a0aabf;
+    white-space: nowrap;
+}
+
+.info-value {
+    color: #fff;
+    font-weight: bold;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.info-value.sp-ready {
+    color: var(--accent-color);
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+}
+
+.info-close-btn {
+    font-size: 36px;
+    padding: 14px 60px;
+    width: fit-content;
+    margin: 0 auto;
+    display: block;
+}
