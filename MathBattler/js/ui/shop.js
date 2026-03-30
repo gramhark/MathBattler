@@ -167,8 +167,8 @@ class ShopManager {
     // --- リュック（バトル中） ---
 
     /** 戦闘中リュックのUI部分を開く（タイマー一時停止はgame.jsに残す） */
-    openBattleBag(backpack) {
-        this.renderBattleBagGrid(backpack);
+    openBattleBag(backpack, onTap) {
+        this.renderBattleBagGrid(backpack, onTap);
         document.getElementById('battle-item-confirm').style.display = 'none';
         document.getElementById('battle-bag-overlay').classList.add('active');
     }

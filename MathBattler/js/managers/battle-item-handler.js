@@ -17,7 +17,7 @@ class BattleItemHandler {
         this.game.state = GameState.TRANSITION;
 
         this.game._battleSelectedItem = null;
-        this.game.shop.openBattleBag(this.game.backpack.items);
+        this.game.shop.openBattleBag(this.game.backpack.items, (itemName, card) => this._onBattleBagItemTap(itemName, card));
     }
 
     /** 戦闘中リュックウィンドウを閉じ、バトルを再開する */
@@ -169,7 +169,7 @@ class BattleItemHandler {
                 this.game._onMonsterDefeated(m);
             } else {
                 // リュックウィンドウを再表示
-                this.game.shop.openBattleBag(this.game.backpack.items);
+                this.game.shop.openBattleBag(this.game.backpack.items, (itemName, card) => this._onBattleBagItemTap(itemName, card));
             }
         }, 2000);
     }
