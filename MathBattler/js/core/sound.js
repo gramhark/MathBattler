@@ -137,8 +137,8 @@ class SoundManager {
         this.seDefUp.src        = 'assets/audio/SE/item/def_up.mp3';
         this.seThrow.src        = 'assets/audio/SE/item/spike_throw.mp3';
         this.seEquipGet.src     = 'assets/audio/SE/item/equip_get.mp3';
-        this.seEquipSet.src     = 'assets/audio/SE/item/equip_set.mp3';
-        this.seEquipRemove.src  = 'assets/audio/SE/item/equip_remove.mp3';
+        this.seEquipSet.src     = 'assets/audio/SE/item/equip_setX.mp3';
+        this.seEquipRemove.src  = 'assets/audio/SE/item/equip_removeX.mp3';
         this.seMalle.src        = 'assets/audio/SE/item/malle_get.mp3';
 
         // SE sources — event

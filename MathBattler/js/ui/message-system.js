@@ -44,37 +44,47 @@ class MessageSystem {
             if (i < segments.length - 1) tokens.push({ type: 'br' });
         });
         let idx = 0;
+        const CHAR_INTERVAL = 45;
+        let lastTime = null;
+        let rafId = null;
 
-        const interval = setInterval(() => {
-            if (idx < tokens.length) {
-                const token = tokens[idx++];
-                if (token.type === 'br') {
-                    line.appendChild(document.createElement('br'));
-                } else {
-                    line.appendChild(document.createTextNode(token.val));
+        const tick = (timestamp) => {
+            if (lastTime === null) lastTime = timestamp;
+            const elapsed = timestamp - lastTime;
+            const steps = Math.floor(elapsed / CHAR_INTERVAL);
+            if (steps > 0) {
+                lastTime += steps * CHAR_INTERVAL;
+                for (let s = 0; s < steps && idx < tokens.length; s++) {
+                    const token = tokens[idx++];
+                    if (token.type === 'br') {
+                        line.appendChild(document.createElement('br'));
+                    } else {
+                        line.appendChild(document.createTextNode(token.val));
+                    }
                 }
-                // 文字が追加されるたびに親コンテナ（実質的なoverflow領域）をスクロールする
                 if (log.parentElement) {
                     log.parentElement.scrollTop = log.parentElement.scrollHeight;
                 }
+            }
+            if (idx < tokens.length) {
+                rafId = requestAnimationFrame(tick);
             } else {
-                clearInterval(interval);
                 this._typewriterInterval = null;
-                // 追加完了後もスクロール位置を確実に直す
                 if (log.parentElement) {
                     log.parentElement.scrollTop = log.parentElement.scrollHeight;
                 }
                 this._processNextMessage();
             }
-        }, 45);
-        this._typewriterInterval = interval;
+        };
+        rafId = requestAnimationFrame(tick);
+        this._typewriterInterval = rafId;
     }
 
     clearMessageLog() {
         const log = document.getElementById('message-log');
         if (log) log.innerHTML = '';
         if (this._typewriterInterval) {
-            clearInterval(this._typewriterInterval);
+            cancelAnimationFrame(this._typewriterInterval);
             this._typewriterInterval = null;
         }
         this._messageQueue = [];
