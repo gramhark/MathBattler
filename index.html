@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,11 +11,30 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
-    .disclaimer { margin-bottom: 1rem; padding: 0.75rem 1rem; border: 1px solid #e5e7eb; border-radius: 6px; }
-    .disclaimer__title { font-size: 0.75rem !important; font-weight: 700; color: #a8a29e !important; text-align: center !important; margin-bottom: 0.5rem; }
-    .disclaimer__body { font-size: 0.75rem !important; color: #a8a29e !important; line-height: 1.9; text-align: center !important; }
+    .disclaimer {
+      margin-bottom: 1rem;
+      padding: 0.75rem 1rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+    }
+
+    .disclaimer__title {
+      font-size: 0.75rem !important;
+      font-weight: 700;
+      color: #a8a29e !important;
+      text-align: center !important;
+      margin-bottom: 0.5rem;
+    }
+
+    .disclaimer__body {
+      font-size: 0.75rem !important;
+      color: #a8a29e !important;
+      line-height: 1.9;
+      text-align: center !important;
+    }
   </style>
 </head>
+
 <body>
 
   <!-- ヘッダー -->
@@ -24,9 +44,10 @@
         <a href="/" class="site-logo" aria-label="Gramhark ゲーム工房 トップページ">
           <span class="logo-icon" aria-hidden="true">
             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="32" height="32" rx="10" fill="#f97316"/>
-              <path d="M9 17 C11 14, 13 12, 16 15 C19 18, 21 13, 23 11" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-              <circle cx="16" cy="22" r="2" fill="white" opacity="0.8"/>
+              <rect width="32" height="32" rx="10" fill="#f97316" />
+              <path d="M9 17 C11 14, 13 12, 16 15 C19 18, 21 13, 23 11" stroke="white" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round" fill="none" />
+              <circle cx="16" cy="22" r="2" fill="white" opacity="0.8" />
             </svg>
           </span>
           <div class="logo-text-group">
@@ -46,16 +67,7 @@
     <!-- ヒーローセクション -->
     <section class="hero">
       <div class="container">
-        <img
-          src="./Title.webp"
-          alt="グラムおじさんのゲーム工房"
-          class="hero-title-image"
-          width="900"
-          height="400"
-        >
-        <p class="hero-description">
-          ゲームで遊んで、頭を使おう！
-        </p>
+        <img src="./Title.webp" alt="グラムおじさんのゲーム工房" class="hero-title-image" width="900" height="400">
         <a href="#games" class="btn btn-primary">ゲームを見てみる →</a>
       </div>
     </section>
@@ -78,14 +90,8 @@
               <li class="game-card">
                 <a href="./MathBattler/" class="game-card__link" aria-label="マスバトール をプレイする">
                   <div class="game-card__thumbnail">
-                    <img
-                      src="./MathBattler/assets/image/UI/title.webp"
-                      alt="マスバトール ゲーム画面"
-                      loading="lazy"
-                      width="400"
-                      height="225"
-                    >
-                    <span class="game-card__badge">無料プレイ</span>
+                    <img src="./MathBattler/assets/image/UI/title.webp" alt="マスバトール ゲーム画面" loading="lazy" width="400"
+                      height="225">
                   </div>
                   <div class="game-card__body">
                     <div class="game-card__tags" aria-label="ジャンル">
@@ -98,11 +104,17 @@
                     </p>
                     <div class="game-card__meta">
                       <span class="meta-item">
-                        <svg class="meta-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zm.75 2.5h-1.5v4.25l3.5 2.1.75-1.24-2.75-1.65V5z"/></svg>
+                        <svg class="meta-icon" viewBox="0 0 16 16" aria-hidden="true">
+                          <path
+                            d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zm.75 2.5h-1.5v4.25l3.5 2.1.75-1.24-2.75-1.65V5z" />
+                        </svg>
                         ブラウザ対応
                       </span>
                       <span class="meta-item">
-                        <svg class="meta-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M11 1H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm-3 12a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg>
+                        <svg class="meta-icon" viewBox="0 0 16 16" aria-hidden="true">
+                          <path
+                            d="M11 1H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm-3 12a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+                        </svg>
                         スマホ対応
                       </span>
                     </div>
@@ -111,7 +123,10 @@
                 </a>
                 <div class="game-card__footer">
                   <a href="./MathBattler/manual.html" class="game-card__manual-link" aria-label="マスバトール 遊び方ガイドを見る">
-                    <svg class="meta-icon" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v11a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 13.5V2.5zm2.5-1A1.5 1.5 0 0 0 3 3v10a1.5 1.5 0 0 0 1.5 1.5h7A1.5 1.5 0 0 0 13 13V3a1.5 1.5 0 0 0-1.5-1.5h-7zM5 5h6v1H5V5zm0 2.5h6v1H5v-1zM5 10h4v1H5v-1z"/></svg>
+                    <svg class="meta-icon" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor">
+                      <path
+                        d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v11a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 13.5V2.5zm2.5-1A1.5 1.5 0 0 0 3 3v10a1.5 1.5 0 0 0 1.5 1.5h7A1.5 1.5 0 0 0 13 13V3a1.5 1.5 0 0 0-1.5-1.5h-7zM5 5h6v1H5V5zm0 2.5h6v1H5v-1zM5 10h4v1H5v-1z" />
+                    </svg>
                     遊び方ガイドを見る
                   </a>
                 </div>
@@ -122,8 +137,8 @@
                 <div class="game-card__body">
                   <div class="game-card__coming-icon" aria-hidden="true">
                     <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
-                      <circle cx="22" cy="22" r="20" stroke="#fed7aa" stroke-width="2.5" stroke-dasharray="5 3"/>
-                      <path d="M22 13v9l6 4" stroke="#fb923c" stroke-width="2.5" stroke-linecap="round"/>
+                      <circle cx="22" cy="22" r="20" stroke="#fed7aa" stroke-width="2.5" stroke-dasharray="5 3" />
+                      <path d="M22 13v9l6 4" stroke="#fb923c" stroke-width="2.5" stroke-linecap="round" />
                     </svg>
                   </div>
                   <h3 class="game-card__title">次回作、制作中…</h3>
@@ -138,17 +153,30 @@
         <!-- サイドバー -->
         <aside class="page-sidebar" id="about" aria-label="サイト情報">
 
+          <!-- サイト説明 -->
+          <div class="sidebar-widget">
+            <p class="sidebar-widget__title">このサイトについて</p>
+            <div class="sidebar-dev__header">
+              <div>
+                <p class="sidebar-dev__name">ゲーム工房とは</p>
+              </div>
+            </div>
+            <p class="sidebar-dev__bio">
+              個人で運営している趣味のサイトです。<br>AIフル活用でアイディアを形にして、学習に役立つゲームを制作しています。<br>どなたでもご利用いただけますので、どうぞお気軽に遊んでみてください。</p>
+          </div>
+
           <!-- 開発者ウィジェット -->
           <div class="sidebar-widget">
-            <p class="sidebar-widget__title">開発者より</p>
+            <p class="sidebar-widget__title">運営者より</p>
             <div class="sidebar-dev__header">
               <img src="./icon.webp" alt="グラムおじさん" class="sidebar-dev__avatar">
               <div>
                 <p class="sidebar-dev__name">グラムおじさん</p>
-                <p class="sidebar-dev__role">個人開発者</p>
+                <p class="sidebar-dev__role">ゲーム制作が趣味</p>
               </div>
             </div>
-            <p class="sidebar-dev__bio">日中は別の仕事をしながら、夜や週末にゲームを作っています。ゲームで遊んで、頭を使うきっかけを一つでも作れたら嬉しいです。</p>
+            <p class="sidebar-dev__bio">
+              日中は別の仕事をしながら、夜や週末にゲームを作っています。<br>頭の使い方がますます大事になってきたこの頃です。子供たちが頭を使うきっかけを一つでも作れたら嬉しいです。</p>
           </div>
 
           <!-- 最近の更新 -->
@@ -157,47 +185,43 @@
             <ul class="update-list">
               <li class="update-item">
                 <span class="update-item__date">2026-03-30</span>
-                <span class="update-item__badge update-item__badge--update">UPDATE</span><span class="update-item__text">バックアップ機能を追加</span>
+                <span class="update-item__badge update-item__badge--new">NEW</span><span
+                  class="update-item__text">入力フォームを追加</span>
               </li>
               <li class="update-item">
                 <span class="update-item__date">2026-03-30</span>
-                <span class="update-item__badge update-item__badge--new">NEW</span><span class="update-item__text">遊び方ガイドページを追加</span>
+                <span class="update-item__badge update-item__badge--update">UPDATE</span><span
+                  class="update-item__text">【マスバトール】<br>バックアップ機能を追加</span>
               </li>
               <li class="update-item">
                 <span class="update-item__date">2026-03-30</span>
-                <span class="update-item__badge update-item__badge--info">INFO</span><span class="update-item__text">タイトル画像を更新</span>
-              </li>
-              <li class="update-item">
-                <span class="update-item__date">2026-03-28</span>
-                <span class="update-item__badge update-item__badge--new">NEW</span><span class="update-item__text">ポータルサイト公開</span>
+                <span class="update-item__badge update-item__badge--info">INFO</span><span
+                  class="update-item__text">遊び方ガイドページを追加</span>
               </li>
             </ul>
             <a href="./updates.html" class="sidebar-link">更新情報をすべて見る →</a>
           </div>
 
-          <!-- このサイトについて -->
+          <!-- ご意見・ご要望 -->
           <div class="sidebar-widget">
-            <p class="sidebar-widget__title">このサイトについて</p>
-            <ul class="sidebar-features">
-              <li class="sidebar-feature-item">
-                <span class="sidebar-feature-icon sidebar-feature-icon--orange" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                </span>
-                <span><strong>完全無料・課金なし</strong>ブラウザを開くだけ。広告もありません。</span>
-              </li>
-              <li class="sidebar-feature-item">
-                <span class="sidebar-feature-icon sidebar-feature-icon--green" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-                </span>
-                <span><strong>マルチデバイス対応</strong>PC・スマホ・タブレットで遊べます。</span>
-              </li>
-              <li class="sidebar-feature-item">
-                <span class="sidebar-feature-icon sidebar-feature-icon--blue" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                </span>
-                <span><strong>個人情報の取得なし</strong>お子さんに安心して渡せます。</span>
-              </li>
-            </ul>
+            <p class="sidebar-widget__title">ご意見・ご要望</p>
+            <p class="contact-form__note">いただいたご意見は今後の開発の参考にします。</p>
+            <form id="contactForm" class="contact-form" novalidate>
+              <div class="contact-form__field">
+                <label for="contactName" class="contact-form__label">お名前</label>
+                <input type="text" id="contactName" name="name" class="contact-form__input" placeholder="ニックネームでOK"
+                  maxlength="50">
+              </div>
+              <div class="contact-form__field">
+                <label for="contactMessage" class="contact-form__label">ご意見・ご感想 <span
+                    class="contact-form__required">必須</span></label>
+                <textarea id="contactMessage" name="message" class="contact-form__textarea"
+                  placeholder="なんでもどうぞ。&#10;マスバトールの モンスターのアイディアも ぼしゅうちゅう！" rows="4" maxlength="1000"
+                  required></textarea>
+              </div>
+              <button type="submit" class="contact-form__submit btn btn-primary">送信する</button>
+              <p id="contactStatus" class="contact-form__status" aria-live="polite"></p>
+            </form>
           </div>
 
         </aside>
@@ -220,5 +244,47 @@
     </div>
   </footer>
 
+  <script>
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbziDH1zsPxr6wWaqqXhCknY28IbYsNo3tGsRkliEOTKn2NSBKEBW5jUoRVAeFHSg_ZB/exec';
+
+    document.getElementById('contactForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name = document.getElementById('contactName').value.trim();
+      const message = document.getElementById('contactMessage').value.trim();
+      const status = document.getElementById('contactStatus');
+
+      if (!message) {
+        status.textContent = 'ご意見・ご感想を入力してください。';
+        status.className = 'contact-form__status contact-form__status--error';
+        return;
+      }
+
+      const submitBtn = this.querySelector('.contact-form__submit');
+      submitBtn.disabled = true;
+      submitBtn.textContent = '送信中…';
+      status.textContent = '';
+      status.className = 'contact-form__status';
+
+      const formData = new URLSearchParams();
+      formData.append('name', name || '(匿名)');
+      formData.append('message', message);
+
+      fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: formData })
+        .then(() => {
+          status.textContent = '送信しました！ありがとうございます。';
+          status.className = 'contact-form__status contact-form__status--success';
+          document.getElementById('contactForm').reset();
+        })
+        .catch(() => {
+          status.textContent = '送信に失敗しました。しばらくしてからお試しください。';
+          status.className = 'contact-form__status contact-form__status--error';
+        })
+        .finally(() => {
+          submitBtn.disabled = false;
+          submitBtn.textContent = '送信する';
+        });
+    });
+  </script>
 </body>
+
 </html>
