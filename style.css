@@ -1,10 +1,12 @@
 /* ===================================================
-   Gramhark ゲーム工房 — style.css
+   グラムおじさん ゲーム工房 — style.css
    モダン・クリーン + 個人開発の温かみ
    =================================================== */
 
 /* ---------- リセット & ベース ---------- */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -12,47 +14,47 @@
 
 :root {
   /* ベースカラー */
-  --color-bg:          #fafaf8;
-  --color-surface:     #ffffff;
-  --color-border:      #e5e7eb;
+  --color-bg: #fafaf8;
+  --color-surface: #ffffff;
+  --color-border: #e5e7eb;
 
   /* アクセント：オレンジ（メイン） */
-  --color-orange:       #f97316;
+  --color-orange: #f97316;
   --color-orange-light: #fff7ed;
-  --color-orange-mid:   #fed7aa;
-  --color-orange-dark:  #ea580c;
+  --color-orange-mid: #fed7aa;
+  --color-orange-dark: #ea580c;
 
   /* アクセント：アンバー（付箋） */
-  --color-amber:        #f59e0b;
-  --color-amber-light:  #fef9c3;
-  --color-amber-mid:    #fde68a;
+  --color-amber: #f59e0b;
+  --color-amber-light: #fef9c3;
+  --color-amber-mid: #fde68a;
 
   /* サブカラー */
-  --color-blue:        #3b82f6;
-  --color-blue-light:  #eff6ff;
-  --color-blue-dark:   #2563eb;
+  --color-blue: #3b82f6;
+  --color-blue-light: #eff6ff;
+  --color-blue-dark: #2563eb;
 
-  --color-green:       #10b981;
+  --color-green: #10b981;
   --color-green-light: #ecfdf5;
 
-  --color-indigo:      #6366f1;
-  --color-indigo-light:#eef2ff;
+  --color-indigo: #6366f1;
+  --color-indigo-light: #eef2ff;
 
   /* テキスト */
-  --color-text-primary:   #1c1917;
+  --color-text-primary: #1c1917;
   --color-text-secondary: #57534e;
-  --color-text-muted:     #a8a29e;
+  --color-text-muted: #a8a29e;
 
   /* タイポグラフィ */
   --font-base: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
-  --text-xs:   0.75rem;
-  --text-sm:   0.875rem;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
   --text-base: 1rem;
-  --text-lg:   1.125rem;
-  --text-xl:   1.25rem;
-  --text-2xl:  1.5rem;
-  --text-3xl:  1.875rem;
-  --text-4xl:  2.25rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
 
   /* スペーシング */
   --space-1: 0.25rem;
@@ -68,19 +70,21 @@
   --space-20: 5rem;
 
   /* 角丸・影 */
-  --radius-sm:  6px;
-  --radius-md:  12px;
-  --radius-lg:  18px;
-  --radius-xl:  24px;
-  --shadow-sm:  0 1px 4px rgba(0,0,0,.07), 0 1px 2px rgba(0,0,0,.05);
-  --shadow-md:  0 4px 14px rgba(0,0,0,.09), 0 2px 4px rgba(0,0,0,.05);
-  --shadow-lg:  0 12px 32px rgba(0,0,0,.11), 0 4px 8px rgba(0,0,0,.05);
-  --shadow-warm: 0 4px 16px rgba(249,115,22,.18);
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --shadow-sm: 0 1px 4px rgba(0, 0, 0, .07), 0 1px 2px rgba(0, 0, 0, .05);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, .09), 0 2px 4px rgba(0, 0, 0, .05);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, .11), 0 4px 8px rgba(0, 0, 0, .05);
+  --shadow-warm: 0 4px 16px rgba(249, 115, 22, .18);
 
-  --transition: 200ms cubic-bezier(.4,0,.2,1);
+  --transition: 200ms cubic-bezier(.4, 0, .2, 1);
 }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   font-family: var(--font-base);
@@ -91,9 +95,19 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-img { display: block; max-width: 100%; }
-a { color: var(--color-blue-dark); text-decoration: none; }
-ul[role="list"] { list-style: none; }
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: var(--color-blue-dark);
+  text-decoration: none;
+}
+
+ul[role="list"] {
+  list-style: none;
+}
 
 /* ---------- コンテナ ---------- */
 .container {
@@ -129,7 +143,7 @@ ul[role="list"] { list-style: none; }
 .btn-primary:focus-visible {
   background-color: var(--color-orange-dark);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(249,115,22,.3);
+  box-shadow: 0 6px 20px rgba(249, 115, 22, .3);
 }
 
 /* ---------- セクションタイトル共通 ---------- */
@@ -170,7 +184,7 @@ ul[role="list"] { list-style: none; }
   position: sticky;
   top: 0;
   z-index: 100;
-  background-color: rgba(255,255,255,.93);
+  background-color: rgba(255, 255, 255, .93);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--color-border);
@@ -322,7 +336,7 @@ ul[role="list"] { list-style: none; }
   font-size: var(--text-sm);
   font-weight: 700;
   border-radius: 999px;
-  box-shadow: 0 2px 6px rgba(249,115,22,.4);
+  box-shadow: 0 2px 6px rgba(249, 115, 22, .4);
   pointer-events: none;
 }
 
@@ -349,8 +363,15 @@ ul[role="list"] { list-style: none; }
   letter-spacing: .03em;
 }
 
-.tag--math  { background: var(--color-orange-light); color: var(--color-orange-dark); }
-.tag--rpg   { background: var(--color-indigo-light); color: var(--color-indigo); }
+.tag--math {
+  background: var(--color-orange-light);
+  color: var(--color-orange-dark);
+}
+
+.tag--rpg {
+  background: var(--color-indigo-light);
+  color: var(--color-indigo);
+}
 
 .game-card__title {
   font-size: var(--text-xl);
@@ -411,8 +432,14 @@ ul[role="list"] { list-style: none; }
   transition: color var(--transition);
 }
 
-.game-card__manual-link:hover { color: var(--color-orange); }
-.game-card__manual-link .meta-icon { width: 14px; height: 14px; }
+.game-card__manual-link:hover {
+  color: var(--color-orange);
+}
+
+.game-card__manual-link .meta-icon {
+  width: 14px;
+  height: 14px;
+}
 
 /* Coming soon */
 .game-card--coming-soon {
@@ -429,7 +456,9 @@ ul[role="list"] { list-style: none; }
   gap: var(--space-4);
 }
 
-.game-card__coming-icon { line-height: 1; }
+.game-card__coming-icon {
+  line-height: 1;
+}
 
 .game-card--coming-soon .game-card__title {
   color: var(--color-orange-dark);
@@ -480,7 +509,7 @@ ul[role="list"] { list-style: none; }
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(249,115,22,.3);
+  box-shadow: 0 2px 8px rgba(249, 115, 22, .3);
 }
 
 .dev-name {
@@ -541,7 +570,7 @@ ul[role="list"] { list-style: none; }
   border-radius: 4px 14px 12px 4px;
   padding: var(--space-6) var(--space-6) var(--space-5);
   transform: rotate(-1.5deg);
-  box-shadow: 3px 5px 14px rgba(0,0,0,.1);
+  box-shadow: 3px 5px 14px rgba(0, 0, 0, .1);
   position: relative;
 }
 
@@ -554,9 +583,9 @@ ul[role="list"] { list-style: none; }
   transform: translateX(-50%);
   width: 48px;
   height: 14px;
-  background: rgba(253,230,138,.85);
+  background: rgba(253, 230, 138, .85);
   border-radius: 3px;
-  box-shadow: 0 1px 3px rgba(0,0,0,.12);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .12);
 }
 
 .sticky-note__text {
@@ -602,9 +631,20 @@ ul[role="list"] { list-style: none; }
   height: 20px;
 }
 
-.feature-icon--orange { background: var(--color-orange-light); color: var(--color-orange); }
-.feature-icon--green  { background: var(--color-green-light);  color: var(--color-green); }
-.feature-icon--blue   { background: var(--color-blue-light);   color: var(--color-blue-dark); }
+.feature-icon--orange {
+  background: var(--color-orange-light);
+  color: var(--color-orange);
+}
+
+.feature-icon--green {
+  background: var(--color-green-light);
+  color: var(--color-green);
+}
+
+.feature-icon--blue {
+  background: var(--color-blue-light);
+  color: var(--color-blue-dark);
+}
 
 .feature-item strong {
   display: block;
@@ -677,7 +717,7 @@ ul[role="list"] { list-style: none; }
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(249,115,22,.3);
+  box-shadow: 0 2px 8px rgba(249, 115, 22, .3);
 }
 
 .sidebar-dev__name {
@@ -749,10 +789,25 @@ ul[role="list"] { list-style: none; }
   vertical-align: middle;
 }
 
-.update-item__badge--new    { background: var(--color-orange-light); color: var(--color-orange-dark); }
-.update-item__badge--fix    { background: var(--color-blue-light);   color: var(--color-blue-dark); }
-.update-item__badge--update { background: var(--color-green-light);  color: var(--color-green); }
-.update-item__badge--info   { background: #f3f4f6; color: #6b7280; }
+.update-item__badge--new {
+  background: var(--color-orange-light);
+  color: var(--color-orange-dark);
+}
+
+.update-item__badge--fix {
+  background: var(--color-blue-light);
+  color: var(--color-blue-dark);
+}
+
+.update-item__badge--update {
+  background: var(--color-green-light);
+  color: var(--color-green);
+}
+
+.update-item__badge--info {
+  background: #f3f4f6;
+  color: #6b7280;
+}
 
 .update-item__text {
   font-size: var(--text-xs);
@@ -770,7 +825,9 @@ ul[role="list"] { list-style: none; }
   transition: color var(--transition);
 }
 
-.sidebar-link:hover { color: var(--color-orange); }
+.sidebar-link:hover {
+  color: var(--color-orange);
+}
 
 /* このサイトについてウィジェット */
 .sidebar-features {
@@ -797,11 +854,25 @@ ul[role="list"] { list-style: none; }
   margin-top: 1px;
 }
 
-.sidebar-feature-icon--orange { background: var(--color-orange-light); color: var(--color-orange); }
-.sidebar-feature-icon--green  { background: var(--color-green-light);  color: var(--color-green); }
-.sidebar-feature-icon--blue   { background: var(--color-blue-light);   color: var(--color-blue-dark); }
+.sidebar-feature-icon--orange {
+  background: var(--color-orange-light);
+  color: var(--color-orange);
+}
 
-.sidebar-feature-icon svg { width: 11px; height: 11px; }
+.sidebar-feature-icon--green {
+  background: var(--color-green-light);
+  color: var(--color-green);
+}
+
+.sidebar-feature-icon--blue {
+  background: var(--color-blue-light);
+  color: var(--color-blue-dark);
+}
+
+.sidebar-feature-icon svg {
+  width: 11px;
+  height: 11px;
+}
 
 .sidebar-feature-item span {
   font-size: var(--text-xs);
@@ -834,7 +905,9 @@ ul[role="list"] { list-style: none; }
   flex-shrink: 0;
 }
 
-.updates-hero__back:hover { color: var(--color-orange); }
+.updates-hero__back:hover {
+  color: var(--color-orange);
+}
 
 .updates-hero__title {
   font-size: var(--text-3xl);
@@ -878,7 +951,9 @@ ul[role="list"] { list-style: none; }
   background: var(--color-border);
 }
 
-.timeline-item:last-child::before { display: none; }
+.timeline-item:last-child::before {
+  display: none;
+}
 
 .timeline-item__date {
   font-size: var(--text-sm);
@@ -915,10 +990,25 @@ ul[role="list"] { list-style: none; }
   margin-bottom: var(--space-2);
 }
 
-.timeline-item__badge--new    { background: var(--color-orange-light); color: var(--color-orange-dark); }
-.timeline-item__badge--fix    { background: var(--color-blue-light);   color: var(--color-blue-dark); }
-.timeline-item__badge--update { background: var(--color-green-light);  color: var(--color-green); }
-.timeline-item__badge--info   { background: #f3f4f6; color: #6b7280; }
+.timeline-item__badge--new {
+  background: var(--color-orange-light);
+  color: var(--color-orange-dark);
+}
+
+.timeline-item__badge--fix {
+  background: var(--color-blue-light);
+  color: var(--color-blue-dark);
+}
+
+.timeline-item__badge--update {
+  background: var(--color-green-light);
+  color: var(--color-green);
+}
+
+.timeline-item__badge--info {
+  background: #f3f4f6;
+  color: #6b7280;
+}
 
 .timeline-item__title {
   font-size: var(--text-base);

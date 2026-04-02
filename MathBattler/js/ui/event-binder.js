@@ -106,6 +106,26 @@ class EventBinder {
         document.getElementById('top-bag-btn').addEventListener('click', () => game._withSlide(() => game.showBackpackHub()));
         document.getElementById('top-setting-btn').addEventListener('click', () => game._withSlide(() => game.showSetting()));
 
+        // Monster House button (conditionally shown)
+        const mhBtn = document.getElementById('top-monster-house-btn');
+        if (mhBtn) {
+            mhBtn.addEventListener('click', () => { game.sound.playSe('btn'); game._withSlide(() => game.showMonsterHouse()); });
+        }
+
+        // Monster House Screen tabs
+        const mhTabMonster = document.getElementById('mh-tab-monster');
+        if (mhTabMonster) mhTabMonster.addEventListener('click', () => { game.sound.playSe('shop_tub'); if (game.monsterHouse) game.monsterHouse.switchTab('monster'); });
+        const mhTabMedal = document.getElementById('mh-tab-medal');
+        if (mhTabMedal) mhTabMedal.addEventListener('click', () => { game.sound.playSe('shop_tub'); if (game.monsterHouse) game.monsterHouse.switchTab('medal'); });
+        const mhTabFarewell = document.getElementById('mh-tab-farewell');
+        if (mhTabFarewell) mhTabFarewell.addEventListener('click', () => { game.sound.playSe('shop_tub'); if (game.monsterHouse) game.monsterHouse.switchTab('farewell'); });
+
+        // Monster House back button
+        const mhBackBtn = document.getElementById('mh-back-btn');
+        if (mhBackBtn) {
+            mhBackBtn.addEventListener('click', () => { game.sound.playSe('back'); game.hideMonsterHouse(); });
+        }
+
         // Setting Screen
         document.getElementById('close-setting-btn').addEventListener('click', () => { game.sound.playSe('back'); game._withSlide(() => game.hideSetting(), 'back'); });
         document.getElementById('setting-bgm-on').addEventListener('click', () => game._setSoundEnabled('bgm', true));

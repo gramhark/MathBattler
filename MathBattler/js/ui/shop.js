@@ -11,17 +11,24 @@ class ShopManager {
 
     // --- ショップ画面 ---
 
+    _getItemBuyPrice(item) {
+        return item.shopBuyPrice != null ? item.shopBuyPrice : item.sellPrice * 2;
+    }
+
     renderShopItems(backpack, malle) {
         const container = document.getElementById('shop-items');
         if (!container) return;
         container.innerHTML = '';
         window.ITEM_LIST.forEach((item, idx) => {
+            // requiresUnlock チェック
+            if (item.requiresUnlock === 'monster_house' && !this._storage.isMonsterHouseUnlocked()) return;
+            const buyPrice = this._getItemBuyPrice(item);
             const btn = document.createElement('button');
             btn.className = 'shop-item-btn';
             btn.innerHTML = `
                 <img src="assets/image/item/${item.img}" alt="${item.name}" class="shop-item-img">
                 <div class="shop-item-name">${item.name}</div>
-                <div class="shop-item-price">${item.sellPrice * 2}マール</div>
+                <div class="shop-item-price">${buyPrice}マール</div>
             `;
             btn.addEventListener('click', () => this.openShopItemDetail(idx));
             container.appendChild(btn);
@@ -31,10 +38,11 @@ class ShopManager {
     openShopItemDetail(idx) {
         this._selectedItemIdx = idx;
         const item = window.ITEM_LIST[idx];
+        const buyPrice = this._getItemBuyPrice(item);
         document.getElementById('shop-item-detail-img').src = `assets/image/item/${item.img}`;
         document.getElementById('shop-item-detail-name').textContent = item.name;
         document.getElementById('shop-item-detail-desc').textContent = item.desc;
-        document.getElementById('shop-item-detail-price').textContent = `${item.sellPrice * 2}マール`;
+        document.getElementById('shop-item-detail-price').textContent = `${buyPrice}マール`;
         document.getElementById('shop-item-overlay').classList.add('active');
     }
 
@@ -47,7 +55,7 @@ class ShopManager {
         const idx = this._selectedItemIdx;
         if (idx === null || idx === undefined) return;
         const item = window.ITEM_LIST[idx];
-        const buyPrice = item.sellPrice * 2;
+        const buyPrice = this._getItemBuyPrice(item);
 
         const currentCount = backpack[item.id] || 0;
         if (currentCount >= Constants.MAX_ITEM) {

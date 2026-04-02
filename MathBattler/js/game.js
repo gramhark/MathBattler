@@ -61,9 +61,17 @@ class Game {
         this._selectedSellItem = null;  // ショップ売却選択中アイテム
         this._selectedShopEquip = null; // ショップ装備購入選択中アイテム
         // バトル中アイテム使用回数（モンスター1体ごと）
-        this._monsterItemUsage = { spikeOrb: 0, poisonOrb: false, paralyzeOrb: false, stoneOrb: false, attackOrb: 0, defenseOrb: 0, rainbowOrbUsed: false };
+        this._monsterItemUsage = { spikeOrb: 0, poisonOrb: false, paralyzeOrb: false, stoneOrb: false, attackOrb: 0, defenseOrb: 0, rainbowOrbUsed: false, friendshipBerry: 0 };
         this._battleSelectedItem = null;
         this._isTransitioning = false;
+
+        // コンパニオン関連フィールド
+        this.companionSwordBonus = 0;
+        this.companionDefenseBonus = 0;
+        this.companionExtraDamage = 0;
+        this.companionMalleBonus = 0;
+        this.companionExpBonus = 0;
+        this.companionMedalActivated = false;
 
         // Managers (instantiate after properties are set)
         this.screens = new ScreenManager(this);
@@ -74,6 +82,7 @@ class Game {
         this.spawner = new MonsterSpawner(this);
         this.results = new ResultsManager(this);
         this.itemHandler = new BattleItemHandler(this);
+        this.monsterHouse = new MonsterHouseManager(this);
         this.levelSystem = new LevelSystem(this);
         this.input = new InputHandler(this);
         this.events = new EventBinder(this);
@@ -147,7 +156,32 @@ class Game {
         this.dodgeStreak = 0;
         this.specialMoveReady = false;
         this.specialStandby = false;
-        this._monsterItemUsage = { spikeOrb: 0, poisonOrb: false, paralyzeOrb: false, stoneOrb: false, attackOrb: 0, defenseOrb: 0, rainbowOrbUsed: false };
+        this._monsterItemUsage = { spikeOrb: 0, poisonOrb: false, paralyzeOrb: false, stoneOrb: false, attackOrb: 0, defenseOrb: 0, rainbowOrbUsed: false, friendshipBerry: 0 };
+
+        // コンパニオンボーナスを適用
+        this.companionSwordBonus = 0;
+        this.companionDefenseBonus = 0;
+        this.companionExtraDamage = 0;
+        this.companionMalleBonus = 0;
+        this.companionExpBonus = 0;
+        this.companionMedalActivated = false;
+        if (this.storage.isMonsterHouseUnlocked()) {
+            const activeCompanionName = this.storage.loadActiveCompanion();
+            if (activeCompanionName) {
+                const companionMedals = this.storage.loadCompanionMedals();
+                const medalId = companionMedals[activeCompanionName];
+                if (medalId && window.MEDAL_LIST) {
+                    const medal = window.MEDAL_LIST.find(m => m.id === medalId);
+                    if (medal) {
+                        if (medal.type === 'attack')       this.companionSwordBonus   = medal.value;
+                        if (medal.type === 'defense')      this.companionDefenseBonus = medal.value;
+                        if (medal.type === 'extra_damage') this.companionExtraDamage  = medal.value;
+                        if (medal.type === 'malle')        this.companionMalleBonus   = medal.value;
+                        if (medal.type === 'exp')          this.companionExpBonus     = medal.value;
+                    }
+                }
+            }
+        }
         // 装備UI更新（新装備システム優先）
         const _equippedSword = Array.isArray(this.backpack.equipment)
             ? this.backpack.equipment.find(e => e.type === 'sword' && e.equipped) : null;
@@ -196,6 +230,26 @@ class Game {
             this.state = GameState.INTERVAL;
 
             setTimeout(() => this.ui.adjustScale(), 200);
+
+            // コンパニオンエントリーカットイン
+            if (this.storage.isMonsterHouseUnlocked()) {
+                const activeCompanionName = this.storage.loadActiveCompanion();
+                if (activeCompanionName) {
+                    const companions = this.storage.loadCompanions();
+                    const companion = companions[activeCompanionName];
+                    if (companion) {
+                        const companionMedals = this.storage.loadCompanionMedals();
+                        const medalId = companionMedals[activeCompanionName];
+                        const medal = medalId && window.MEDAL_LIST ? window.MEDAL_LIST.find(m => m.id === medalId) : null;
+                        const effectText = medal ? medal.effectLabel : '';
+                        this._showCompanionEntryOverlay(companion, effectText);
+                        await new Promise(resolve => setTimeout(resolve, 2500));
+                    }
+                }
+            }
+
+            // 同伴モンスターアイコン更新
+            this._updateCompanionSlot();
 
             this.showInterval();
 
@@ -557,16 +611,67 @@ class Game {
                     const isSuperRare = m.isSuperRare;
 
                     // ドロップ後にノート登録メッセージを挟むラッパー
-                    const afterMalle = () => {
+                    const afterCapture = () => {
                         if (isNewRecord) {
                             this._showNoteRegistration(m.name, () => this._nextMonster());
                         } else {
                             this._nextMonster();
                         }
                     };
+                    // 捕獲チェック（Normal/DungeonRare/SuperRare のみ）
+                    const afterMalle = () => {
+                        const canCapture = (m.battleNumber !== Constants.BOSS_BATTLE_NUMBER)
+                            && !m.isHeal && !m.isSpecial
+                            && (this._monsterItemUsage.friendshipBerry || 0) > 0
+                            && this.storage.isMonsterHouseUnlocked();
+                        if (canCapture) {
+                            const existingCompanions = this.storage.loadCompanions();
+                            const alreadyCaptured = !!existingCompanions[m.name];
+                            if (!alreadyCaptured) {
+                                // 捕獲率計算
+                                let captureRate = (this._monsterItemUsage.friendshipBerry || 0) * 0.20;
+                                const hpRatio = m.hp / (m.maxHp || m.hp || 1);
+                                if (hpRatio <= 0.25) captureRate += 0.20;
+                                else if (hpRatio <= 0.50) captureRate += 0.10;
+                                if (m.isPoisoned) captureRate += 0.05;
+                                if (m.isParalyzed) captureRate += 0.10;
+                                if (m.isStoned) captureRate += 0.20;
+                                captureRate = Math.min(1.0, captureRate);
+
+                                if (Math.random() < captureRate) {
+                                    // 捕獲成功
+                                    const captureBlackout = document.getElementById('capture-fade');
+                                    if (captureBlackout) {
+                                        captureBlackout.classList.add('active');
+                                        setTimeout(() => {
+                                            captureBlackout.classList.remove('active');
+                                            const newCompanions = this.storage.loadCompanions();
+                                            newCompanions[m.name] = { name: m.name, imageSrc: m.imageSrc, capturedAt: Date.now() };
+                                            this.storage.saveCompanions(newCompanions);
+                                            this.sound.playSe('capture');
+                                            this.ui.showMessage(`${m.name}を\nなかまにした！`, false, 2000, 'text-neutral');
+                                            setTimeout(() => afterCapture(), 2000);
+                                        }, 600);
+                                    } else {
+                                        const newCompanions = this.storage.loadCompanions();
+                                        newCompanions[m.name] = { name: m.name, imageSrc: m.imageSrc, capturedAt: Date.now() };
+                                        this.storage.saveCompanions(newCompanions);
+                                        this.sound.playSe('capture');
+                                        this.ui.showMessage(`${m.name}を\nなかまにした！`, false, 2000, 'text-neutral');
+                                        setTimeout(() => afterCapture(), 2000);
+                                    }
+                                    return;
+                                }
+                            }
+                        }
+                        afterCapture();
+                    };
                     const afterDrop = () => {
                         if (isBoss) {
-                            this._doMalleDrop(afterMalle);
+                            // メダルドロップ → マールドロップ → 捕獲チェック
+                            this._doMedalDrop(m, () => {
+                                this._doMalleDrop(afterMalle);
+                            });
                         } else if (isSuperRare) {
                             this._doMalleDrop(afterMalle, 1000);
                         } else {
@@ -706,6 +811,24 @@ class Game {
             container.appendChild(btn);
         });
 
+        // メダル（モンスターハウス解放後）
+        if (this.storage.isMonsterHouseUnlocked() && this.monsterHouse && window.MEDAL_LIST) {
+            const medals = this.storage.loadMedals();
+            window.MEDAL_LIST.forEach(medal => {
+                const count = medals[medal.id] || 0;
+                if (count <= 0) return;
+                const btn = document.createElement('button');
+                btn.className = 'shop-item-btn';
+                btn.innerHTML = `
+                    <img src="assets/image/item/medal/${medal.img}" alt="${medal.name}" class="shop-item-img" onerror="this.style.display='none'">
+                    <div class="shop-item-name">${medal.name} ×${count}</div>
+                    <div class="shop-item-price">${medal.sellPrice}マール</div>
+                `;
+                btn.addEventListener('click', () => this._openSellDetail({ ...medal, category: 'medal' }));
+                container.appendChild(btn);
+            });
+        }
+
         if (container.children.length === 0) {
             const msg = document.createElement('p');
             msg.className = 'shop-empty-msg';
@@ -719,7 +842,9 @@ class Game {
         const folder = item.type === 'sword' ? 'sword' : item.type === 'shield' ? 'shield' : null;
         const imgSrc = folder
             ? `assets/image/equipment/${folder}/${item.img}`
-            : `assets/image/item/${item.img}`;
+            : item.category === 'medal'
+                ? `assets/image/item/medal/${item.img}`
+                : `assets/image/item/${item.img}`;
         document.getElementById('shop-sell-detail-img').src = imgSrc;
         document.getElementById('shop-sell-detail-name').textContent = item.name;
         document.getElementById('shop-sell-detail-desc').textContent = item.desc || '';
@@ -733,7 +858,16 @@ class Game {
         this._selectedSellItem = null;
         if (!item) return;
 
-        if (item.category === 'item') {
+        if (item.category === 'medal') {
+            if (!this.monsterHouse || !this.monsterHouse.executeMedalSell(item.id)) return;
+            this.malle = Math.min(this.malle + (item.sellPrice || 0), Constants.MAX_MALLE);
+            this.storage.saveMalle(this.malle);
+            this.sound.playSe('sell');
+            this.shop.updateShopMalleDisplay(this.malle);
+            this.shop.showShopMsg(`${item.name}を\nうった！`);
+            this._renderSellItems();
+            return;
+        } else if (item.category === 'item') {
             if ((this.backpack.items[item.id] || 0) <= 0) return;
             this.backpack.items[item.id]--;
             this.malle = Math.min(this.malle + (item.sellPrice || 0), Constants.MAX_MALLE);
@@ -898,7 +1032,46 @@ class Game {
     _onGameOver() { return this.results._onGameOver(); }
     _onGameClear() { return this.results._onGameClear(); }
     _doMalleDrop(cb, amt) { return this.results._doMalleDrop(cb, amt); }
+    _doMedalDrop(m, cb) { return this.results._doMedalDrop(m, cb); }
     _downloadShareImage() { return this.results._downloadShareImage(); }
+
+    showMonsterHouse() { return this.screens.showMonsterHouse(); }
+    hideMonsterHouse() { return this.screens.hideMonsterHouse(); }
+
+    _showCompanionEntryOverlay(companion, effectText) {
+        const overlay = document.getElementById('companion-entry-overlay');
+        if (!overlay || !companion) return;
+        const img = overlay.querySelector('.companion-cutin-img');
+        const msg = overlay.querySelector('.companion-cutin-msg');
+        if (img) img.src = companion.imageSrc || '';
+        if (msg) msg.innerHTML = `${companion.name}が　いっしょに　たたかう！${effectText ? '<br>' + effectText + '！' : ''}`;
+        overlay.classList.add('active');
+        this.sound.playSe('companion_cutin');
+        setTimeout(() => overlay.classList.remove('active'), 2000);
+    }
+
+    _updateCompanionSlot() {
+        const container = document.getElementById('companion-slot-container');
+        if (!container) return;
+        if (!this.storage.isMonsterHouseUnlocked()) {
+            container.style.display = 'none';
+            return;
+        }
+        const activeCompanionName = this.storage.loadActiveCompanion();
+        if (!activeCompanionName) {
+            container.style.display = 'none';
+            return;
+        }
+        const companions = this.storage.loadCompanions();
+        const companion = companions[activeCompanionName];
+        if (!companion) {
+            container.style.display = 'none';
+            return;
+        }
+        container.style.display = '';
+        const img = container.querySelector('.companion-slot-img');
+        if (img) img.src = companion.imageSrc || '';
+    }
 
     _openBattleBag() { return this.itemHandler._openBattleBag(); }
     _closeBattleBag() { return this.itemHandler._closeBattleBag(); }

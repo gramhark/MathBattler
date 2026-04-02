@@ -161,11 +161,14 @@ class EquipmentManager {
     }
 
     _getEquippedSwordBonus() {
-        const equipped = Array.isArray(this.game.backpack.equipment)
-            ? this.game.backpack.equipment.find(e => e.type === 'sword' && e.equipped)
-            : null;
-        const base = equipped ? (equipped.attack || equipped.bonus || 0) : 0;
-        return this.game.swordMultiplied ? Math.floor(base * 1.5) : base;
+        if (DEBUG_MODE) return 100;
+        const equip = Array.isArray(this.game.backpack.equipment) ? this.game.backpack.equipment : [];
+        const sword = equip.find(e => e.type === 'sword' && e.equipped);
+        const shield = equip.find(e => e.type === 'shield' && e.equipped);
+        const base = (sword ? (sword.attack || sword.bonus || 0) : 0)
+                   + (shield ? (shield.attack || 0) : 0);
+        const multiplied = this.game.swordMultiplied ? Math.floor(base * 1.5) : base;
+        return multiplied + (this.game.companionSwordBonus || 0);
     }
 
     _getEquippedSwordSpecialEffectId() {
@@ -177,11 +180,13 @@ class EquipmentManager {
 
     _getEquippedShieldBonus() {
         if (DEBUG_MODE) return 100;
-        const equipped = Array.isArray(this.game.backpack.equipment)
-            ? this.game.backpack.equipment.find(e => e.type === 'shield' && e.equipped)
-            : null;
-        const base = equipped ? (equipped.defense || equipped.bonus || 0) : 0;
-        return this.game.shieldMultiplied ? Math.floor(base * 1.5) : base;
+        const equip = Array.isArray(this.game.backpack.equipment) ? this.game.backpack.equipment : [];
+        const sword = equip.find(e => e.type === 'sword' && e.equipped);
+        const shield = equip.find(e => e.type === 'shield' && e.equipped);
+        const base = (shield ? (shield.defense || shield.bonus || 0) : 0)
+                   + (sword ? (sword.defense || 0) : 0);
+        const multiplied = this.game.shieldMultiplied ? Math.floor(base * 1.5) : base;
+        return multiplied + (this.game.companionDefenseBonus || 0);
     }
 
     /**

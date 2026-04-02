@@ -14,9 +14,10 @@ class SoundManager {
         this.bgmRare      = document.getElementById('bgm-rare');
         this.bgmHeal      = document.getElementById('bgm-heal');
         this.bgmSpecial   = document.getElementById('bgm-special');
-        this.bgmShop      = document.getElementById('bgm-shop');
-        this.bgmClear     = document.getElementById('bgm-clear');
-        this.bgmGameover  = document.getElementById('bgm-gameover');
+        this.bgmShop         = document.getElementById('bgm-shop');
+        this.bgmClear        = document.getElementById('bgm-clear');
+        this.bgmGameover     = document.getElementById('bgm-gameover');
+        this.bgmMonsterHouse = document.getElementById('bgm-monster-house');
 
         // SE — battle
         this.sePunch        = document.getElementById('se-punch');
@@ -86,7 +87,12 @@ class SoundManager {
         this.seEquipSort   = document.getElementById('se-equip-sort');
         this.seShopTub     = document.getElementById('se-shop-tub');
         this.seEquipTub    = document.getElementById('se-equip-tub');
-        this.seNoteGrid    = document.getElementById('se-note-grid');
+        this.seNoteGrid       = document.getElementById('se-note-grid');
+
+        // SE — monster house
+        this.seCapture        = document.getElementById('se-capture');
+        this.seCompanionCutin = document.getElementById('se-companion-cutin');
+        this.seFriendshipBerry = document.getElementById('se-friendship-berry');
 
         // BGM sources
         this.bgmTitle.src    = 'assets/audio/BGM/ui/title.mp3';
@@ -101,9 +107,10 @@ class SoundManager {
         this.bgmRare.src      = 'assets/audio/BGM/encounter/rare.mp3';
         this.bgmHeal.src      = 'assets/audio/BGM/encounter/heal.mp3';
         this.bgmSpecial.src   = 'assets/audio/BGM/encounter/special.mp3';
-        this.bgmShop.src      = 'assets/audio/BGM/ui/shop.mp3';
-        this.bgmClear.src     = 'assets/audio/BGM/result/clear.mp3';
-        this.bgmGameover.src  = 'assets/audio/BGM/result/gameover.mp3';
+        this.bgmShop.src         = 'assets/audio/BGM/ui/shop.mp3';
+        this.bgmClear.src        = 'assets/audio/BGM/result/clear.mp3';
+        this.bgmGameover.src     = 'assets/audio/BGM/result/gameover.mp3';
+        if (this.bgmMonsterHouse) this.bgmMonsterHouse.src = 'assets/audio/BGM/ui/monster_house.mp3';
 
         // SE sources — battle
         this.sePunch.src        = 'assets/audio/SE/battle/punch.mp3';
@@ -173,7 +180,12 @@ class SoundManager {
         this.seEquipSort.src   = 'assets/audio/SE/item/equip_sort.mp3';
         this.seShopTub.src     = 'assets/audio/SE/ui/shop_tub.mp3';
         this.seEquipTub.src    = 'assets/audio/SE/item/equip_tub.mp3';
-        this.seNoteGrid.src    = 'assets/audio/SE/ui/note_grid.mp3';
+        this.seNoteGrid.src       = 'assets/audio/SE/ui/note_grid.mp3';
+
+        // SE sources — monster house
+        if (this.seCapture)        this.seCapture.src        = 'assets/audio/SE/battle/capture.mp3';
+        if (this.seCompanionCutin) this.seCompanionCutin.src = 'assets/audio/SE/battle/companion_cutin.mp3';
+        if (this.seFriendshipBerry) this.seFriendshipBerry.src = 'assets/audio/SE/item/friendship_berry.mp3';
 
         this.currentBgm = null;
         this.isPausedByVisibility = false;
@@ -333,6 +345,11 @@ class SoundManager {
         this._switchTo(this.bgmShop, true);
     }
 
+    playMonsterHouseBgm() {
+        if (!this.bgmEnabled) return;
+        if (this.bgmMonsterHouse) this._switchTo(this.bgmMonsterHouse, true);
+    }
+
     _switchTo(target, fadeIn = false) {
         if (this.currentBgm && this.currentBgm !== target) {
             if (this.currentBgm._fadeInterval) clearInterval(this.currentBgm._fadeInterval);
@@ -373,8 +390,9 @@ class SoundManager {
             this.bgmTitle, this.bgmMenu, this.bgmDungeon,
             ...this.bgmBattle,
             this.bgmBoss, this.bgmBossAngry, this.bgmSrare, this.bgmRare,
-            this.bgmHeal, this.bgmSpecial, this.bgmShop, this.bgmClear, this.bgmGameover
-        ];
+            this.bgmHeal, this.bgmSpecial, this.bgmShop, this.bgmClear, this.bgmGameover,
+            this.bgmMonsterHouse
+        ].filter(Boolean);
         allBgms.forEach(bgm => {
             if (!bgm) return;
             if (bgm._fadeInterval) clearInterval(bgm._fadeInterval);
@@ -454,6 +472,10 @@ class SoundManager {
             'shop_tub':      this.seShopTub,
             'equip_tub':     this.seEquipTub,
             'note_grid':     this.seNoteGrid,
+            // monster house
+            'capture':          this.seCapture,
+            'companion_cutin':  this.seCompanionCutin,
+            'friendship_berry': this.seFriendshipBerry,
         };
         const se = map[type];
         if (se) {
@@ -498,8 +520,8 @@ class SoundManager {
             ...this.bgmBattle,
             this.bgmBoss, this.bgmBossAngry,
             this.bgmSrare, this.bgmRare, this.bgmHeal, this.bgmSpecial,
-            this.bgmShop, this.bgmClear, this.bgmGameover,
-        ];
+            this.bgmShop, this.bgmClear, this.bgmGameover, this.bgmMonsterHouse,
+        ].filter(Boolean);
         allBgms.forEach(bgm => {
             if (!bgm) return;
             bgm.muted = true;

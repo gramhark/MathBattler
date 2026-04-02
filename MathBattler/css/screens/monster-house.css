@@ -1,0 +1,511 @@
+/* ============================================================
+   モンスターハウス画面
+   ============================================================ */
+
+/* ---- ハウス画面全体 ---- */
+#app.portrait-mode #monster-house-screen {
+    position: relative;
+    padding: 0;
+    overflow: hidden;
+    flex-direction: column;
+}
+
+/* ---- セリフバブル ---- */
+#app.portrait-mode .mh-clerk-quote {
+    position: absolute;
+    top: calc(50% - 350px);
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 38px !important;
+    width: 600px;
+    max-width: 90%;
+    min-height: 180px;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    white-space: pre-wrap;
+    box-sizing: border-box;
+    z-index: 1;
+    pointer-events: none;
+    background: rgba(0, 60, 120, 0.85);
+    border-radius: 16px;
+    padding: 20px;
+    color: #fff;
+    font-family: var(--font-pixel);
+    line-height: 1.5;
+}
+
+/* ---- タブバー ---- */
+#app.portrait-mode .mh-tab-bar {
+    display: flex;
+    gap: 8px;
+    padding: 12px 20px 0;
+    position: relative;
+    z-index: 3;
+    flex-shrink: 0;
+    margin-top: 350px;
+}
+
+#app.portrait-mode .mh-tab-btn {
+    flex: 1;
+    font-family: var(--font-pixel);
+    font-size: 30px;
+    padding: 14px 10px;
+    border-radius: 12px 12px 0 0;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    background: rgba(0, 0, 50, 0.6);
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+#app.portrait-mode .mh-tab-btn.active {
+    background: rgba(0, 80, 160, 0.9);
+    color: #fff;
+    border-bottom-color: transparent;
+}
+
+/* ---- コンテンツエリア ---- */
+#app.portrait-mode .mh-content-area {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.75);
+    margin: 0 20px 20px;
+    border-radius: 0 0 16px 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+#app.portrait-mode .mh-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+#app.portrait-mode .mh-scroll-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+}
+
+/* ---- ソートバー ---- */
+#app.portrait-mode .mh-sort-bar {
+    display: flex;
+    gap: 12px;
+    padding-bottom: 12px;
+    flex-shrink: 0;
+}
+
+#app.portrait-mode .mh-sort-btn {
+    font-family: var(--font-pixel);
+    font-size: 26px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    background: rgba(30, 30, 80, 0.7);
+    color: #ccc;
+    cursor: pointer;
+}
+
+#app.portrait-mode .mh-sort-btn.active {
+    background: rgba(0, 100, 200, 0.8);
+    color: #fff;
+    border-color: rgba(100, 180, 255, 0.6);
+}
+
+/* ---- モンスターカードグリッド ---- */
+#app.portrait-mode .mh-monster-card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+}
+
+#app.portrait-mode .mh-monster-card {
+    background: rgba(20, 30, 80, 0.85);
+    border: 2px solid rgba(100, 150, 255, 0.3);
+    border-radius: 12px;
+    padding: 14px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.1s;
+    position: relative;
+}
+
+#app.portrait-mode .mh-monster-card:hover {
+    border-color: rgba(100, 180, 255, 0.7);
+}
+
+#app.portrait-mode .mh-monster-card:active {
+    transform: scale(0.96);
+}
+
+#app.portrait-mode .mh-monster-card.active-partner {
+    border-color: #ff9500;
+    background: rgba(60, 30, 0, 0.85);
+}
+
+#app.portrait-mode .mh-monster-card-img {
+    width: 100%;
+    height: 130px;
+    object-fit: contain;
+}
+
+#app.portrait-mode .mh-monster-card-name {
+    font-family: var(--font-pixel);
+    font-size: 22px;
+    color: #ddd;
+    text-align: center;
+    word-break: break-all;
+}
+
+#app.portrait-mode .mh-medal-badge {
+    font-family: var(--font-pixel);
+    font-size: 18px;
+    background: rgba(255, 215, 0, 0.25);
+    color: #ffd700;
+    border: 1px solid rgba(255, 215, 0, 0.5);
+    border-radius: 6px;
+    padding: 2px 8px;
+}
+
+#app.portrait-mode .mh-partner-badge {
+    font-family: var(--font-pixel);
+    font-size: 18px;
+    background: rgba(255, 149, 0, 0.3);
+    color: #ff9500;
+    border: 1px solid rgba(255, 149, 0, 0.5);
+    border-radius: 6px;
+    padding: 2px 8px;
+}
+
+/* ---- 詳細パネル ---- */
+#app.portrait-mode .mh-detail-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 20px;
+    gap: 16px;
+    overflow-y: auto;
+}
+
+#app.portrait-mode .mh-monster-detail-img {
+    width: 240px;
+    height: 240px;
+    object-fit: contain;
+}
+
+#app.portrait-mode .mh-monster-detail-name {
+    font-family: var(--font-pixel);
+    font-size: 40px;
+    color: #fff;
+    text-align: center;
+}
+
+#app.portrait-mode .mh-detail-medal-label {
+    font-family: var(--font-pixel);
+    font-size: 28px;
+    color: #ffd700;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#app.portrait-mode .mh-detail-medal-label.mh-no-medal {
+    color: #888;
+}
+
+#app.portrait-mode .mh-detail-medal-icon {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}
+
+#app.portrait-mode .mh-detail-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 500px;
+}
+
+#app.portrait-mode .mh-detail-btn {
+    font-size: 32px;
+    padding: 16px 20px;
+}
+
+/* ---- メダルカードグリッド ---- */
+#app.portrait-mode .mh-medal-card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+}
+
+#app.portrait-mode .mh-medal-card {
+    background: rgba(20, 30, 80, 0.85);
+    border: 2px solid rgba(100, 150, 255, 0.3);
+    border-radius: 12px;
+    padding: 14px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+    position: relative;
+}
+
+#app.portrait-mode .mh-medal-card.equipped {
+    border-color: #ffd700;
+    background: rgba(50, 40, 0, 0.85);
+}
+
+#app.portrait-mode .mh-medal-card-img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+#app.portrait-mode .mh-medal-card-img.rarity-bronze  { filter: drop-shadow(0 0 6px rgba(205, 127, 50, 0.8)); }
+#app.portrait-mode .mh-medal-card-img.rarity-silver  { filter: drop-shadow(0 0 6px rgba(192, 192, 192, 0.8)); }
+#app.portrait-mode .mh-medal-card-img.rarity-gold    { filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.9)); }
+#app.portrait-mode .mh-medal-card-img.rarity-diamond { filter: drop-shadow(0 0 10px rgba(185, 242, 255, 1.0)); }
+
+#app.portrait-mode .mh-medal-card-name {
+    font-family: var(--font-pixel);
+    font-size: 20px;
+    color: #ddd;
+    text-align: center;
+    word-break: break-all;
+}
+
+#app.portrait-mode .mh-medal-card-count {
+    font-family: var(--font-pixel);
+    font-size: 26px;
+    color: #aaa;
+}
+
+#app.portrait-mode .mh-medal-equipped-badge {
+    font-family: var(--font-pixel);
+    font-size: 18px;
+    background: rgba(255, 215, 0, 0.25);
+    color: #ffd700;
+    border-radius: 6px;
+    padding: 2px 8px;
+}
+
+/* ---- メダル詳細オーバーレイ ---- */
+#app.portrait-mode #mh-medal-detail-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+}
+
+#app.portrait-mode #mh-medal-detail-overlay.active {
+    display: flex;
+}
+
+#app.portrait-mode .mh-medal-detail-content {
+    background: linear-gradient(135deg, #1a2444, #0d1222);
+    border: 3px solid rgba(79, 172, 254, 0.5);
+    border-radius: 20px;
+    padding: 40px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 600px;
+    max-width: 90%;
+}
+
+#app.portrait-mode .mh-medal-detail-img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+}
+
+#app.portrait-mode .mh-medal-detail-name {
+    font-family: var(--font-pixel);
+    font-size: 38px;
+    text-align: center;
+}
+
+#app.portrait-mode .mh-medal-detail-rarity,
+#app.portrait-mode .mh-medal-detail-effect,
+#app.portrait-mode .mh-medal-detail-count,
+#app.portrait-mode .mh-medal-detail-sell {
+    font-family: var(--font-pixel);
+    font-size: 28px;
+    color: #ccc;
+    text-align: center;
+}
+
+#app.portrait-mode .mh-medal-detail-effect {
+    color: #7df;
+}
+
+#app.portrait-mode .mh-medal-detail-close-btn {
+    font-size: 32px;
+    padding: 14px 40px;
+    margin-top: 8px;
+}
+
+/* ---- おわかれタブ ---- */
+#app.portrait-mode .mh-farewell-card {
+    border-color: rgba(255, 80, 80, 0.4);
+}
+
+#app.portrait-mode .mh-farewell-card:hover {
+    border-color: rgba(255, 80, 80, 0.8);
+}
+
+/* ---- 空メッセージ ---- */
+#app.portrait-mode .mh-empty-msg {
+    font-family: var(--font-pixel);
+    font-size: 30px;
+    color: #888;
+    text-align: center;
+    padding: 40px 20px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+}
+
+/* ---- もどるボタン ---- */
+#app.portrait-mode .mh-back-btn {
+    display: block;
+    width: calc(100% - 32px);
+    margin: 12px 16px;
+    font-size: 30px;
+    padding: 14px 20px;
+    flex-shrink: 0;
+}
+
+/* ---- メダルサブパネルヘッダー ---- */
+#app.portrait-mode .mh-medal-sub-header {
+    font-family: var(--font-pixel);
+    font-size: 34px;
+    color: #fff;
+    text-align: center;
+    padding-bottom: 12px;
+    border-bottom: 2px solid rgba(255,255,255,0.15);
+    margin-bottom: 12px;
+}
+
+/* ---- 捕獲フェード ---- */
+#capture-fade {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #000;
+    z-index: 200;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+#capture-fade.active {
+    display: block;
+    opacity: 1;
+}
+
+/* ---- 解放通知バブル ---- */
+.mh-unlock-bubble {
+    display: none;
+    position: fixed;
+    bottom: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 60, 120, 0.95);
+    border: 3px solid rgba(79, 172, 254, 0.8);
+    border-radius: 20px;
+    padding: 24px 40px;
+    font-family: var(--font-pixel);
+    font-size: 38px;
+    color: #fff;
+    text-align: center;
+    z-index: 300;
+    line-height: 1.5;
+    pointer-events: none;
+    animation: mh-bubble-in 0.3s ease;
+}
+
+.mh-unlock-bubble.active {
+    display: block;
+}
+
+@keyframes mh-bubble-in {
+    from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* ---- コンパニオンカットインオーバーレイ ---- */
+.companion-cutin-overlay {
+    position: fixed;
+    right: -110%;
+    bottom: 30%;
+    width: 400px;
+    background: rgba(0, 20, 60, 0.92);
+    border: 3px solid rgba(79, 172, 254, 0.6);
+    border-radius: 20px;
+    padding: 20px 24px;
+    z-index: 90;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    will-change: transform;
+    transition: none;
+    pointer-events: none;
+}
+
+.companion-cutin-overlay.active {
+    animation: companion-slide-in-out 1.6s ease forwards;
+}
+
+@keyframes companion-slide-in-out {
+    0%   { right: -110%; }
+    20%  { right: 10px; }
+    75%  { right: 10px; }
+    100% { right: -110%; }
+}
+
+.companion-cutin-overlay .companion-cutin-img {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.companion-cutin-overlay .companion-cutin-msg {
+    font-family: var(--font-pixel);
+    font-size: 26px;
+    color: #fff;
+    line-height: 1.5;
+}
+
+/* ---- バトル画面コンパニオンスロット ---- */
+#companion-slot-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 8px;
+}
+
+.companion-slot-img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 149, 0, 0.8);
+    background: rgba(60, 30, 0, 0.5);
+}

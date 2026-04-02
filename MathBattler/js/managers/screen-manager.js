@@ -30,6 +30,48 @@ class ScreenManager {
         } else {
             this.game.sound.playMenuBgm();
         }
+
+        // モンスターハウスボタンの表示制御
+        const mhRow = document.getElementById('top-monster-house-row');
+        if (mhRow) {
+            mhRow.style.display = this.storage.isMonsterHouseUnlocked() ? '' : 'none';
+        }
+
+        // 初回解放通知バブル
+        if (this.storage.isMonsterHouseUnlocked() && !this.storage.isMonsterHouseNotified()) {
+            this.storage.setMonsterHouseNotified();
+            const bubble = document.getElementById('mh-unlock-bubble');
+            if (bubble) {
+                bubble.classList.add('active');
+                setTimeout(() => bubble.classList.remove('active'), 3000);
+            }
+        }
+    }
+
+    showMonsterHouse() {
+        if (!this.storage.isMonsterHouseUnlocked()) return;
+        this.game.state = GameState.MONSTER_HOUSE;
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById('monster-house-screen').classList.add('active');
+        this.ui.adjustScale();
+        this.sound.playMonsterHouseBgm();
+        if (this.game.monsterHouse) this.game.monsterHouse.onEnter();
+    }
+
+    async hideMonsterHouse() {
+        if (this.game.monsterHouse) {
+            const canLeave = this.game.monsterHouse.canLeave();
+            if (!canLeave) return;
+            this.game.monsterHouse.onLeave();
+        }
+        await new Promise(resolve => setTimeout(resolve, 800));
+        this._withSlide(() => {
+            this.game.state = GameState.TOP;
+            document.getElementById('monster-house-screen').classList.remove('active');
+            document.getElementById('main-screen').classList.add('active');
+            this.sound.playMenuBgm();
+            this.ui.adjustScale();
+        }, 'back');
     }
 
     async _withSlide(callback, direction = 'forward') {
@@ -190,7 +232,7 @@ class ScreenManager {
             if (isCleared) {
                 btn.classList.add('cleared');
                 const clearIcon = document.createElement('img');
-                clearIcon.src = `assets/image/UI/Icon/icon_dungeonClear0${this.game.difficulty}.webp`;
+                clearIcon.src = `assets/image/UI/Icon/icon_dungeonClear.webp`;
                 clearIcon.className = 'dungeon-clear-icon';
                 clearIcon.alt = '';
                 btn.appendChild(clearIcon);

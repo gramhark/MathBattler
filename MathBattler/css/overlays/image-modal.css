@@ -95,6 +95,10 @@
     padding: 4px 16px;
 }
 
+.modal-equip-stats .equip-stat.item-desc {
+    color: #ffe97a;
+}
+
 .modal-diff-badges {
     display: flex;
     flex-direction: column;

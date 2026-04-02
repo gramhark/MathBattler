@@ -103,7 +103,8 @@ class InputHandler {
 
         // ダメージ計算（必殺技は specialStandby で発動）
         const { damage, isSpecial } = this.game.battle.calcPlayerDamage(
-            this.game._getEquippedSwordBonus(), this.game.swordBonus, isCrit, this.game.specialStandby
+            this.game._getEquippedSwordBonus(), this.game.swordBonus, isCrit, this.game.specialStandby,
+            this.game.companionExtraDamage || 0
         );
 
         // 必殺技後の状態リセット
@@ -159,6 +160,35 @@ class InputHandler {
                 this.ui.showMessage(`${this.game.playerName}のこうげき！\n${damage}ダメージ！`, false, 1500, 'text-player-action');
             }
             this.sound.playSe(isCrit ? 'punch_crit' : 'punch');
+        }
+
+        // コンパニオンメダル状態異常チェック（プレイヤーターン・通常攻撃・1ダンジョン1回）
+        if (!isSpecial && m.hp > 0 && !this.game.companionMedalActivated) {
+            const activeCompanionName = this.game.storage ? this.game.storage.loadActiveCompanion() : null;
+            if (activeCompanionName) {
+                const companionMedals = this.game.storage.loadCompanionMedals();
+                const medalId = companionMedals[activeCompanionName];
+                const medal = medalId && window.MEDAL_LIST ? window.MEDAL_LIST.find(md => md.id === medalId) : null;
+                if (medal && ['poison', 'paralyze', 'stone'].includes(medal.type)) {
+                    const companions = this.game.storage.loadCompanions();
+                    const companion = companions[activeCompanionName];
+                    if (Math.random() < medal.value) {
+                        this.game.companionMedalActivated = true;
+                        if (medal.type === 'poison' && !m.isPoisoned) {
+                            m.isPoisoned = true;
+                            this.ui.applyMonsterStatusMask('poison');
+                        } else if (medal.type === 'paralyze' && !m.isParalyzed) {
+                            m.isParalyzed = true;
+                            this.ui.applyMonsterStatusMask('paralyzed');
+                        } else if (medal.type === 'stone' && !m.isStoned) {
+                            m.isStoned = true;
+                        }
+                        // カットイン表示
+                        const effectLabel = medal.effectLabel || medal.desc;
+                        this._showCompanionCutin(companion, `${activeCompanionName}が\n${effectLabel.replace(' 付与確率', '')}をあたえた！`);
+                    }
+                }
+            }
         }
 
         // hp=0 でもボスイベントが発火する可能性があるため、常に先にチェックする
@@ -266,7 +296,7 @@ class InputHandler {
         this.ui.clearMessageLog();
 
         // モンスター1体ごとのアイテム使用回数リセット（rainbowOrbUsedはダンジョン全体で有効なので引き継ぐ）
-        this.game._monsterItemUsage = { spikeOrb: 0, poisonOrb: false, paralyzeOrb: false, stoneOrb: false, attackOrb: 0, defenseOrb: 0, rainbowOrbUsed: this.game._monsterItemUsage.rainbowOrbUsed };
+        this.game._monsterItemUsage = { spikeOrb: 0, poisonOrb: false, paralyzeOrb: false, stoneOrb: false, attackOrb: 0, defenseOrb: 0, rainbowOrbUsed: this.game._monsterItemUsage.rainbowOrbUsed, friendshipBerry: 0 };
         this.game.swordBonus = 0; // こうげきだま効果リセット
         this.game.defenseBonus = 0; // ぼうぎょだま効果リセット
 
@@ -478,6 +508,18 @@ class InputHandler {
 
         this.game._pausedState = null;
         this.game._pausedElapsed = 0;
+    }
+
+    _showCompanionCutin(companion, message) {
+        const overlay = document.getElementById('companion-cutin-overlay');
+        if (!overlay) return;
+        const img = overlay.querySelector('.companion-cutin-img');
+        const msg = overlay.querySelector('.companion-cutin-msg');
+        if (img && companion) img.src = companion.imageSrc || '';
+        if (msg) msg.innerHTML = message.replace(/\n/g, '<br>');
+        overlay.classList.add('active');
+        this.sound.playSe('companion_cutin');
+        setTimeout(() => overlay.classList.remove('active'), 1500);
     }
 
 }

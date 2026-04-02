@@ -30,6 +30,10 @@ class ResultsManager {
         this.game.state = GameState.RESULT;
         // ダンジョンクリアを保存
         this.storage.saveFloorClear(this.game.currentFloor, this.game.difficulty);
+        // 100階クリア時にモンスターハウスを解放
+        if (this.game.currentFloor === 100 && !this.storage.isMonsterHouseUnlocked()) {
+            this.storage.setMonsterHouseUnlocked();
+        }
         this.sound.stopBgm();
         this.sound.playSe('clear');
 
@@ -221,6 +225,7 @@ class ResultsManager {
     _doMalleDrop(onComplete, directAmount = null) {
         let amount = directAmount !== null ? directAmount : 1000;
         if (this.game.goldMultiplied) amount = Math.round(amount * 2);
+        if (this.game.companionMalleBonus) amount = Math.round(amount * (1 + this.game.companionMalleBonus));
         if (amount <= 0) {
             onComplete();
             return;
@@ -243,5 +248,57 @@ class ResultsManager {
             malleImg.remove();
             onComplete();
         }, 3000);
+    }
+
+    /**
+     * ボス撃破後のメダルドロップ処理
+     * @param {object} m モンスター
+     * @param {function} onComplete 完了コールバック
+     */
+    _doMedalDrop(m, onComplete) {
+        if (!this.storage.isMonsterHouseUnlocked()) {
+            onComplete();
+            return;
+        }
+        if (!window.MEDAL_LIST || !window.MEDAL_DROP_TABLE) {
+            onComplete();
+            return;
+        }
+
+        const diff = this.game.difficulty || 1;
+        const floor = this.game.currentFloor;
+        let bandKey;
+        if (floor <= 25) bandKey = '1-25';
+        else if (floor <= 50) bandKey = '26-50';
+        else if (floor <= 75) bandKey = '51-75';
+        else bandKey = '76-100';
+
+        const table = (window.MEDAL_DROP_TABLE[diff] || window.MEDAL_DROP_TABLE[1])[bandKey];
+        if (!table) { onComplete(); return; }
+
+        const r = Math.random();
+        let rarity;
+        if (r < table[0]) rarity = 'bronze';
+        else if (r < table[0] + table[1]) rarity = 'silver';
+        else if (r < table[0] + table[1] + table[2]) rarity = 'gold';
+        else rarity = 'diamond';
+
+        // diamondが0%の場合は gold にフォールバック
+        if (rarity === 'diamond' && table[3] === 0) rarity = 'gold';
+
+        const candidates = window.MEDAL_LIST.filter(md => md.rarity === rarity);
+        if (candidates.length === 0) { onComplete(); return; }
+        const medal = candidates[Math.floor(Math.random() * candidates.length)];
+
+        // 枚数増加
+        const medals = this.storage.loadMedals();
+        const current = medals[medal.id] || 0;
+        medals[medal.id] = Math.min(current + 1, 99);
+        this.storage.saveMedals(medals);
+
+        const rarityLabel = { bronze: '（銅）', silver: '（銀）', gold: '（金）', diamond: '（ダイヤ）' }[rarity] || '';
+        this.ui.showMessage(`${medal.name.replace(/（.*?）/, '')}${rarityLabel}を\nてにいれた！`, false, 2000, 'text-neutral');
+
+        setTimeout(() => onComplete(), 2000);
     }
 }

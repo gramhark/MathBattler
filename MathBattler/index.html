@@ -37,6 +37,7 @@
     <link rel="stylesheet" href="css/screens/equip.css">
     <link rel="stylesheet" href="css/screens/setting.css">
     <link rel="stylesheet" href="css/screens/note.css">
+    <link rel="stylesheet" href="css/screens/monster-house.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=M+PLUS+Rounded+1c:wght@400;700&display=swap"
@@ -90,6 +91,11 @@
                     <div class="top-menu-row">
                         <button id="top-note-btn" class="orange-btn">
                             <img src="assets/image/UI/BTN_main_note.webp" class="btn-bg-img" alt="ノート">
+                        </button>
+                    </div>
+                    <div class="top-menu-row" id="top-monster-house-row" style="display:none;">
+                        <button id="top-monster-house-btn" class="primary-btn">
+                            <img src="assets/image/UI/BTN_main_monsterhouse.webp" class="btn-bg-img" alt="モンスターハウス">
                         </button>
                     </div>
                     <div class="top-menu-row">
@@ -339,6 +345,44 @@
             </div>
         </div>
 
+<!-- モンスターハウス画面 -->
+<div id="monster-house-screen" class="screen">
+    <div class="top-bg-container">
+        <img src="assets/image/UI/BG_monsterhouse.webp" alt="背景" class="top-bg-img">
+            </div>
+            <div class="shop-header">
+                <button id="mh-back-btn" class="close-screen-btn">
+                    <img src="assets/image/UI/ButtonBack.webp" alt="もどる">
+                </button>
+                <img src="assets/image/UI/main_monsterhouse.webp" class="screen-title-img" alt="モンスターハウス">
+            </div>
+            <!-- セリフバブル -->
+            <div id="mh-clerk-quote" class="shop-clerk-quote mh-clerk-quote" style="display:block;"></div>
+            <!-- タブ -->
+            <div class="mh-tab-bar">
+                <button id="mh-tab-monster" class="mh-tab-btn active">モンスター</button>
+                <button id="mh-tab-medal" class="mh-tab-btn">メダル</button>
+                <button id="mh-tab-farewell" class="mh-tab-btn">おわかれ</button>
+            </div>
+            <!-- コンテンツパネル -->
+            <div class="mh-content-area">
+                <!-- モンスタータブ -->
+                <div id="mh-panel-monster" class="mh-panel">
+                    <div id="mh-monster-grid" class="mh-scroll-area"></div>
+                    <div id="mh-monster-detail" class="mh-detail-panel" style="display:none;"></div>
+                    <div id="mh-medal-sub" class="mh-scroll-area" style="display:none;"></div>
+                </div>
+                <!-- メダルタブ -->
+                <div id="mh-panel-medal" class="mh-panel" style="display:none;">
+                    <div id="mh-medal-list" class="mh-scroll-area"></div>
+                </div>
+                <!-- おわかれタブ -->
+                <div id="mh-panel-farewell" class="mh-panel" style="display:none;">
+                    <div id="mh-farewell-grid" class="mh-scroll-area"></div>
+                </div>
+            </div>
+        </div>
+
         <!-- バトル画面 -->
         <div id="battle-screen" class="screen">
             <div class="battle-view">
@@ -389,6 +433,9 @@
                         <div id="item-slot-container" class="item-slot-container">
                             <img id="backpack-slot-img" class="item-slot-img backpack-slot-img"
                                 src="assets/image/other/kaban.webp" alt="リュック">
+                        </div>
+                        <div id="companion-slot-container" class="companion-slot-container" style="display:none;">
+                            <img class="companion-slot-img" src="" alt="同伴モンスター">
                         </div>
                     </div>
                     <div class="status-hp-area">
@@ -782,12 +829,45 @@
             <audio id="se-shop-tub" preload="auto"></audio>
             <audio id="se-equip-tub" preload="auto"></audio>
             <audio id="se-note-grid" preload="auto"></audio>
+            <!-- SE: monster house -->
+            <audio id="bgm-monster-house" loop></audio>
+            <audio id="se-capture" preload="auto"></audio>
+            <audio id="se-companion-cutin" preload="auto"></audio>
+            <audio id="se-friendship-berry" preload="auto"></audio>
             <div id="whiteout-overlay"></div>
             <div id="fadeout-overlay"></div>
+            <!-- 捕獲フェード -->
+            <div id="capture-fade"></div>
+            <!-- 解放通知バブル -->
+            <div id="mh-unlock-bubble" class="mh-unlock-bubble">モンスターハウスが<br>ひらいたよ！</div>
+            <!-- コンパニオンエントリーカットイン -->
+            <div id="companion-entry-overlay" class="companion-cutin-overlay">
+                <img class="companion-cutin-img" src="" alt="">
+                <div class="companion-cutin-msg"></div>
+            </div>
+            <!-- コンパニオンメダル発動カットイン -->
+            <div id="companion-cutin-overlay" class="companion-cutin-overlay">
+                <img class="companion-cutin-img" src="" alt="">
+                <div class="companion-cutin-msg"></div>
+            </div>
+            <!-- モンスターハウス お別れ確認ダイアログ -->
+            <div class="overlay" id="mh-farewell-confirm-overlay">
+                <div class="overlay-content quit-confirm-content">
+                    <p class="quit-confirm-msg" id="mh-farewell-confirm-msg">〇〇と おわかれする？</p>
+                    <div class="quit-confirm-buttons">
+                        <button id="mh-farewell-yes-btn" class="primary-btn">はい</button>
+                        <button id="mh-farewell-no-btn" class="orange-btn">いいえ</button>
+                    </div>
+                </div>
+            </div>
+            <!-- モンスターハウス メダル詳細オーバーレイ -->
+            <div class="overlay" id="mh-medal-detail-overlay">
+            </div>
         </div>
         <script src="assets/monster_list.js"></script>
         <script src="assets/equipment_list.js"></script>
         <script src="assets/item_list.js"></script>
+        <script src="assets/medal_list.js"></script>
         <script src="js/core/constants.js"></script>
         <script src="js/core/sound.js"></script>
         <script src="js/core/math_problem.js"></script>
@@ -807,6 +887,7 @@
         <script src="js/managers/monster-spawner.js"></script>
         <script src="js/managers/results-manager.js"></script>
         <script src="js/managers/battle-item-handler.js"></script>
+        <script src="js/managers/monster-house-manager.js"></script>
         <script src="js/ui/input-handler.js"></script>
         <script src="js/ui/event-binder.js"></script>
         <script src="js/ui/particle-effect.js"></script>

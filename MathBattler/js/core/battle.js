@@ -15,7 +15,7 @@ class BattleManager {
      * @param {number} swordBonus         - ミスターといし・こうげきだまによる一時ボーナス
      * @returns {{ damage: number, isSpecial: boolean }}
      */
-    calcPlayerDamage(equippedSwordBonus, swordBonus, isCrit, specialMoveReady) {
+    calcPlayerDamage(equippedSwordBonus, swordBonus, isCrit, specialMoveReady, extraDamage = 0) {
         // 新ダメージ計算式: ((1 + 武器のボーナス) × 1.5[クリティカル補正。端数切捨て] + スペシャルボーナス) × 2[必殺技補正]
         let damage = 1 + equippedSwordBonus; // 1 + 武器のボーナス（素手=0）
 
@@ -24,6 +24,7 @@ class BattleManager {
         }
 
         damage += swordBonus; // スペシャルボーナス追加
+        damage += (extraDamage || 0); // コンパニオンメダルの追加ダメージ
 
         const isSpecial = specialMoveReady;
         if (isSpecial) {
@@ -128,6 +129,7 @@ class BattleManager {
             case 'paralyzeOrb': return !monsterItemUsage.paralyzeOrb;
             case 'stoneOrb':    return !monsterItemUsage.stoneOrb;
             case 'rainbowOrb':  return !monsterItemUsage.rainbowOrbUsed;
+            case 'friendshipBerry': return (monsterItemUsage.friendshipBerry || 0) < 5;
             default: return false;
         }
     }

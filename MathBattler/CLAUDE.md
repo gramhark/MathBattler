@@ -37,7 +37,7 @@ Filename prefix determines which monster matches:
 
 - **`開発仕様書.md`** — detailed internal spec: all game constants, formulas, timer values, monster spawn logic, damage math, status effects, full battle flow.
 - **`各データテーブル.md`** — complete lookup tables for floors 1–100: HP growth, EXP, gold rewards, monster stats, and recommended equipment bonus values.
-- **`仕様追加提案.md`** — future feature proposals (fever mode, boss UI gimmicks, etc.) with draft implementation plans.
+- **`モンスターハウス.md`** — full spec for the Monster House end-content feature: capture system, medals, companion system, storage keys, and unlock conditions.
 
 ## Canonical Screen Names
 
@@ -59,6 +59,7 @@ The project uses these fixed screen names (see `開発仕様書.md §1`):
 | 設定画面 | Player name, BGM/SE/volume settings |
 | ノートハブ画面 | Hub → モンスターノート / アイテムノート |
 | リュックハブ画面 | Hub → そうび / どうぐ |
+| モンスターハウス画面 | End-content: captured companions + medal management (unlocked after floor 100 clear) |
 
 ## Architecture
 
@@ -67,6 +68,7 @@ Game logic is split across `js/` by feature. Load order in `index.html` matters 
 - **`assets/monster_list.js`** — auto-generated object `window.MONSTER_ASSETS`. Must be loaded first.
 - **`assets/equipment_list.js`** — `window.EQUIPMENT_LIST` array of sword/shield definitions.
 - **`assets/item_list.js`** — `window.ITEM_LIST` array of consumable item definitions.
+- **`assets/medal_list.js`** — `window.MEDAL_LIST` array of medal definitions (attack/defense/extra_damage/malle types, four rarity tiers: bronze/silver/gold/diamond).
 - **`js/core/constants.js`** — `Constants`, `Difficulty`, `DIFFICULTY_TIMER`, `GameState`, `ITEM_DATA`, `FORM_CONFIG`, drop rate arrays.
 - **`js/core/sound.js`** — `SoundManager` class.
 - **`js/core/math_problem.js`** — `MathProblem` class.
@@ -85,6 +87,7 @@ Game logic is split across `js/` by feature. Load order in `index.html` matters 
 - **`js/managers/monster-spawner.js`** — `MonsterSpawner`. Monster selection logic per floor.
 - **`js/managers/results-manager.js`** — `ResultsManager`. Result screen display and share image generation.
 - **`js/managers/battle-item-handler.js`** — `BattleItemHandler`. In-battle item use logic.
+- **`js/managers/monster-house-manager.js`** — `MonsterHouseManager`. Monster House screen: companion list, medal inventory, medal equipping, companion selection, farewell (release) flow.
 - **`js/game.js`** — `Game` class (main controller). Owns the game state machine, turn loop, and delegates to all managers via shim methods. Instantiates all managers in constructor.
 - **`js/main.js`** — `DOMContentLoaded` bootstrap.
 
@@ -101,7 +104,7 @@ Styles are split across `css/` by feature. Load order in `index.html` matters:
 | `css/components/animations.css` | Keyframe animations |
 | `css/components/message.css` | Message overlay |
 | `css/overlays.css` | All overlay/modal styles (interval, boss cutin, equip drop, image zoom, battle bag, etc.) |
-| `css/screens/*.css` | One file per screen: `top`, `dungeon`, `battle`, `result`, `shop`, `bag`, `equip`, `setting`, `note` |
+| `css/screens/*.css` | One file per screen: `top`, `dungeon`, `battle`, `result`, `shop`, `bag`, `equip`, `setting`, `note`, `monster-house` |
 
 ### JS Classes
 
@@ -125,6 +128,7 @@ Styles are split across `css/` by feature. Load order in `index.html` matters:
 | `js/managers/monster-spawner.js` | `MonsterSpawner` | Per-floor monster type selection and image assignment. |
 | `js/managers/results-manager.js` | `ResultsManager` | Result screen rendering, share image canvas generation. |
 | `js/managers/battle-item-handler.js` | `BattleItemHandler` | In-battle item use validation and effect application. |
+| `js/managers/monster-house-manager.js` | `MonsterHouseManager` | Monster House screen: captured companion grid, medal inventory, equip/unequip medals, companion selection for battle, farewell (release) flow. |
 | `js/game.js` | `Game` | Main controller. Owns game state, player stats, and all manager instances. Turn loop is delegated to `InputHandler`. Manager methods are exposed as shims (e.g., `showEquip()` → `this.equipment.showEquip()`). |
 | `js/main.js` | init | DOMContentLoaded bootstrap: restores player name, runs `calculateTotalMonsters()`, instantiates `Game`. |
 
@@ -160,7 +164,7 @@ Critical hit triggers when the player answers within `DIFFICULTY_TIMER.CRITICAL`
 
 ### Game State Machine (`GameState`)
 
-Full state enum: `TOP`, `DUNGEON_SELECT`, `BATTLE`, `INTERVAL`, `TRANSITION`, `GAME_OVER`, `RESULT`, `NOTE`, `MONSTER_NOTE`, `ITEM_NOTE`, `SHOP`, `BACKPACK_HUB`, `BACKPACK`, `EQUIP`, `SETTING`.
+Full state enum: `TOP`, `DUNGEON_SELECT`, `BATTLE`, `INTERVAL`, `TRANSITION`, `GAME_OVER`, `RESULT`, `NOTE`, `MONSTER_NOTE`, `ITEM_NOTE`, `SHOP`, `BACKPACK_HUB`, `BACKPACK`, `EQUIP`, `SETTING`, `MONSTER_HOUSE`.
 
 ```
 TOP ──(メインメニュー)──► DUNGEON_SELECT ──(startGame)──► INTERVAL ──► BATTLE
@@ -211,10 +215,27 @@ All `localStorage` access goes through `StorageManager` in `js/core/storage.js`.
 - Sound/name settings: `math_battle_settings` (JSON: `{bgm, se, volume, playerName}`)
 - Backup save/load: JSON file download/upload with a simple checksum (`_checksum` field, sum of char codes in hex)
 - Old `math_battle_cleared_floors` key (no suffix) is cleaned up on backup restore
+- Monster House unlock flag: `math_battle_monster_house_unlocked` (`'true'`)
+- Monster House first-seen notification flag: `math_battle_monster_house_notified` (`'true'`)
+- Captured companions: `math_battle_companions` (JSON, keyed by monster name)
+- Active companion (in-battle): `math_battle_active_companion` (monster name string or absent)
+- Last selected companion (UI memory): `math_battle_last_selected_companion`
+- Owned medals: `math_battle_medals` (JSON)
+- Medals equipped per companion: `math_battle_companion_medals` (JSON map)
 
 ### Equipment System
 
 Equipment definitions live in `assets/equipment_list.js` as `window.EQUIPMENT_LIST` (array of `{name, type, img, bonus/reduction, ...}`). `SWORD_DATA` and `SHIELD_DATA` in `constants.js` are **legacy empty stubs kept only for fallback** — do not add data there. Drop rates are in `SWORD_DROP_RATE` / `SHIELD_DROP_RATE` arrays in `js/core/constants.js`, indexed by current equipment level.
+
+### Monster House System
+
+Unlocked after clearing floor 100 on any difficulty. Managed by `MonsterHouseManager`.
+
+- **Capture**: Normal, DungeonRare, SuperRare monsters only (1 per species). Requires `ゆうじょうのみ` item (shop-only after unlock). Capture chance varies by monster HP% at battle end.
+- **Medals**: Drop from all-boss clears after unlock. Defined in `window.MEDAL_LIST` (`assets/medal_list.js`). Types: `attack`, `defense`, `extra_damage`, `malle`, `exp`, `poison`, `paralyze`, `stone`. Rarities: `bronze` → `silver` → `gold` → `diamond`. Up to 3 medals per companion slot. Drop rates per rarity by difficulty are in `window.MEDAL_DROP_TABLE` (also in `medal_list.js`).
+- **Active companion**: One companion can be set active per dungeon run, contributing its medal bonuses (attack, defense, extra_damage, malle %) to the player's combat stats.
+- **Capacity**: Max 50 companions. Exceeding 50 triggers an overflow (farewell) flow on Monster House entry.
+- **Farewell**: Releasing a companion returns it to the wild (removes from `companions`, clears its equipped medals back to inventory).
 
 ### Audio
 

@@ -220,6 +220,14 @@ class StorageManager {
             itemCollection: localStorage.getItem('math_battle_item_collection_v1'),
             playerLevel:   localStorage.getItem('math_battle_player_level'),
             playerExp:     localStorage.getItem('math_battle_player_exp'),
+            // モンスターハウス
+            monsterHouseUnlocked:  localStorage.getItem('math_battle_monster_house_unlocked'),
+            monsterHouseNotified:  localStorage.getItem('math_battle_monster_house_notified'),
+            companions:            localStorage.getItem('math_battle_companions'),
+            activeCompanion:       localStorage.getItem('math_battle_active_companion'),
+            lastSelectedCompanion: localStorage.getItem('math_battle_last_selected_companion'),
+            medals:                localStorage.getItem('math_battle_medals'),
+            companionMedals:       localStorage.getItem('math_battle_companion_medals'),
         };
         data._checksum = this._calcChecksum(data);
         return data;
@@ -244,6 +252,14 @@ class StorageManager {
         set('math_battle_item_collection_v1',rest.itemCollection);
         set('math_battle_player_level',      rest.playerLevel);
         set('math_battle_player_exp',        rest.playerExp);
+        // モンスターハウス
+        set('math_battle_monster_house_unlocked',  rest.monsterHouseUnlocked);
+        set('math_battle_monster_house_notified',  rest.monsterHouseNotified);
+        set('math_battle_companions',              rest.companions);
+        set('math_battle_active_companion',        rest.activeCompanion);
+        set('math_battle_last_selected_companion', rest.lastSelectedCompanion);
+        set('math_battle_medals',                  rest.medals);
+        set('math_battle_companion_medals',        rest.companionMedals);
         // 旧キー削除
         localStorage.removeItem('math_battle_cleared_floors');
         return null;
@@ -270,6 +286,94 @@ class StorageManager {
             }
         } catch (e) { }
         return { bgmEnabled: true, seEnabled: true, bgmVolume: 100, seVolume: 100 };
+    }
+
+    // --- モンスターハウス解放 ---
+
+    isMonsterHouseUnlocked() {
+        return localStorage.getItem('math_battle_monster_house_unlocked') === 'true';
+    }
+
+    setMonsterHouseUnlocked() {
+        localStorage.setItem('math_battle_monster_house_unlocked', 'true');
+    }
+
+    isMonsterHouseNotified() {
+        return localStorage.getItem('math_battle_monster_house_notified') === 'true';
+    }
+
+    setMonsterHouseNotified() {
+        localStorage.setItem('math_battle_monster_house_notified', 'true');
+    }
+
+    // --- 仲間モンスター ---
+
+    loadCompanions() {
+        try {
+            const stored = localStorage.getItem('math_battle_companions');
+            if (stored) return JSON.parse(stored);
+        } catch (e) { console.warn('StorageManager.loadCompanions failed', e); }
+        return {};
+    }
+
+    saveCompanions(companions) {
+        try {
+            localStorage.setItem('math_battle_companions', JSON.stringify(companions));
+        } catch (e) { console.warn('StorageManager.saveCompanions failed', e); }
+    }
+
+    loadActiveCompanion() {
+        return localStorage.getItem('math_battle_active_companion') || null;
+    }
+
+    saveActiveCompanion(name) {
+        if (name == null) {
+            localStorage.removeItem('math_battle_active_companion');
+        } else {
+            localStorage.setItem('math_battle_active_companion', name);
+        }
+    }
+
+    loadLastSelectedCompanion() {
+        return localStorage.getItem('math_battle_last_selected_companion') || null;
+    }
+
+    saveLastSelectedCompanion(name) {
+        if (name == null) {
+            localStorage.removeItem('math_battle_last_selected_companion');
+        } else {
+            localStorage.setItem('math_battle_last_selected_companion', name);
+        }
+    }
+
+    // --- メダル ---
+
+    loadMedals() {
+        try {
+            const stored = localStorage.getItem('math_battle_medals');
+            if (stored) return JSON.parse(stored);
+        } catch (e) { console.warn('StorageManager.loadMedals failed', e); }
+        return {};
+    }
+
+    saveMedals(medals) {
+        try {
+            localStorage.setItem('math_battle_medals', JSON.stringify(medals));
+        } catch (e) { console.warn('StorageManager.saveMedals failed', e); }
+    }
+
+    loadCompanionMedals() {
+        try {
+            const stored = localStorage.getItem('math_battle_companion_medals');
+            if (stored) return JSON.parse(stored);
+        } catch (e) { console.warn('StorageManager.loadCompanionMedals failed', e); }
+        return {};
+    }
+
+    saveCompanionMedals(map) {
+        try {
+            localStorage.setItem('math_battle_companion_medals', JSON.stringify(map));
+        } catch (e) { console.warn('StorageManager.saveCompanionMedals failed', e); }
     }
 
 }

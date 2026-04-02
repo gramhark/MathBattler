@@ -327,6 +327,12 @@ class UIManager {
                 defEl.textContent = `ぼうぎょ +${equipData.defense}`;
                 statsEl.appendChild(defEl);
             }
+            if (equipData.desc) {
+                const descEl = document.createElement('span');
+                descEl.className = 'equip-stat item-desc';
+                descEl.textContent = equipData.desc;
+                statsEl.appendChild(descEl);
+            }
             captionText.appendChild(statsEl);
         }
 

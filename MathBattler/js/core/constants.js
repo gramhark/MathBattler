@@ -68,7 +68,8 @@ const GameState = {
     BACKPACK_HUB: 'backpack_hub',
     BACKPACK: 'backpack',
     EQUIP: 'equip',
-    SETTING: 'setting'
+    SETTING: 'setting',
+    MONSTER_HOUSE: 'monster_house'
 };
 
 /* Shop Item Data */

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>遊び方ガイド — マスバトール</title>
-  <meta name="description" content="算数RPG「マスバトール」の遊び方ガイド。基本の流れ、バトルのやり方、モンスターの種類、装備とアイテムを解説します。">
+  <title>How to Play — MathBattler</title>
+  <meta name="description" content="How to play MathBattler, the arithmetic battle RPG. Covers basic flow, battles, monster types, equipment, and items.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
@@ -82,7 +82,7 @@
       padding-inline: 1.5rem;
     }
 
-    /* ===== ヘッダー ===== */
+    /* ===== Header ===== */
     .site-header {
       position: sticky;
       top: 0;
@@ -146,7 +146,7 @@
       transform: translateY(-1px);
     }
 
-    /* ===== ヒーロー ===== */
+    /* ===== Hero ===== */
     .hero {
       padding-block: 3rem 2rem;
       background: linear-gradient(135deg, #fffbf5 0%, #fafaf8 55%, #f0fdf4 100%);
@@ -173,6 +173,19 @@
       margin-bottom: 1.5rem;
     }
 
+    .lang-notice {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+      padding: 0.5rem 1rem;
+      background: #fefce8;
+      border: 1px solid #fde68a;
+      border-radius: 999px;
+      font-size: 0.8125rem;
+      color: #78350f;
+    }
+
     .toc {
       display: flex;
       flex-wrap: wrap;
@@ -197,7 +210,7 @@
       color: var(--color-orange);
     }
 
-    /* ===== セクション共通 ===== */
+    /* ===== Sections ===== */
     .guide-section {
       padding-block: 3.5rem;
       border-bottom: 1px solid var(--color-border);
@@ -239,7 +252,7 @@
       transform: rotate(-1deg);
     }
 
-    /* ===== 概要 ===== */
+    /* ===== Overview ===== */
     .overview-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -268,21 +281,10 @@
       flex-shrink: 0;
     }
 
-    .oc--orange {
-      background: var(--color-orange-light);
-    }
-
-    .oc--blue {
-      background: var(--color-blue-light);
-    }
-
-    .oc--green {
-      background: var(--color-green-light);
-    }
-
-    .oc--indigo {
-      background: var(--color-indigo-light);
-    }
+    .oc--orange { background: var(--color-orange-light); }
+    .oc--blue   { background: var(--color-blue-light); }
+    .oc--green  { background: var(--color-green-light); }
+    .oc--indigo { background: var(--color-indigo-light); }
 
     .overview-card__title {
       font-size: 0.9375rem;
@@ -297,7 +299,7 @@
       line-height: 1.7;
     }
 
-    /* ===== 基本の流れ ===== */
+    /* ===== Basic Flow ===== */
     .flow-list {
       display: flex;
       flex-direction: column;
@@ -363,7 +365,7 @@
       opacity: 0.92;
     }
 
-    /* ===== バトル ===== */
+    /* ===== Battle ===== */
     .battle-layout {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -417,23 +419,12 @@
       line-height: 1.7;
     }
 
-    .step-card--attack .step-card__label {
-      color: var(--color-orange);
-    }
+    .step-card--attack  .step-card__label { color: var(--color-orange); }
+    .step-card--critical .step-card__label { color: var(--color-blue); }
+    .step-card--special  .step-card__label { color: var(--color-purple, #a855f7); }
+    .step-card--dodge    .step-card__label { color: var(--color-green); }
 
-    .step-card--critical .step-card__label {
-      color: var(--color-blue);
-    }
-
-    .step-card--special .step-card__label {
-      color: var(--color-purple, #a855f7);
-    }
-
-    .step-card--dodge .step-card__label {
-      color: var(--color-green);
-    }
-
-    /* クリティカル・必殺技ハイライト */
+    /* Critical / Special move highlights */
     .highlight-box {
       margin-top: 1.5rem;
       display: grid;
@@ -449,15 +440,8 @@
       gap: 0.75rem;
     }
 
-    .highlight--blue {
-      background: var(--color-blue-light);
-      border: 1.5px solid #bfdbfe;
-    }
-
-    .highlight--purple {
-      background: var(--color-purple-light);
-      border: 1.5px solid #e9d5ff;
-    }
+    .highlight--blue   { background: var(--color-blue-light);   border: 1.5px solid #bfdbfe; }
+    .highlight--purple { background: var(--color-purple-light); border: 1.5px solid #e9d5ff; }
 
     .highlight__icon {
       font-size: 1.5rem;
@@ -471,13 +455,8 @@
       margin-bottom: 0.25rem;
     }
 
-    .highlight--blue .highlight__title {
-      color: var(--color-blue-dark);
-    }
-
-    .highlight--purple .highlight__title {
-      color: var(--color-purple);
-    }
+    .highlight--blue   .highlight__title { color: var(--color-blue-dark); }
+    .highlight--purple .highlight__title { color: var(--color-purple); }
 
     .highlight__body {
       font-size: 0.8125rem;
@@ -485,7 +464,7 @@
       line-height: 1.7;
     }
 
-    /* ===== モンスター ===== */
+    /* ===== Monsters ===== */
     .monster-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -501,9 +480,7 @@
       transition: transform var(--transition);
     }
 
-    .monster-card:hover {
-      transform: translateY(-3px);
-    }
+    .monster-card:hover { transform: translateY(-3px); }
 
     .monster-card__img {
       aspect-ratio: 1;
@@ -535,30 +512,11 @@
       margin-bottom: 0.35rem;
     }
 
-    .badge--normal {
-      background: var(--color-orange-light);
-      color: var(--color-orange-dark);
-    }
-
-    .badge--heal {
-      background: var(--color-green-light);
-      color: #059669;
-    }
-
-    .badge--rare {
-      background: var(--color-blue-light);
-      color: var(--color-blue-dark);
-    }
-
-    .badge--srare {
-      background: var(--color-purple-light);
-      color: var(--color-purple);
-    }
-
-    .badge--boss {
-      background: var(--color-red-light);
-      color: var(--color-red);
-    }
+    .badge--normal { background: var(--color-orange-light); color: var(--color-orange-dark); }
+    .badge--heal   { background: var(--color-green-light);  color: #059669; }
+    .badge--rare   { background: var(--color-blue-light);   color: var(--color-blue-dark); }
+    .badge--srare  { background: var(--color-purple-light); color: var(--color-purple); }
+    .badge--boss   { background: var(--color-red-light);    color: var(--color-red); }
 
     .monster-card__name {
       font-size: 0.875rem;
@@ -573,7 +531,7 @@
       line-height: 1.6;
     }
 
-    /* ===== 装備・アイテム ===== */
+    /* ===== Equipment & Items ===== */
     .equip-layout {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -646,7 +604,7 @@
       object-fit: contain;
     }
 
-    /* ===== ヒント ===== */
+    /* ===== Tips ===== */
     .tips-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -676,7 +634,7 @@
       line-height: 1.7;
     }
 
-    /* ===== フッター ===== */
+    /* ===== Footer ===== */
     .site-footer {
       padding-block: 2.5rem;
       text-align: center;
@@ -700,20 +658,17 @@
       transition: color var(--transition);
     }
 
-    .footer-links a:hover {
-      color: var(--color-orange);
-    }
+    .footer-links a:hover { color: var(--color-orange); }
 
-    /* ===== フォーカス ===== */
+    /* ===== Focus ===== */
     :focus-visible {
       outline: 3px solid var(--color-orange);
       outline-offset: 3px;
       border-radius: var(--radius-sm);
     }
 
-    /* ===== レスポンシブ ===== */
+    /* ===== Responsive ===== */
     @media (max-width: 640px) {
-
       .overview-grid,
       .battle-layout,
       .highlight-box,
@@ -722,120 +677,113 @@
         grid-template-columns: 1fr;
       }
 
-      .hero-tagline {
-        font-size: 1.25rem;
-      }
-
-      .header-title {
-        display: none;
-      }
+      .hero-tagline { font-size: 1.25rem; }
+      .header-title { display: none; }
     }
 
     @media (max-width: 480px) {
-      .monster-grid {
-        grid-template-columns: 1fr 1fr;
-      }
+      .monster-grid { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- ヘッダー -->
+  <!-- Header -->
   <header class="site-header">
     <div class="container">
       <div class="header-inner">
-        <a href="../" class="back-link" aria-label="ゲーム工房トップへ戻る">
+        <a href="../index_en.html" class="back-link" aria-label="Back to Game Workshop top">
           <svg viewBox="0 0 16 16" fill="currentColor">
             <path d="M10.5 3L5 8l5.5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
               stroke-linejoin="round" fill="none" />
           </svg>
-          ゲーム工房へ戻る
+          Game Workshop
         </a>
-        <span class="header-title">マスバトール 遊び方ガイド</span>
-        <div style="display:flex; align-items:center; gap:0.75rem;">
-          <a href="./manual_en.html" style="font-size:0.8125rem; font-weight:500; color:var(--color-text-muted); white-space:nowrap;">English</a>
-          <a href="./" class="play-btn" aria-label="マスバトールをプレイする">
-            プレイする →
-          </a>
-        </div>
+        <span class="header-title">MathBattler — How to Play</span>
+        <a href="./" class="play-btn" aria-label="Play MathBattler">
+          Play now →
+        </a>
       </div>
     </div>
   </header>
 
   <main>
 
-    <!-- ヒーロー -->
+    <!-- Hero -->
     <section class="hero">
       <div class="container">
-        <img src="assets/image/UI/title_short.webp" alt="マスバトール" class="hero-logo">
-        <p class="hero-tagline">かんたん 遊び方ガイド</p>
-        <p class="hero-sub">計算問題を解いてモンスターを倒す、算数バトルRPGの遊び方を紹介します。</p>
-        <nav class="toc" aria-label="目次">
-          <a href="#overview">ゲームの概要</a>
-          <a href="#flow">基本の流れ</a>
-          <a href="#battle">バトルのやり方</a>
-          <a href="#monsters">モンスターの種類</a>
-          <a href="#equip">装備・アイテム</a>
-          <a href="#tips">ヒント</a>
+        <img src="assets/image/UI/title_short.webp" alt="MathBattler" class="hero-logo">
+        <p class="hero-tagline">How to Play</p>
+        <p class="hero-sub">Your guide to MathBattler — the arithmetic battle RPG where math is your weapon.</p>
+        <div class="lang-notice">
+          🇯🇵 The game interface is in Japanese, but the gameplay is pure math — you're very welcome to play!
+        </div>
+        <nav class="toc" aria-label="Table of contents">
+          <a href="#overview">Overview</a>
+          <a href="#flow">Basic Flow</a>
+          <a href="#battle">Battle System</a>
+          <a href="#monsters">Monster Types</a>
+          <a href="#equip">Equipment &amp; Items</a>
+          <a href="#tips">Tips</a>
         </nav>
       </div>
     </section>
 
-    <!-- 1. ゲームの概要 -->
+    <!-- 1. Overview -->
     <section class="guide-section" id="overview">
       <div class="container">
         <p class="section-label">01 &nbsp; Overview</p>
-        <h2 class="section-title">ゲームの概要</h2>
+        <h2 class="section-title">Overview</h2>
 
         <div class="overview-grid">
           <div class="overview-card">
             <div class="overview-card__icon oc--orange">🧮</div>
             <div>
-              <p class="overview-card__title">計算でたたかう算数RPG</p>
-              <p class="overview-card__body">四則演算（たし算・ひき算・かけ算・わり算）の問題を解いてモンスターに攻撃します。答えが合っていれば攻撃成功！</p>
+              <p class="overview-card__title">Math-powered combat</p>
+              <p class="overview-card__body">Solve arithmetic problems (addition, subtraction, multiplication, division) to attack monsters. Get the answer right and your attack lands!</p>
             </div>
           </div>
           <div class="overview-card">
             <div class="overview-card__icon oc--blue">🗺️</div>
             <div>
-              <p class="overview-card__title">100階のダンジョンを攻略</p>
-              <p class="overview-card__body">ダンジョンは全100フロア。1フロアに10体のモンスターが出現し、10体目はボスです。クリアして先へ進もう！</p>
+              <p class="overview-card__title">100-floor dungeon</p>
+              <p class="overview-card__body">The dungeon has 100 floors. Each floor has 10 monsters, and the 10th is always a boss. Clear them all and push deeper!</p>
             </div>
           </div>
           <div class="overview-card">
             <div class="overview-card__icon oc--green">⭐</div>
             <div>
-              <p class="overview-card__title">3つの難易度</p>
-              <p class="overview-card__body">★・★★・★★★の3段階。★は基本的な計算、★★★は上級問題と制限時間が厳しくなります。自分のペースで挑戦しよう。</p>
+              <p class="overview-card__title">Three difficulty levels</p>
+              <p class="overview-card__body">★, ★★, and ★★★. ★ focuses on basic arithmetic; ★★★ brings harder problems and tighter time limits. Go at your own pace.</p>
             </div>
           </div>
           <div class="overview-card">
             <div class="overview-card__icon oc--indigo">📖</div>
             <div>
-              <p class="overview-card__title">モンスターを集めよう</p>
-              <p class="overview-card__body">倒したモンスターはノートに記録されます。珍しいモンスターも登場するので、全種コンプリートを目指してみよう！</p>
+              <p class="overview-card__title">Collect monsters</p>
+              <p class="overview-card__body">Every defeated monster is recorded in your Monster Note. Rare species roam the dungeon — can you find them all?</p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 2. 基本の流れ -->
+    <!-- 2. Basic Flow -->
     <section class="guide-section" id="flow">
       <div class="container">
         <p class="section-label">02 &nbsp; Basic Flow</p>
-        <h2 class="section-title">基本の流れ</h2>
+        <h2 class="section-title">Basic Flow</h2>
 
         <div class="flow-list">
 
           <div class="flow-item">
             <div class="flow-num">1</div>
             <div class="flow-content">
-              <h3>メインメニューからスタート</h3>
-              <p>「バトル」ボタンを押してダンジョン選択へ。装備やアイテムの確認もここから。</p>
+              <h3>Start from the Main Menu</h3>
+              <p>Tap the "Battle" button to head to the dungeon selector. You can also check your equipment and items here.</p>
               <div class="flow-img">
-                <img src="assets/image/UI/BTN_main_battle.webp" alt="メインメニュー画面">
+                <img src="assets/image/UI/BTN_main_battle.webp" alt="Main menu screen">
               </div>
             </div>
           </div>
@@ -843,10 +791,10 @@
           <div class="flow-item">
             <div class="flow-num">2</div>
             <div class="flow-content">
-              <h3>フロアと難易度を選ぶ</h3>
-              <p>挑戦するフロア（1〜100）と難易度（★〜★★★）を選択します。クリアしたフロアは記録されます。</p>
+              <h3>Choose a floor and difficulty</h3>
+              <p>Pick any floor from 1 to 100 and a difficulty (★ to ★★★). Floors you have cleared are recorded and saved.</p>
               <div class="flow-img">
-                <img src="assets/image/UI/main_battle_short01.webp" alt="ダンジョン選択画面">
+                <img src="assets/image/UI/main_battle_short01.webp" alt="Dungeon selection screen">
               </div>
             </div>
           </div>
@@ -854,10 +802,10 @@
           <div class="flow-item">
             <div class="flow-num">3</div>
             <div class="flow-content">
-              <h3>計算問題でバトル！</h3>
-              <p>モンスターが登場したら計算問題が出題されます。テンキーで答えを入力して「答え」ボタンを押そう。正解なら攻撃、不正解はモンスターに攻撃されます。</p>
+              <h3>Battle with math!</h3>
+              <p>When a monster appears, a math problem is shown. Enter your answer on the number pad and tap the confirm button. Correct → you attack. Wrong → the monster hits you.</p>
               <div class="flow-img">
-                <img src="assets/image/UI/main_battle_short02.webp" alt="バトル画面のバックグラウンド">
+                <img src="assets/image/UI/main_battle_short02.webp" alt="Battle screen background">
               </div>
             </div>
           </div>
@@ -865,8 +813,8 @@
           <div class="flow-item">
             <div class="flow-num">4</div>
             <div class="flow-content">
-              <h3>10体倒したらクリア！</h3>
-              <p>1フロアのモンスターを全員倒すとリザルト画面へ。クリアタイムが記録され、次のフロアに進めます。</p>
+              <h3>Defeat 10 monsters to clear the floor!</h3>
+              <p>Beat all monsters on a floor to reach the Results screen. Your clear time is recorded, and the next floor unlocks.</p>
             </div>
           </div>
 
@@ -874,127 +822,127 @@
       </div>
     </section>
 
-    <!-- 3. バトルのやり方 -->
+    <!-- 3. Battle System -->
     <section class="guide-section" id="battle">
       <div class="container">
         <p class="section-label">03 &nbsp; Battle</p>
-        <h2 class="section-title">バトルのやり方</h2>
+        <h2 class="section-title">Battle System</h2>
 
         <div class="battle-layout">
           <div class="battle-img-wrap">
-            <img src="assets/image/UI/Battle/numeric keypad.webp" alt="テンキー入力パッド">
+            <img src="assets/image/UI/Battle/numeric keypad.webp" alt="Number pad input">
           </div>
           <div class="battle-steps">
             <div class="step-card step-card--attack">
-              <p class="step-card__label">Step 1 &nbsp; 自分のターン（こうげきターン）</p>
-              <p class="step-card__title">計算問題に答える</p>
-              <p class="step-card__body">数字ボタンで答えを入力します。<br>「×」ボタンで一文字消す。<br>「〇」ボタンで攻撃！</p>
+              <p class="step-card__label">Step 1 &nbsp; Your Turn (Attack)</p>
+              <p class="step-card__title">Answer the math problem</p>
+              <p class="step-card__body">Tap number buttons to enter your answer.<br>Use the ✕ button to delete a digit.<br>Tap the ○ button to confirm and attack!</p>
             </div>
             <div class="step-card step-card--dodge">
-              <p class="step-card__label">Step 2 &nbsp; 相手のターン（かいひターン）</p>
-              <p class="step-card__title">問題を解いて攻撃を避ける</p>
-              <p class="step-card__body">モンスターが攻撃してくるターンです。正解するとダメージを完全に回避！不正解だと攻撃を受けます。時間切れでも攻撃を受けます。</p>
+              <p class="step-card__label">Step 2 &nbsp; Monster's Turn (Dodge)</p>
+              <p class="step-card__title">Solve to dodge the attack</p>
+              <p class="step-card__body">The monster is about to strike! Answer correctly to dodge entirely — no damage taken. Wrong answer or time-up means you take a hit.</p>
             </div>
             <div class="step-card step-card--critical">
-              <p class="step-card__label">Bonus &nbsp; クリティカル！</p>
-              <p class="step-card__title">素早く答えると大ダメージ</p>
-              <p class="step-card__body">こうげきターンで制限時間内に答えると「クリティカル！」が発生し、ダメージが1.5倍になります。</p>
+              <p class="step-card__label">Bonus &nbsp; Critical Hit!</p>
+              <p class="step-card__title">Answer fast for extra damage</p>
+              <p class="step-card__body">On your attack turn, answer within the time limit for a Critical Hit — dealing 1.5× damage!</p>
             </div>
           </div>
         </div>
 
-        <!-- クリティカル・必殺技 -->
+        <!-- Critical / Special move highlights -->
         <div class="highlight-box">
           <div class="highlight highlight--blue">
             <div class="highlight__icon">⚡</div>
             <div>
-              <p class="highlight__title">クリティカルの時間</p>
-              <p class="highlight__body">★ なら5秒以内、★★ は4秒、★★★ は3秒以内に正解するとクリティカル発動。難しいほどシビア！</p>
+              <p class="highlight__title">Critical time window</p>
+              <p class="highlight__body">★: within 5 seconds &nbsp;|&nbsp; ★★: 4 seconds &nbsp;|&nbsp; ★★★: 3 seconds.<br>The harder the difficulty, the tighter the window!</p>
             </div>
           </div>
           <div class="highlight highlight--purple">
             <div class="highlight__icon">🔥</div>
             <div>
-              <p class="highlight__title">必殺技を使おう</p>
-              <p class="highlight__body">かいひターンで4回連続で正解すると必殺技ゲージが満タンに！次のこうげきターンでテンキーが赤く光ったら答えを入力すると2倍ダメージの必殺技が発動！</p>
+              <p class="highlight__title">Special Move</p>
+              <p class="highlight__body">Dodge 4 times in a row on monster turns to charge your Special Move gauge! On your next attack turn, the number pad glows red — enter your answer to unleash a 2× damage special attack!</p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 4. モンスターの種類 -->
+    <!-- 4. Monster Types -->
     <section class="guide-section" id="monsters">
       <div class="container">
         <p class="section-label">04 &nbsp; Monsters</p>
-        <h2 class="section-title">モンスターの種類</h2>
+        <h2 class="section-title">Monster Types</h2>
 
         <div class="monster-grid">
 
           <div class="monster-card">
             <div class="monster-card__img">
-              <img src="assets/image/monster/Normal/01/01_もにもに.webp" alt="ノーマルモンスター もにもに">
+              <img src="assets/image/monster/Normal/01/01_もにもに.webp" alt="Normal monster">
             </div>
             <div class="monster-card__body">
-              <span class="monster-card__badge badge--normal">ノーマル</span>
-              <p class="monster-card__name">通常モンスター</p>
-              <p class="monster-card__desc">ダンジョンに住む一般的なモンスター。フロアが上がるほど手強くなる！</p>
+              <span class="monster-card__badge badge--normal">Normal</span>
+              <p class="monster-card__name">Normal Monsters</p>
+              <p class="monster-card__desc">The common inhabitants of the dungeon. They get tougher on deeper floors!</p>
             </div>
           </div>
 
           <div class="monster-card">
             <div class="monster-card__img">
-              <img src="assets/image/monster/Heal/Heal_かいふくぐさ.webp" alt="ヒールモンスター かいふくぐさ">
+              <img src="assets/image/monster/Heal/Heal_かいふくぐさ.webp" alt="Heal monster">
             </div>
             <div class="monster-card__body">
-              <span class="monster-card__badge badge--heal">ヒール</span>
-              <p class="monster-card__name">かいふくモンスター</p>
-              <p class="monster-card__desc">倒すとHPが回復するラッキーな存在。HPが少ないほど出やすい！</p>
+              <span class="monster-card__badge badge--heal">Heal</span>
+              <p class="monster-card__name">Heal Monsters</p>
+              <p class="monster-card__desc">Defeat one to restore HP — a lucky encounter! More likely to appear when your HP is low.</p>
             </div>
           </div>
 
           <div class="monster-card">
             <div class="monster-card__img">
-              <img src="assets/image/monster/Rare/D053_ランクスおうじ.webp" alt="レアモンスター ランクスおうじ">
+              <img src="assets/image/monster/Rare/D053_ランクスおうじ.webp" alt="Rare monster">
             </div>
             <div class="monster-card__body">
-              <span class="monster-card__badge badge--rare">レア</span>
-              <p class="monster-card__name">ダンジョンレア</p>
-              <p class="monster-card__desc">たまに現れる珍しいモンスター。倒すと装備が手に入ることも！</p>
+              <span class="monster-card__badge badge--rare">Rare</span>
+              <p class="monster-card__name">Dungeon Rare</p>
+              <p class="monster-card__desc">Unusual monsters that sometimes appear. Defeating one may drop rare equipment!</p>
             </div>
           </div>
 
           <div class="monster-card">
             <div class="monster-card__img">
-              <img src="assets/image/monster/SuperRare/SRare_シルクロード.webp" alt="スーパーレアモンスター"
+              <img src="assets/image/monster/SuperRare/SRare_シルクロード.webp" alt="Super rare monster"
                 style="filter: brightness(0);">
             </div>
             <div class="monster-card__body">
-              <span class="monster-card__badge badge--srare">スーパーレア</span>
-              <p class="monster-card__name">スーパーレア</p>
-              <p class="monster-card__desc">出現確率わずか1%。遭遇できたらラッキー！ノートに記録しよう。</p>
+              <span class="monster-card__badge badge--srare">Super Rare</span>
+              <p class="monster-card__name">Super Rare</p>
+              <p class="monster-card__desc">Only a 1% encounter rate. Consider yourself lucky if you spot one — make sure to add it to your Note!</p>
             </div>
           </div>
 
           <div class="monster-card">
             <div class="monster-card__img">
-              <img src="assets/image/monster/Boss/Boss029_ゴライアスヘラクレス.webp" alt="ボスモンスター">
+              <img src="assets/image/monster/Boss/Boss029_ゴライアスヘラクレス.webp" alt="Boss monster">
             </div>
             <div class="monster-card__body">
-              <span class="monster-card__badge badge--boss">ボス</span>
-              <p class="monster-card__name">ボスモンスター</p>
-              <p class="monster-card__desc">10体目は必ずボス！HPが高く手強い。HPが減ると形態が変わることも…？</p>
+              <span class="monster-card__badge badge--boss">Boss</span>
+              <p class="monster-card__name">Boss Monsters</p>
+              <p class="monster-card__desc">The 10th monster on every floor is always a boss. High HP and hard-hitting — some even change form when weakened…</p>
             </div>
           </div>
 
           <div class="monster-card">
             <div class="monster-card__img">
-              <img src="assets/image/monster/Special/Special_ミスターといし.webp" alt="スペシャルモンスター">
+              <img src="assets/image/monster/Special/Special_ミスターといし.webp" alt="Special monster">
             </div>
             <div class="monster-card__body">
-              <span class="monster-card__badge badge--srare">スペシャル</span>
-              <p class="monster-card__name">スペシャル</p>
-              <p class="monster-card__desc">特殊な効果を持つ謎のモンスター。どんな能力があるかは会ってのお楽しみ！</p>
+              <span class="monster-card__badge badge--srare">Special</span>
+              <p class="monster-card__name">Special</p>
+              <p class="monster-card__desc">Mysterious monsters with unique effects. Their abilities are a secret — meet them and find out!</p>
             </div>
           </div>
 
@@ -1002,58 +950,58 @@
       </div>
     </section>
 
-    <!-- 5. 装備・アイテム -->
+    <!-- 5. Equipment & Items -->
     <section class="guide-section" id="equip">
       <div class="container">
         <p class="section-label">05 &nbsp; Items</p>
-        <h2 class="section-title">アイテム</h2>
+        <h2 class="section-title">Equipment &amp; Items</h2>
 
         <div class="equip-layout">
 
           <div class="equip-block">
             <div class="equip-block__header">
-              <img src="assets/image/equipment/sword/D024_てつのけん.webp" alt="けん" class="equip-block__icon">
+              <img src="assets/image/equipment/sword/D024_てつのけん.webp" alt="Sword" class="equip-block__icon">
               <div>
-                <p class="equip-block__title">けん（攻撃力アップ）</p>
-                <p class="equip-block__sub">ダンジョンドロップ / ショップで購入</p>
+                <p class="equip-block__title">Sword (Attack boost)</p>
+                <p class="equip-block__sub">Dungeon drop / Shop purchase</p>
               </div>
             </div>
             <p class="equip-block__body">
-              装備するとモンスターへのダメージが増加します。モンスターを倒したときや、ショップで強いけんを入手しよう。フロアが上がるほど良い装備が手に入りやすくなります。
+              Equipping a sword increases damage dealt to monsters. Find better swords as dungeon drops or buy them from the Shop. Higher floors yield stronger gear.
             </p>
           </div>
 
           <div class="equip-block">
             <div class="equip-block__header">
-              <img src="assets/image/equipment/shield/D024_てつのたて.webp" alt="たて" class="equip-block__icon">
+              <img src="assets/image/equipment/shield/D024_てつのたて.webp" alt="Shield" class="equip-block__icon">
               <div>
-                <p class="equip-block__title">たて（防御力アップ）</p>
-                <p class="equip-block__sub">ダンジョンドロップ / ショップで購入</p>
+                <p class="equip-block__title">Shield (Defense boost)</p>
+                <p class="equip-block__sub">Dungeon drop / Shop purchase</p>
               </div>
             </div>
             <p class="equip-block__body">
-              装備するとモンスターから受けるダメージを減らせます。かいひに失敗してもたてがあれば安心！けんと合わせてしっかりゲットしよう。
+              A shield reduces damage received from monsters. Even when you fail to dodge, a good shield keeps things manageable. Grab one alongside your sword!
             </p>
           </div>
 
           <div class="equip-block" style="grid-column: 1 / -1;">
             <div class="equip-block__header">
-              <img src="assets/image/item/attackOrb.webp" alt="どうぐ" class="equip-block__icon"
+              <img src="assets/image/item/attackOrb.webp" alt="Items" class="equip-block__icon"
                 style="image-rendering:auto;">
               <div>
-                <p class="equip-block__title">どうぐ（バトル中に使えるアイテム）</p>
-                <p class="equip-block__sub">ショップで購入 / ダンジョンドロップ</p>
+                <p class="equip-block__title">Items (usable during battle)</p>
+                <p class="equip-block__sub">Shop purchase / Dungeon drop</p>
               </div>
             </div>
-            <p class="equip-block__body">バトル中に使用できる消耗品です。ピンチのときに備えてリュックに入れておこう。</p>
+            <p class="equip-block__body">Consumables you can use mid-battle. Keep a few in your bag for when things get tough!</p>
             <div class="item-grid">
-              <div class="item-chip"><img src="assets/image/item/healOrb.webp" alt="">かいふくだま（HP回復）</div>
-              <div class="item-chip"><img src="assets/image/item/attackOrb.webp" alt="">こうげきだま（1匹に3回まで、攻撃力アップ）</div>
-              <div class="item-chip"><img src="assets/image/item/defenseOrb.webp" alt="">ぼうぎょだま（1匹に3回まで、防御力アップ）</div>
-              <div class="item-chip"><img src="assets/image/item/spikeOrb.webp" alt="">とげだま（敵にダメージ）</div>
-              <div class="item-chip"><img src="assets/image/item/poisonOrb.webp" alt="">どくだま（毒効果）</div>
-              <div class="item-chip"><img src="assets/image/item/paralyzeOrb.webp" alt="">まひだま（麻痺効果）</div>
-              <div class="item-chip"><img src="assets/image/item/stoneOrb.webp" alt="">せきかだま（石化効果）</div>
+              <div class="item-chip"><img src="assets/image/item/healOrb.webp" alt="">Heal Orb (restores HP)</div>
+              <div class="item-chip"><img src="assets/image/item/attackOrb.webp" alt="">Attack Orb (up to 3× per monster, boosts attack)</div>
+              <div class="item-chip"><img src="assets/image/item/defenseOrb.webp" alt="">Defense Orb (up to 3× per monster, boosts defense)</div>
+              <div class="item-chip"><img src="assets/image/item/spikeOrb.webp" alt="">Spike Orb (deals damage to the enemy)</div>
+              <div class="item-chip"><img src="assets/image/item/poisonOrb.webp" alt="">Poison Orb (inflicts poison)</div>
+              <div class="item-chip"><img src="assets/image/item/paralyzeOrb.webp" alt="">Paralyze Orb (inflicts paralysis)</div>
+              <div class="item-chip"><img src="assets/image/item/stoneOrb.webp" alt="">Stone Orb (inflicts petrification)</div>
             </div>
           </div>
 
@@ -1061,29 +1009,29 @@
       </div>
     </section>
 
-    <!-- 6. ヒント -->
+    <!-- 6. Tips -->
     <section class="guide-section" id="tips">
       <div class="container">
         <p class="section-label">06 &nbsp; Tips</p>
-        <h2 class="section-title">ヒント</h2>
+        <h2 class="section-title">Tips</h2>
 
         <div class="tips-grid">
           <div class="tip-card">
-            <p class="tip-card__title">💡 まずは★から始めよう</p>
-            <p class="tip-card__body">難易度★はたし算・ひき算が中心。まずはゲームの流れに慣れることが大切です。慣れたら★★に挑戦しよう！</p>
+            <p class="tip-card__title">💡 Start on ★</p>
+            <p class="tip-card__body">Difficulty ★ focuses on addition and subtraction. Get comfortable with the flow first, then take on ★★ when you're ready!</p>
           </div>
           <div class="tip-card">
-            <p class="tip-card__title">🛡️ HPが少ないときはアイテムを</p>
-            <p class="tip-card__body">HPが少ないとかいふくモンスターも出やすくなります。ただし油断は禁物。かいふくオーブも持っておくと安心です。</p>
+            <p class="tip-card__title">🛡️ Use items when HP is low</p>
+            <p class="tip-card__body">Heal Monsters appear more often when your HP is low, which helps — but don't rely on luck alone. Keep a Heal Orb in your bag just in case.</p>
           </div>
           <div class="tip-card">
-            <p class="tip-card__title">📖 ノートで図鑑を埋めよう</p>
-            <p class="tip-card__body">倒したモンスターはモンスターノートに記録されます。全種類コンプリートを目指してさまざまなフロアに挑戦しよう！</p>
+            <p class="tip-card__title">📖 Fill your Monster Note</p>
+            <p class="tip-card__body">Every monster you defeat is recorded. Try different floors to encounter all types and aim for a complete collection!</p>
           </div>
           <div class="tip-card" style="background:#fff1f2;border-color:#fca5a5;">
-            <p class="tip-card__title" style="color:#991b1b;">⚠️ セーブデータのバックアップを忘れずに！</p>
+            <p class="tip-card__title" style="color:#991b1b;">⚠️ Back up your save data!</p>
             <p class="tip-card__body" style="color:#7f1d1d;">
-              このゲームのセーブデータはブラウザに保存されます。キャッシュのクリアや別のブラウザへの切り替えにより、データが消える場合があります。大切なデータは必ずバックアップ機能を使って保存しておきましょう。</p>
+              Save data is stored in your browser. Clearing browser cache or switching to a different browser can wipe it. Use the in-game backup feature to keep your progress safe.</p>
           </div>
         </div>
       </div>
@@ -1091,13 +1039,13 @@
 
   </main>
 
-  <!-- フッター -->
+  <!-- Footer -->
   <footer class="site-footer">
     <div class="container">
-      <p class="footer-copy">&copy; 2026 マスバトール</p>
+      <p class="footer-copy">&copy; 2026 MathBattler</p>
       <div class="footer-links">
-        <a href="../">← ゲーム工房トップ</a>
-        <a href="./">マスバトールをプレイ →</a>
+        <a href="../index_en.html">← Game Workshop</a>
+        <a href="./">Play MathBattler →</a>
       </div>
     </div>
   </footer>

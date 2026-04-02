@@ -21,6 +21,7 @@ class LevelSystem {
         if (isSuperRare) gain = base * 100;
         else gain = isBoss ? base * Constants.EXP_BOSS_MULT : base;
         if (this.game.expMultiplied) gain = Math.round(gain * 1.2);
+        if (this.game.companionExpBonus) gain = Math.round(gain * (1 + this.game.companionExpBonus));
         return gain;
     }
 

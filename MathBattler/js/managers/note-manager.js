@@ -158,8 +158,8 @@ class NoteManager {
         requestAnimationFrame(() => this._fitNoteCardNames());
     }
 
-    _fitNoteCardNames() {
-        document.querySelectorAll('#note-grid .note-name').forEach(el => {
+    _fitNoteCardNames(selector = '#note-grid .note-name') {
+        document.querySelectorAll(selector).forEach(el => {
             el.style.fontSize = '';
             let size = parseFloat(getComputedStyle(el).fontSize);
             while (el.scrollWidth > el.offsetWidth && size > 8) {
@@ -309,7 +309,7 @@ class NoteManager {
             },
             {
                 label: 'どうぐ',
-                items: (window.ITEM_LIST || []).map(d => ({ name: d.name, img: d.img, dir: 'item' }))
+                items: (window.ITEM_LIST || []).map(d => ({ name: d.name, img: d.img, dir: 'item', desc: d.desc }))
             },
         ];
 
@@ -346,7 +346,7 @@ class NoteManager {
                     nameEl.textContent = item.name;
                     const equipData = (item.attack !== undefined)
                         ? { attack: item.attack || 0, defense: item.defense || 0 }
-                        : null;
+                        : (item.desc ? { desc: item.desc } : null);
                     card.addEventListener('click', () => {
                         this.sound.playSe('note_details');
                         this.ui.openImageModal(`assets/image/${item.dir}/${item.img}`, item.name, null, true, equipData);
@@ -359,6 +359,7 @@ class NoteManager {
                 grid.appendChild(card);
             });
         });
+        requestAnimationFrame(() => this._fitNoteCardNames('#item-note-grid .note-name'));
     }
 
     _updateItemCollection(itemName) {

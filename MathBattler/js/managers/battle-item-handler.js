@@ -48,6 +48,11 @@ class BattleItemHandler {
     /** アイテムが使用可能かチェックする */
     _canUseItem(itemName) {
         const m = this.game.monsters[this.game.currentMonsterIdx];
+        // ゆうじょうのみはBoss/Heal/Specialには使用不可
+        if (itemName === 'friendshipBerry') {
+            if (!m || m.isBoss || m.isHeal || m.isSpecial ||
+                m.battleNumber === Constants.BOSS_BATTLE_NUMBER) return false;
+        }
         return this.game.battle.canUseItem(
             itemName, this.game.backpack.items, this.game.playerHp, this.game.playerMaxHp,
             this.game._monsterItemUsage, m
@@ -80,6 +85,7 @@ class BattleItemHandler {
         if (itemName === 'paralyzeOrb') this.game._monsterItemUsage.paralyzeOrb = true;
         if (itemName === 'stoneOrb') this.game._monsterItemUsage.stoneOrb = true;
         if (itemName === 'rainbowOrb') this.game._monsterItemUsage.rainbowOrbUsed = true;
+        if (itemName === 'friendshipBerry') this.game._monsterItemUsage.friendshipBerry = (this.game._monsterItemUsage.friendshipBerry || 0) + 1;
 
         // 確認パネルと選択状態をリセット
         document.getElementById('battle-item-confirm').style.display = 'none';
@@ -155,6 +161,10 @@ class BattleItemHandler {
             case 'rainbowOrb':
                 this.sound.playSe('atk_up');
                 message = 'レアモンスターが\nでやすくなった！';
+                break;
+            case 'friendshipBerry':
+                this.sound.playSe('friendship_berry');
+                message = `${m.name}に\nゆうじょうのみをあげた！`;
                 break;
         }
 

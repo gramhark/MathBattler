@@ -16,6 +16,14 @@
         effectId: null,
     },
     {
+        id: "friendshipBerry",
+        name: "ゆうじょうのみ",
+        sellPrice: 1500,
+        desc: "モンスターを つかまえる",
+        img: "friendshipBerry.webp",
+        effectId: null,
+    },
+    {
         id: "healOrb",
         name: "かいふくだま",
         sellPrice: 300,
