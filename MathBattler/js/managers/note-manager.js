@@ -277,7 +277,7 @@ class NoteManager {
         const allItems = [
             ...equipList.filter(e => e.type === 'sword').map(d => d.name),
             ...equipList.filter(e => e.type === 'shield').map(d => d.name),
-            ...(window.ITEM_LIST || []).map(d => d.name),
+            ...(window.ITEM_LIST || []).filter(d => !d.requiresUnlock || (d.requiresUnlock === 'monster_house' && this.storage.isMonsterHouseUnlocked())).map(d => d.name),
         ];
         const totalCount = allItems.length;
         const totalDefeated = allItems.filter(name => !!collection[name]).length;
@@ -309,7 +309,7 @@ class NoteManager {
             },
             {
                 label: 'どうぐ',
-                items: (window.ITEM_LIST || []).map(d => ({ name: d.name, img: d.img, dir: 'item', desc: d.desc }))
+                items: (window.ITEM_LIST || []).filter(d => !d.requiresUnlock || (d.requiresUnlock === 'monster_house' && this.storage.isMonsterHouseUnlocked())).map(d => ({ name: d.name, img: d.img, dir: 'item', desc: d.desc }))
             },
         ];
 

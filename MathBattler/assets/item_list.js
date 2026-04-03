@@ -22,6 +22,7 @@
         desc: "モンスターを つかまえる",
         img: "friendshipBerry.webp",
         effectId: null,
+        requiresUnlock: 'monster_house',
     },
     {
         id: "healOrb",

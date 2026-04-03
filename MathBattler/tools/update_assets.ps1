@@ -150,6 +150,8 @@ if (Test-Path $ItemListPath) {
         if ($sp.Success) { $saved['sellPrice'] = $sp.Groups[1].Value }
         $dm = [regex]::Match($block, 'desc:\s*"([^"]*)"')
         if ($dm.Success) { $saved['desc'] = $dm.Groups[1].Value }
+        $rum = [regex]::Match($block, "requiresUnlock:\s*'([^']*)'")
+        if ($rum.Success) { $saved['requiresUnlock'] = $rum.Groups[1].Value }
         $existingItems[$iid] = $saved
     }
 }
@@ -176,6 +178,10 @@ foreach ($file in $itemFiles) {
     $ItemLines += "        desc: `"$desc`","
     $ItemLines += "        img: `"$fname`","
     $ItemLines += "        effectId: null,"
+    if ($prev.ContainsKey('requiresUnlock')) {
+        $ru = $prev['requiresUnlock']
+        $ItemLines += "        requiresUnlock: '$ru',"
+    }
     $ItemLines += "    },"
 }
 if ($ItemLines[-1] -eq "    },") {
