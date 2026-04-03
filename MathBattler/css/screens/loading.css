@@ -11,7 +11,7 @@
 .loading-bg {
     position: absolute;
     inset: 0;
-    background-image: url('../../assets/image/UI/loading.webp');
+    background-image: url('../../assets/image/ui/loading.webp');
     background-size: cover;
     background-position: center;
     z-index: 0;

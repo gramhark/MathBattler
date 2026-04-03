@@ -203,7 +203,7 @@ class ScreenManager {
             return;
         }
 
-        const bgSrc = `assets/image/UI/BTN_dungeon_0${this.game.difficulty}.webp`;
+        const bgSrc = `assets/image/ui/BTN_dungeon_0${this.game.difficulty}.webp`;
         const frag = document.createDocumentFragment();
         for (let i = 1; i <= Constants.TOTAL_FLOORS; i++) {
             const btn = document.createElement('button');
@@ -218,7 +218,7 @@ class ScreenManager {
             numContainer.className = 'dungeon-cell-num';
             String(i).split('').forEach(d => {
                 const digitImg = document.createElement('img');
-                digitImg.src = `assets/image/UI/Icon/icon_${d}.webp`;
+                digitImg.src = `assets/image/ui/icon/icon_${d}.webp`;
                 digitImg.alt = d;
                 digitImg.className = 'dungeon-cell-num-icon';
                 numContainer.appendChild(digitImg);
@@ -232,7 +232,7 @@ class ScreenManager {
             if (isCleared) {
                 btn.classList.add('cleared');
                 const clearIcon = document.createElement('img');
-                clearIcon.src = `assets/image/UI/Icon/icon_dungeonClear.webp`;
+                clearIcon.src = `assets/image/ui/icon/icon_dungeonClear.webp`;
                 clearIcon.className = 'dungeon-clear-icon';
                 clearIcon.alt = '';
                 btn.appendChild(clearIcon);

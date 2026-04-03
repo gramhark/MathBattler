@@ -46,23 +46,23 @@ function _getNoteImagePaths() {
 
 function _runLoadingScreen(game) {
     const PRELOAD_IMAGES = [
-        'assets/image/UI/title.webp',
-        'assets/image/UI/BG_main.webp',
-        'assets/image/UI/BTN_main_battle.webp',
-        'assets/image/UI/BTN_main_backpack.webp',
-        'assets/image/UI/BTN_main_shop.webp',
-        'assets/image/UI/BTN_main_note.webp',
-        'assets/image/UI/BTN_main_setting.webp',
+        'assets/image/ui/title.webp',
+        'assets/image/ui/BG_main.webp',
+        'assets/image/ui/BTN_main_battle.webp',
+        'assets/image/ui/BTN_main_backpack.webp',
+        'assets/image/ui/BTN_main_shop.webp',
+        'assets/image/ui/BTN_main_note.webp',
+        'assets/image/ui/BTN_main_setting.webp',
         // --- 新規タイトル画像 (Preload) ---
-        'assets/image/UI/main_battle.webp',
-        'assets/image/UI/main_note.webp',
-        'assets/image/UI/main_backpack.webp',
-        'assets/image/UI/main_equipment.webp',
-        'assets/image/UI/main_setting.webp',
-        'assets/image/UI/main_item.webp',
-        'assets/image/UI/main_itemnote.webp',
-        'assets/image/UI/main_shop.webp',
-        'assets/image/UI/main_monsternote.webp',
+        'assets/image/ui/main_battle.webp',
+        'assets/image/ui/main_note.webp',
+        'assets/image/ui/main_backpack.webp',
+        'assets/image/ui/main_equipment.webp',
+        'assets/image/ui/main_setting.webp',
+        'assets/image/ui/main_item.webp',
+        'assets/image/ui/main_itemnote.webp',
+        'assets/image/ui/main_shop.webp',
+        'assets/image/ui/main_monsternote.webp',
     ];
     const PRELOAD_AUDIO_IDS = ['bgm-title', 'bgm-menu'];
 

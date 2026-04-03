@@ -237,7 +237,7 @@ class ResultsManager {
         // マール画像をモンスターコンテナに表示
         const monsterContainer = document.querySelector('.monster-container');
         const malleImg = document.createElement('img');
-        malleImg.src = 'assets/image/other/malle.webp';
+        malleImg.src = 'assets/image/ui/malle.webp';
         malleImg.className = 'malle-drop-img';
         monsterContainer.appendChild(malleImg);
 

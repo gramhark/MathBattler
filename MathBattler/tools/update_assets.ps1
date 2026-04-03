@@ -1,8 +1,9 @@
 # update_assets.ps1
-# assets/monster_list.js, assets/equipment_list.js, assets/item_list.js を自動生成
+# js/data/monster_list.js, js/data/equipment_list.js, js/data/item_list.js を自動生成
 
 $BaseDir = Split-Path $PSScriptRoot -Parent
 $AssetsDir = Join-Path $BaseDir "assets"
+$DataDir = Join-Path $BaseDir "js" "data"
 $ImageDir = Join-Path $AssetsDir "image"
 
 # --- monster_list.js ---
@@ -40,13 +41,13 @@ $last = $MonsterListLines[-1]
 $MonsterListLines[-1] = $last.TrimEnd(",")
 $MonsterListLines += "};"
 
-$MonsterListPath = Join-Path $AssetsDir "monster_list.js"
+$MonsterListPath = Join-Path $DataDir "monster_list.js"
 $MonsterListLines | Set-Content -Path $MonsterListPath -Encoding UTF8
 Write-Host "Generated: $MonsterListPath"
 
 # --- equipment_list.js ---
 $EquipDir = Join-Path $ImageDir "equipment"
-$EquipListPath = Join-Path $AssetsDir "equipment_list.js"
+$EquipListPath = Join-Path $DataDir "equipment_list.js"
 
 # 既存ファイルから手動設定値を読み込んで保持する
 $existingEquip = @{}
@@ -131,7 +132,7 @@ Write-Host "Generated: $EquipListPath"
 
 # --- item_list.js ---
 $ItemDir = Join-Path $ImageDir "item"
-$ItemListPath = Join-Path $AssetsDir "item_list.js"
+$ItemListPath = Join-Path $DataDir "item_list.js"
 
 # 既存ファイルから手動設定値を読み込んで保持する
 $existingItems = @{}

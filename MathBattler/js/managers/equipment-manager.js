@@ -171,6 +171,11 @@ class EquipmentManager {
         return multiplied + (this.game.companionSwordBonus || 0);
     }
 
+    _hasEquippedShield() {
+        const equip = Array.isArray(this.game.backpack.equipment) ? this.game.backpack.equipment : [];
+        return equip.some(e => e.type === 'shield' && e.equipped);
+    }
+
     _getEquippedSwordSpecialEffectId() {
         const equipped = Array.isArray(this.game.backpack.equipment)
             ? this.game.backpack.equipment.find(e => e.type === 'sword' && e.equipped)

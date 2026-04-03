@@ -246,7 +246,7 @@ class InputHandler {
         const isBossWrong = m.battleNumber === Constants.BOSS_BATTLE_NUMBER;
         // 連続回避カウント更新（被弾時）
         const wrongHitResult = this.game.battle.updateDodgeStreak(
-            { dodgeStreak: this.game.dodgeStreak, specialMoveReady: this.game.specialMoveReady }, true, this.game._getEquippedShieldBonus(), isBossWrong
+            { dodgeStreak: this.game.dodgeStreak, specialMoveReady: this.game.specialMoveReady }, true, this.game._hasEquippedShield() ? 1 : 0, isBossWrong
         );
         this.game.dodgeStreak = wrongHitResult.dodgeStreak;
         this.game.specialMoveReady = wrongHitResult.specialMoveReady;
@@ -435,7 +435,7 @@ class InputHandler {
         const isBossTimer = m.battleNumber === Constants.BOSS_BATTLE_NUMBER;
         // 連続回避カウント更新（被弾時）
         const timerHitResult = this.game.battle.updateDodgeStreak(
-            { dodgeStreak: this.game.dodgeStreak, specialMoveReady: this.game.specialMoveReady }, true, this.game._getEquippedShieldBonus(), isBossTimer
+            { dodgeStreak: this.game.dodgeStreak, specialMoveReady: this.game.specialMoveReady }, true, this.game._hasEquippedShield() ? 1 : 0, isBossTimer
         );
         this.game.dodgeStreak = timerHitResult.dodgeStreak;
         this.game.specialMoveReady = timerHitResult.specialMoveReady;

@@ -174,7 +174,7 @@ class MonsterHouseManager {
             const medal = medalId && window.MEDAL_LIST ? window.MEDAL_LIST.find(m => m.id === medalId) : null;
 
             card.innerHTML = `
-                <img src="${companion.imageSrc || ''}" class="mh-monster-card-img" alt="${companion.name}" onerror="this.src='assets/image/UI/placeholder.webp'">
+                <img src="${companion.imageSrc || ''}" class="mh-monster-card-img" alt="${companion.name}" onerror="this.src='assets/image/ui/placeholder.webp'">
                 <div class="mh-monster-card-name">${companion.name}</div>
                 ${medal ? `<div class="mh-medal-badge">${medal.name.replace(/（.*?）/, '')}</div>` : ''}
                 ${isActive ? '<div class="mh-partner-badge">パートナー</div>' : ''}
@@ -208,7 +208,7 @@ class MonsterHouseManager {
         const medal = medalId && window.MEDAL_LIST ? window.MEDAL_LIST.find(m => m.id === medalId) : null;
 
         detailPanel.innerHTML = `
-            <img src="${companion.imageSrc || ''}" class="mh-monster-detail-img" alt="${companion.name}" onerror="this.src='assets/image/UI/placeholder.webp'">
+            <img src="${companion.imageSrc || ''}" class="mh-monster-detail-img" alt="${companion.name}" onerror="this.src='assets/image/ui/placeholder.webp'">
             <div class="mh-monster-detail-name">${companion.name}</div>
             ${medal ? `<div class="mh-detail-medal-label"><img src="assets/image/item/medal/${medal.img}" class="mh-detail-medal-icon" alt="${medal.name}">${medal.name}</div>` : '<div class="mh-detail-medal-label mh-no-medal">メダルなし</div>'}
             <div class="mh-detail-buttons">
@@ -432,7 +432,7 @@ class MonsterHouseManager {
             const card = document.createElement('div');
             card.className = 'mh-monster-card mh-farewell-card';
             card.innerHTML = `
-                <img src="${companion.imageSrc || ''}" class="mh-monster-card-img" alt="${companion.name}" onerror="this.src='assets/image/UI/placeholder.webp'">
+                <img src="${companion.imageSrc || ''}" class="mh-monster-card-img" alt="${companion.name}" onerror="this.src='assets/image/ui/placeholder.webp'">
                 <div class="mh-monster-card-name">${companion.name}</div>
             `;
             card.addEventListener('click', () => {

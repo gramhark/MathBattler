@@ -22,7 +22,7 @@
 
 body {
     background-color: var(--bg-color);
-    background-image: url('../assets/image/UI/BG.webp');
+    background-image: url('../assets/image/ui/BG.webp');
     background-repeat: repeat;
     color: var(--text-color);
     font-family: var(--font-main);

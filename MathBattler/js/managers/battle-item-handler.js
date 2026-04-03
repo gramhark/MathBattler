@@ -85,7 +85,14 @@ class BattleItemHandler {
         if (itemName === 'paralyzeOrb') this.game._monsterItemUsage.paralyzeOrb = true;
         if (itemName === 'stoneOrb') this.game._monsterItemUsage.stoneOrb = true;
         if (itemName === 'rainbowOrb') this.game._monsterItemUsage.rainbowOrbUsed = true;
-        if (itemName === 'friendshipBerry') this.game._monsterItemUsage.friendshipBerry = (this.game._monsterItemUsage.friendshipBerry || 0) + 1;
+        if (itemName === 'friendshipBerry') {
+            this.game._monsterItemUsage.friendshipBerry = (this.game._monsterItemUsage.friendshipBerry || 0) + 1;
+            const _bm = this.game.monsters[this.game.currentMonsterIdx];
+            const _ratio = _bm ? _bm.hp / (_bm.maxHp || _bm.hp || 1) : 1.0;
+            this.game._monsterItemUsage.friendshipBerryHpRatio = Math.min(
+                this.game._monsterItemUsage.friendshipBerryHpRatio ?? 1.0, _ratio
+            );
+        }
 
         // 確認パネルと選択状態をリセット
         document.getElementById('battle-item-confirm').style.display = 'none';

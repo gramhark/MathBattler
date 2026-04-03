@@ -61,7 +61,7 @@ class Game {
         this._selectedSellItem = null;  // ショップ売却選択中アイテム
         this._selectedShopEquip = null; // ショップ装備購入選択中アイテム
         // バトル中アイテム使用回数（モンスター1体ごと）
-        this._monsterItemUsage = { spikeOrb: 0, poisonOrb: false, paralyzeOrb: false, stoneOrb: false, attackOrb: 0, defenseOrb: 0, rainbowOrbUsed: false, friendshipBerry: 0 };
+        this._monsterItemUsage = { spikeOrb: 0, poisonOrb: false, paralyzeOrb: false, stoneOrb: false, attackOrb: 0, defenseOrb: 0, rainbowOrbUsed: false, friendshipBerry: 0, friendshipBerryHpRatio: 1.0 };
         this._battleSelectedItem = null;
         this._isTransitioning = false;
 
@@ -156,7 +156,7 @@ class Game {
         this.dodgeStreak = 0;
         this.specialMoveReady = false;
         this.specialStandby = false;
-        this._monsterItemUsage = { spikeOrb: 0, poisonOrb: false, paralyzeOrb: false, stoneOrb: false, attackOrb: 0, defenseOrb: 0, rainbowOrbUsed: false, friendshipBerry: 0 };
+        this._monsterItemUsage = { spikeOrb: 0, poisonOrb: false, paralyzeOrb: false, stoneOrb: false, attackOrb: 0, defenseOrb: 0, rainbowOrbUsed: false, friendshipBerry: 0, friendshipBerryHpRatio: 1.0 };
 
         // コンパニオンボーナスを適用
         this.companionSwordBonus = 0;
@@ -630,7 +630,7 @@ class Game {
                             if (!alreadyCaptured) {
                                 // 捕獲率計算
                                 let captureRate = (this._monsterItemUsage.friendshipBerry || 0) * 0.20;
-                                const hpRatio = m.hp / (m.maxHp || m.hp || 1);
+                                const hpRatio = this._monsterItemUsage.friendshipBerryHpRatio ?? 1.0;
                                 if (hpRatio <= 0.25) captureRate += 0.20;
                                 else if (hpRatio <= 0.50) captureRate += 0.10;
                                 if (m.isPoisoned) captureRate += 0.05;
@@ -1006,6 +1006,7 @@ class Game {
     _renderEquipList() { return this.equipment._renderEquipList(); }
     _getEquippedSwordBonus() { return this.equipment._getEquippedSwordBonus(); }
     _getEquippedShieldBonus() { return this.equipment._getEquippedShieldBonus(); }
+    _hasEquippedShield() { return this.equipment._hasEquippedShield(); }
     _getEquippedSwordSpecialEffectId() { return this.equipment._getEquippedSwordSpecialEffectId(); }
     _doEquipDrop(item, cb, delay) { return this.equipment._doEquipDrop(item, cb, delay); }
     _onEquipDropChoice(choice) { return this.equipment._onEquipDropChoice(choice); }
