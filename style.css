@@ -413,13 +413,18 @@ ul[role="list"] {
   color: var(--color-orange);
 }
 
-/* カードフッター（遊び方リンク） */
+/* カードフッター（プレイボタン） */
 .game-card__footer {
-  padding: var(--space-3) var(--space-6);
+  padding: var(--space-4) var(--space-6);
   border-top: 1px solid var(--color-border);
-  background: var(--color-orange-light);
+  background: #fff;
   position: relative;
   z-index: 1;
+}
+
+.game-card__play-btn {
+  width: 100%;
+  justify-content: center;
 }
 
 .game-card__manual-link {
@@ -427,8 +432,9 @@ ul[role="list"] {
   align-items: center;
   gap: var(--space-2);
   font-size: var(--text-sm);
-  font-weight: 700;
-  color: var(--color-orange-dark);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-decoration: none;
   transition: color var(--transition);
 }
 
@@ -1110,6 +1116,10 @@ ul[role="list"] {
   }
 
   .site-nav {
+    gap: var(--space-3);
+  }
+
+  .site-nav .nav-link:not(:last-child) {
     display: none;
   }
 
@@ -1119,14 +1129,21 @@ ul[role="list"] {
   }
 
   .game-grid {
-    grid-template-columns: 1fr;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: var(--space-4);
+    padding-bottom: var(--space-3);
   }
 
-  .game-card--coming-soon {
-    display: none;
+  .game-grid > li {
+    flex: 0 0 80vw;
+    max-width: 320px;
+    scroll-snap-align: start;
   }
 
-  .dev-card__footer {
+.dev-card__footer {
     gap: var(--space-2);
   }
 
