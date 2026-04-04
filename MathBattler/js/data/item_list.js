@@ -1,4 +1,4 @@
-window.ITEM_LIST = [
+﻿window.ITEM_LIST = [
     {
         id: "attackOrb",
         name: "こうげきだま",
@@ -98,5 +98,5 @@ window.ITEM_LIST = [
         img: "friendshipBerry100.webp",
         effectId: null,
         requiresUnlock: 'berry100',
-    },
+    }
 ];

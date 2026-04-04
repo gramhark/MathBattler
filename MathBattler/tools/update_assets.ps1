@@ -3,7 +3,7 @@
 
 $BaseDir = Split-Path $PSScriptRoot -Parent
 $AssetsDir = Join-Path $BaseDir "assets"
-$DataDir = Join-Path $BaseDir "js" "data"
+$DataDir = Join-Path (Join-Path $BaseDir "js") "data"
 $ImageDir = Join-Path $AssetsDir "image"
 
 # --- monster_list.js ---
@@ -176,15 +176,15 @@ foreach ($iid in $existingItems.Keys) {
     if ($folderIds.ContainsKey($iid)) { $outputOrder.Add($iid) }
 }
 foreach ($fid in ($folderIds.Keys | Sort-Object)) {
-    if (-not $existingItems.ContainsKey($fid)) { $outputOrder.Add($fid) }
+    if (-not $existingItems.Contains($fid)) { $outputOrder.Add($fid) }
 }
 
 $ItemLines = @()
 $ItemLines += "window.ITEM_LIST = ["
 
 foreach ($id in $outputOrder) {
-    $fname = if ($existingItems.ContainsKey($id) -and $existingItems[$id].ContainsKey('img')) { $existingItems[$id]['img'] } else { $folderIds[$id] }
-    $prev = if ($existingItems.ContainsKey($id)) { $existingItems[$id] } else { @{} }
+    $fname = if ($existingItems.Contains($id) -and $existingItems[$id].ContainsKey('img')) { $existingItems[$id]['img'] } else { $folderIds[$id] }
+    $prev = if ($existingItems.Contains($id)) { $existingItems[$id] } else { @{} }
     $name      = if ($prev.ContainsKey('name'))      { $prev['name'] }      else { $id }
     $sellPrice = if ($prev.ContainsKey('sellPrice')) { $prev['sellPrice'] } else { '0' }
     $desc      = if ($prev.ContainsKey('desc'))      { $prev['desc'] }      else { '' }
